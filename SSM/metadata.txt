@@ -1,0 +1,22 @@
+- BraoadCast_Data
+	/KEYWORD.xlsx : 방송 멘트에서 추출할 키워드 정보 파일
+	/broadcast/*.csv : 방송 진행 STT변환 텍스트 데이터 파일 (시간, 텍스트 쌍)
+
+- Crawling/* : 쇼핑몰 리뷰 크롤링 데이터 파일 및 크롤링 코드 (예정: 김재강)
+
+- KoBERT_Modeling/* : KoBERT 감성분석 모델링 및 학습 코드, 모델 pt파일, 토크나이저, 				vocabularay pkl파일 존재
+
+- ReviewData_Generator
+	/DataCreater.ipynb : KoBERT 모델 학습 데이터 생성 코드
+	/review_data
+		/*.txt : raw 데이터
+		/final_data.csv : 최종 학습 데이터
+
+- Spring : Spring Boot 프로젝트
+
+- STTServer
+	/data/*.wav : STT 테스트 데이터
+	/templetes/*.html : flask서버 테스트 html 템플릿
+	/app.py : STT 변환 서버 
+	/quick_transcibe_audio.py : 음성 > 텍스트 변환 함수
+	/sound_recorder.py : 음성 녹화 함수 (실제 서비스에선 X)

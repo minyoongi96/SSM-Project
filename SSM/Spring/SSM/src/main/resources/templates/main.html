@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link href="/css/login.css"rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <div class="move">
+      <div class="p-button normal signin animated pulse">SIGN IN</div>
+    </div>
+    <div class="welcome">
+      <h4 class="bold welcome-text">Welcome Back!</h4>
+      <p class="normal text">To keep connected with us please login with your personal info</p>
+    </div>
+    <div class="hello">
+      <h4 class="bold welcome-text">Hello Friend</h4>
+      <p class="normal text">Enter your personal details and start journey with us</p>
+    </div>
+    <div class="form">
+      <br>
+      <h4 class="bold title">로그인인 척 하는 메인 파일</h4>
+
+      <p class="normal light">Please log in to use the service.</p>
+      <br>
+      <form method="post" action="/login.do" >
+	      <input name="userId" type="text" placeholder="ID" class="normal">
+	      <br/>
+	      
+	      <input name="userPw" type="password" placeholder="Password" class="normal"><br>
+	      <p class="normal forgot">Forgot your password?</p>
+	      <br>
+	      <br>
+	      <button class="b-button normal" type="submit" >Login</button>
+      </form>
+    </div>
+  </div>
+  <script  src="../js/login.js"></script>
+</body>
+</html>
