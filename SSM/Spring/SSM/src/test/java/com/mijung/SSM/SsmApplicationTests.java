@@ -4,27 +4,29 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.mijung.SSM.entity.OurCategory;
 import com.mijung.SSM.entity.Users;
-import com.mijung.SSM.repository.UserRepository;
-import com.mijung.SSM.service.LoginService;
+import com.mijung.SSM.repository.OurCategoryRepository;
+import com.mijung.SSM.repository.UsersRepository;
+import com.mijung.SSM.service.SsmService;
 
 @SpringBootTest
 class SsmApplicationTests {
 	
 	@Autowired
-	UserRepository userRepository;
+	SsmService ssmService;
 	
 	@Autowired
-	LoginService loginService;
-
-	@Test
-	void contextLoads() {
-		
-	}
+	UsersRepository usersRepository;
+	
+	@Autowired
+	OurCategoryRepository ocRepository;
 	
  //user 테이블 생성 테스트
 //	@Test
@@ -47,10 +49,19 @@ class SsmApplicationTests {
 	@Test
 	void test1() {
 		Users user = new Users();
-		user.setUserId("user01");
-		user.setUserPw("1q2w3e4r");
+		user.setUserId("admin01");
+		user.setUserPw("1q2w3e");
 		
-		Users findUser = userRepository.findByUserId(user.getUserId());
+		Users findUser = ssmService.findByUserId(user);
 		System.out.println(findUser);
+	}
+	
+	@Transactional
+	@Test
+	void test2() {
+		Users usersVO = usersRepository.findByUserId("admin01");
+		
+		List<OurCategory> oc = ocRepository.findAllByUsersVO(usersVO);
+		System.out.println(oc);
 	}
 }

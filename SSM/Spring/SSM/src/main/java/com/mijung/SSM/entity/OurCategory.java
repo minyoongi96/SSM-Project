@@ -30,7 +30,7 @@ public class OurCategory {
 	*/
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
-	private Users users;
+	private Users usersVO;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "cate_seq")

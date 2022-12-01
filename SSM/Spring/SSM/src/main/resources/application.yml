@@ -20,9 +20,12 @@ spring:
     view:
       prefix: classpath:/templates/
       suffix: .html
-  # 타임리프 셋팅
+      
   thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
     cache: false    # thymeleaf 캐싱 false 로 해서 html 파일에 영향 없게 하기
+    
 #logging:
 #  level:
 #    org:
