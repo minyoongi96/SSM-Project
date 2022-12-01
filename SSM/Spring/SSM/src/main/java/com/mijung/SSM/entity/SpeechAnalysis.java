@@ -2,6 +2,8 @@ package com.mijung.SSM.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -13,7 +15,9 @@ import lombok.Data;
 public class SpeechAnalysis {
 	@Id
 	@Column(name ="speech_seq")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long speechSeq;
+	
 	@Column(name ="bc_seq")
 	private long bcSeq;
 	
@@ -22,6 +26,7 @@ public class SpeechAnalysis {
 	
 	@Column(name ="speech_time")
 	private int speechTime;
+	
 	@Column(name ="keyword_seq")
 	private long keywordSeq;
 	
