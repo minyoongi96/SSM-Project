@@ -2,12 +2,14 @@ package com.mijung.SSM.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 
 import lombok.Data;
 
 @Entity
 @Data
 public class ViewerReaction {
+	@Id
 	@Column(name ="vr_seq")
 	private long vrSeq;
 	

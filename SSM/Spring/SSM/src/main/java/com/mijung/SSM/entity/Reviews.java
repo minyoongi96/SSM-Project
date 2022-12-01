@@ -2,12 +2,14 @@ package com.mijung.SSM.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 
 import lombok.Data;
 
 @Entity
 @Data
 public class Reviews {
+	@Id
 	@Column(name = "review_seq")
 	private long reviewSeq;
 	@Column(name = "item_seq")
