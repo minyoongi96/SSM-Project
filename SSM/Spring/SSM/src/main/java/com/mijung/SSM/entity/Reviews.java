@@ -2,9 +2,12 @@ package com.mijung.SSM.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -18,9 +21,6 @@ public class Reviews {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long reviewSeq;
 	
-	@Column(name = "item_seq")
-	private long itemSeq;
-	
 	@Column(name = "review_category", length = 45)
 	private String reviewCategory;
 	
@@ -30,4 +30,7 @@ public class Reviews {
 	@Column(name = "review_star")
 	private int reviewStar;
 	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "item_seq")
+	private Items itemsVO;
 }

@@ -2,9 +2,12 @@ package com.mijung.SSM.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -18,12 +21,13 @@ public class Items {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long itemSeq;
 	
-	@Column(name = "our_seq")
-	private long ourSeq;
-	
 	@Column(name = "item_name", length = 45)
 	private String itemName;
 	
 	@Column(name = "item_price")
 	private int itemPrice;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "our_seq")
+	private OurCategory ourCategoryVO;
 }

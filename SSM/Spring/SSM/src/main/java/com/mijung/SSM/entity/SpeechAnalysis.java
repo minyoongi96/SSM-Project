@@ -2,15 +2,18 @@ package com.mijung.SSM.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.Data;
 
 @Entity
-@Table
+@Table(name = "speech_analysis")
 @Data
 public class SpeechAnalysis {
 	@Id
@@ -18,19 +21,21 @@ public class SpeechAnalysis {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long speechSeq;
 	
-	@Column(name ="bc_seq")
-	private long bcSeq;
-	
 	@Column(name ="speech_keyword",length = 45)	
 	private String speechKeyword;
 	
 	@Column(name ="speech_time")
 	private int speechTime;
 	
-	@Column(name ="keyword_seq")
-	private long keywordSeq;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "bc_seq")
+	private Broadcasting broadcastingVO;
 	
-	@Column(name ="vr_seq")
-	private long vrSeq;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "keyword_seq")
+	private Keywords keywordsVO;
 	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "vr_seq")
+	private ViewerReaction viewerReactionVO;
 }

@@ -1,8 +1,11 @@
 package com.mijung.SSM.entity;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -23,5 +26,11 @@ public class Users {
 
 	@Column(name = "user_type",length = 1)
 	private String userType;
+	
+	/*
+	OneToMany로 양방향 맺을 수는 있지만 단방향만으로도 비즈니스로직을 구현할 수 있다.
+	 */
+//	@OneToMany(mappedBy = "users")
+//	private List<OurCategory> ourCategory;
 	
 }
