@@ -21,7 +21,7 @@ class keyword:
     def save(self):
         self.data.to_csv(self.path, encoding='utf-8')
         
-    # DB에 갱신
+    # DB에 갱신 (Update Keywords Table)
     # -> csv파일 불러와서 현재 DB에 저장된 값이 아닌 값만 insert(새로 csv파일에 추가된 값)
     def dbRefresh(self):
         db = DBController()

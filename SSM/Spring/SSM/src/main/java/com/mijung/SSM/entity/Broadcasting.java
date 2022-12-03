@@ -25,6 +25,12 @@ public class Broadcasting {
 	@Column(name = "bc_title", length = 400)
 	private String bcTitle;
 	
+	@Column(name = "bc_male")
+	private int bcMale;
+	
+	@Column(name = "bc_female")
+	private int bcFemale;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private Users usersVO;
