@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.mijung.SSM.entity.Broadcasting;
 import com.mijung.SSM.entity.OurCategory;
 import com.mijung.SSM.entity.Users;
 import com.mijung.SSM.repository.OurCategoryRepository;
@@ -28,40 +29,43 @@ class SsmApplicationTests {
 	@Autowired
 	OurCategoryRepository ocRepository;
 	
- //user 테이블 생성 테스트
 //	@Test
-//	void insertUser() {
-//		User vo = new User();
-//		vo.setUserId("admin1");
-//		vo.setUserPw("1234");
-//		vo.setUserCompany("GJAI");
+//	void test1() {
+//		Users user = new Users();
+//		user.setUserId("admin01");
+//		user.setUserPw("1q2w3e");
 //		
-//		userRepository.save(vo);
+//		Users findUser = ssmService.findByUserId(user);
+//		System.out.println(findUser);
 //	}
-
-	// User 테이블 selectAll 테스트
+//	
+//	@Transactional
 //	@Test
-//	void selectAllUser() {
-//		List<Users> list = userRepository.findAll();
+//	void test2() {
+//		Users usersVO = usersRepository.findByUserId("admin01");
 //		
-//		assertThat(list).isNotEmpty();
+//		List<OurCategory> oc = ocRepository.findAllByUsersVO(usersVO);
+//		System.out.println(oc);
 //	}
-	@Test
-	void test1() {
-		Users user = new Users();
-		user.setUserId("admin01");
-		user.setUserPw("1q2w3e");
-		
-		Users findUser = ssmService.findByUserId(user);
-		System.out.println(findUser);
-	}
 	
 	@Transactional
 	@Test
-	void test2() {
-		Users usersVO = usersRepository.findByUserId("admin01");
+	void Logintest() {
+		Users usersVO = new Users();
+		usersVO.setUserId("admin01");
+		usersVO.setUserPw("1q2w3e");
 		
-		List<OurCategory> oc = ocRepository.findAllByUsersVO(usersVO);
-		System.out.println(oc);
+		// Logincheck
+		if(ssmService.loginCheck(usersVO)) {
+			Users LoginUser = ssmService.findByUserId(usersVO);
+			
+			List<Broadcasting> bcList = ssmService.BcFindAllByUsersVO(LoginUser);
+			for(Broadcasting bc : bcList) {
+				System.out.println(bc);
+			}
+		}
+		else {
+			System.out.println("Login Failed");
+		}
 	}
 }

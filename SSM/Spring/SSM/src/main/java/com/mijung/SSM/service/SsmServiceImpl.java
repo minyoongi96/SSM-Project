@@ -5,19 +5,24 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mijung.SSM.entity.Broadcasting;
 import com.mijung.SSM.entity.OurCategory;
 import com.mijung.SSM.entity.Users;
+import com.mijung.SSM.repository.BroadcastingRepository;
 import com.mijung.SSM.repository.OurCategoryRepository;
 import com.mijung.SSM.repository.UsersRepository;
 
 @Service
-public class ServiceImpl implements SsmService{
+public class SsmServiceImpl implements SsmService{
 
 	@Autowired
 	UsersRepository userRepository;
 	
 	@Autowired
 	OurCategoryRepository ocRepository;
+	
+	@Autowired
+	BroadcastingRepository bcRepository;
 
 //	@Override
 //	public Users login(Users userVO) {
@@ -35,12 +40,33 @@ public class ServiceImpl implements SsmService{
 		
 		return userVO;
 	}
+	
+	@Override
+	public Boolean loginCheck(Users userVO) {
+		Users findUser = userRepository.findByUserId(userVO.getUserId());
+		
+		// 존재하는 ID인지 확인
+		if(findUser == null) {
+			return false;
+		}
+		else {
+			// 입력한 PW가 일치한지 확인
+			if(findUser.getUserPw().equals(userVO.getUserPw())) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+	}
 
 	@Override
-	public List<OurCategory> findAllByUsersVO(Users userVO) {
+	public List<OurCategory> OcfindAllByUsersVO(Users userVO) {
 		return ocRepository.findAllByUsersVO(userVO);
 	}
 
-	
-
+	@Override
+	public List<Broadcasting> BcFindAllByUsersVO(Users userVO) {
+		return bcRepository.findAllByUsersVO(userVO);
+	}
 }

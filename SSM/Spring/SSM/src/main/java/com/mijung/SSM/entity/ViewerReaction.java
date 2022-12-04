@@ -24,7 +24,7 @@ public class ViewerReaction {
 	@Column(name ="vr_times")
 	private int vrTimes;
 	
-	@Column(name ="vr_viewrs")
+	@Column(name ="vr_viewers")
 	private int vrViewrs;
 	
 	@Column(name ="vr_sales")

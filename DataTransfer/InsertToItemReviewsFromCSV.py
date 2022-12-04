@@ -21,7 +21,6 @@ def convertToReviews(PATH):
         
         temp = item.groupby(['제품명', '카테고리'])[['별점', '가격']].mean()
         
-        DBController.selectOne
         for i in range(len(temp)):
             cur = temp.iloc[i, :]
             
