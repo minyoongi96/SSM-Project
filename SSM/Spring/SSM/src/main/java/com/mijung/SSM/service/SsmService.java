@@ -14,4 +14,5 @@ public interface SsmService {
 	Boolean loginCheck(Users userVO);
 	List<OurCategory> OcfindAllByUsersVO(Users userVO);
 	List<Broadcasting> BcFindAllByUsersVO(Users user);
+	Broadcasting findByBcSeq(Long bcSeq);
 }

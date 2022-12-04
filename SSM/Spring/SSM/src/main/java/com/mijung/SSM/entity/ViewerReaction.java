@@ -21,25 +21,25 @@ public class ViewerReaction {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long vrSeq;
 	
-	@Column(name ="vr_times")
+	@Column(name ="vr_times", nullable = false)
 	private int vrTimes;
 	
-	@Column(name ="vr_viewers")
+	@Column(name ="vr_viewers", nullable = false)
 	private int vrViewrs;
 	
-	@Column(name ="vr_sales")
+	@Column(name ="vr_sales", nullable = false)
 	private int vrSales;
 	
-	@Column(name ="vr_lookings")
+	@Column(name ="vr_lookings", nullable = false)
 	private int vrLookings;
 	
-	@Column(name ="vr_baskets")
+	@Column(name ="vr_baskets", nullable = false)
 	private int vrBaskets;
 	
-	@Column(name ="vr_comments")
+	@Column(name ="vr_comments", nullable = false)
 	private int vrComments;
 	
-	@Column(name ="vr_wishlists")
+	@Column(name ="vr_wishlists", nullable = false)
 	private int vrWishlists;
 	
 	@ManyToOne(fetch = FetchType.LAZY)

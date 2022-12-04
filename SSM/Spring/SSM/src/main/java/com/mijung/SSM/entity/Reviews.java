@@ -21,13 +21,13 @@ public class Reviews {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long reviewSeq;
 	
-	@Column(name = "review_category", length = 45)
+	@Column(name = "review_category", nullable = false, length = 45)
 	private String reviewCategory;
 	
-	@Column(name = "review_sentiment")
+	@Column(name = "review_sentiment", nullable = false)
 	private double reviewSentiment;
 	
-	@Column(name = "review_star")
+	@Column(name = "review_star", nullable = false)
 	private int reviewStar;
 	
 	@ManyToOne(fetch = FetchType.LAZY)

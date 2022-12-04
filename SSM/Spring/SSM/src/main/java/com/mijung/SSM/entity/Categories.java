@@ -18,6 +18,6 @@ public class Categories {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long cateSeq;
 	
-	@Column(name = "cate_name", length = 400)
+	@Column(name = "cate_name", nullable = false, length = 400)
 	private String cateName;
 }

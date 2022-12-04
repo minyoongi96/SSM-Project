@@ -34,7 +34,7 @@ public class SsmController {
 		}
 		else {
 			Users LoginUser = ssmService.findByUserId(user);
-			session.setAttribute("users", LoginUser);
+			session.setAttribute("user", LoginUser);
 			
 			List<Broadcasting> bcList = ssmService.BcFindAllByUsersVO(LoginUser);
 			model.addAttribute("bcList", bcList);

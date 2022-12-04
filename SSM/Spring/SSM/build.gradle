@@ -30,6 +30,7 @@ dependencies {
 	// 추가 해봐야지
 	implementation 'mysql:mysql-connector-java'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'com.google.code.gson:gson:2.9.0'
 }
 
 tasks.named('test') {

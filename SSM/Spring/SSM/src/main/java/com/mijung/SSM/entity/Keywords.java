@@ -18,10 +18,10 @@ public class Keywords {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long keywordSeq;
 	
-	@Column(name = "keyword_name", length = 45)
+	@Column(name = "keyword_name", nullable = false, length = 45)
 	private String keywordName;
 	
-	@Column(name = "keyword_category", length = 45)
+	@Column(name = "keyword_category", nullable = false, length = 45)
 	private String keywordCategory;
 	
 }

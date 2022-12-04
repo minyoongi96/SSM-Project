@@ -21,10 +21,10 @@ public class Items {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long itemSeq;
 	
-	@Column(name = "item_name", length = 45)
+	@Column(name = "item_name", nullable = false, length = 45)
 	private String itemName;
 	
-	@Column(name = "item_price")
+	@Column(name = "item_price", nullable = false)
 	private int itemPrice;
 	
 	@ManyToOne(fetch = FetchType.LAZY)

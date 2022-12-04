@@ -11,6 +11,5 @@ import com.mijung.SSM.entity.Users;
 @Repository
 public interface BroadcastingRepository extends JpaRepository<Broadcasting, Long>{
 	Broadcasting findByBcSeq(long bcSeq);
-	
 	List<Broadcasting> findAllByUsersVO(Users users);
 }

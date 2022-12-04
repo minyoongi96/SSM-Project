@@ -21,10 +21,10 @@ public class SpeechAnalysis {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long speechSeq;
 	
-	@Column(name ="speech_keyword",length = 45)	
+	@Column(name ="speech_keyword", nullable = false,length = 45)	
 	private String speechKeyword;
 	
-	@Column(name ="speech_time")
+	@Column(name ="speech_time", nullable = false)
 	private int speechTime;
 	
 	@ManyToOne(fetch = FetchType.LAZY)

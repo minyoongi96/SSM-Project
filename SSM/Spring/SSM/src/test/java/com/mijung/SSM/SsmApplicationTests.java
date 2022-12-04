@@ -10,6 +10,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.mijung.SSM.entity.Broadcasting;
 import com.mijung.SSM.entity.OurCategory;
 import com.mijung.SSM.entity.Users;
@@ -50,7 +52,7 @@ class SsmApplicationTests {
 	
 	@Transactional
 	@Test
-	void Logintest() {
+	void LoginTest() {
 		Users usersVO = new Users();
 		usersVO.setUserId("admin01");
 		usersVO.setUserPw("1q2w3e");
@@ -67,5 +69,23 @@ class SsmApplicationTests {
 		else {
 			System.out.println("Login Failed");
 		}
+	}
+	
+	@Transactional
+	@Test
+	void getBcTest() {
+		JsonObject obj = new JsonObject();
+		Long bcSeq = 2L;
+		Broadcasting bc = ssmService.findByBcSeq(bcSeq);
+
+		obj.addProperty("bc_seq", bc.getBcSeq());
+		obj.addProperty("user_id", bc.getUsersVO().getUserId());
+		obj.addProperty("our_seq", bc.getOurCategoryVO().getOurSeq());
+		obj.addProperty("bc_title", bc.getBcTitle());
+		obj.addProperty("bc_male", bc.getBcMale());
+		obj.addProperty("bc_female", bc.getBcFemale());
+		
+		
+		System.out.println(obj.toString());
 	}
 }

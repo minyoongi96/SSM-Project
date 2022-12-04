@@ -69,4 +69,9 @@ public class SsmServiceImpl implements SsmService{
 	public List<Broadcasting> BcFindAllByUsersVO(Users userVO) {
 		return bcRepository.findAllByUsersVO(userVO);
 	}
+
+	@Override
+	public Broadcasting findByBcSeq(Long bcSeq) {
+		return bcRepository.findByBcSeq(bcSeq);
+	}
 }
