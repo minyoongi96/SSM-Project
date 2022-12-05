@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link href="/css/login.css"rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="move">
+      <div class="p-button normal signin animated pulse">SIGN IN</div>
+    </div>
+    <div class="welcome">
+      <h4 class="bold welcome-text">Welcome Back!</h4>
+      <p class="normal text">To keep connected with us please login with your personal info</p>
+    </div>
+    <div class="hello">
+      <h4 class="bold welcome-text">Hello Friend</h4>
+      <p class="normal text">Enter your personal details and start journey with us</p>
+    </div>
+    <div class="form">
+      <br>
+      <h4 class="bold title">방송리스트화면 대체화면..입니다</h4>
+
+      <p class="normal light">로그인 화면 아니에요</p>
+      <br>
+	      <span th:text="${session.user.userId}" name="userId" class="normal">
+	      테스트
+	      </span>
+	      <br/>
+	      
+	      <span th:each="vo : ${bcList}" th:object="${vo}" class="normal">
+	      방송 제목
+	      <p th:text="*{bcTitle}"></p>
+	      </span>
+	      <br>
+	      <p class="normal forgot">Forgot your password?</p>
+	      <br>
+	      <br>
+	      <form method = "post" action="/logout.do">
+	      <button class="b-button normal" type="submit" >로그아웃</button>
+     	  </form>
+     	  
+     	  <!-- 임시데이터를 위해 에이젝스로 json 타입 데이터 전송 -->
+     	  <script type="text/javascript">
+     	  	$(function(){
+     	  		$.ajax({
+     	  			type:"GET",
+     	  			url:"/대시보드.html"
+     	  		})
+     	  	})
+     	  </script>
+     	  
+    </div>
+  </div>
+  <script  src="../js/login.js"></script>
+</body>
+</html>
