@@ -28,12 +28,8 @@ public class SsmController {
 		return "main";
 	}
 	
-//	@GetMapping(value = "/login.do")
-//	public String login() {
-//		return "login";
-//	}
-	
 	@PostMapping(value = "/login.do")
+<<<<<<< HEAD
 	public String loginId(Users user,HttpSession session, Model model){
 		Users findUser = ssmService.findByUserId(user);
 		// id 일치 확인
@@ -47,6 +43,20 @@ public class SsmController {
 			return "listpage";	// 로그인 성공
 		} else {
 			return "login";	// **user pw가 틀렸을 때, 로그인 실패
+=======
+	public String loginId(Users user, HttpSession session, Model model){
+		if(ssmService.loginCheck(user) == false) {
+			return "redirect:/main.do";
+		}
+		else {
+			Users LoginUser = ssmService.findByUserId(user);
+			session.setAttribute("user", LoginUser);
+			
+			List<Broadcasting> bcList = ssmService.BcFindAllByUsersVO(LoginUser);
+			model.addAttribute("bcList", bcList);
+			
+			return "login";
+>>>>>>> 46a3e717453d674f4acb1fd719d361080cc66b55
 		}
 	}
 	

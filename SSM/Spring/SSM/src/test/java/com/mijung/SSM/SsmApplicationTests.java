@@ -3,15 +3,16 @@ package com.mijung.SSM;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.transaction.Transactional;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.mijung.SSM.entity.OurCategory;
-import com.mijung.SSM.entity.Users;
+import com.google.gson.Gson;
+import com.mijung.SSM.Dto.StarDto;
+import com.mijung.SSM.entity.Broadcasting;
 import com.mijung.SSM.repository.OurCategoryRepository;
 import com.mijung.SSM.repository.UsersRepository;
 import com.mijung.SSM.service.SsmService;
@@ -28,40 +29,58 @@ class SsmApplicationTests {
 	@Autowired
 	OurCategoryRepository ocRepository;
 	
- //user 테이블 생성 테스트
+//	@Transactional
 //	@Test
-//	void insertUser() {
-//		User vo = new User();
-//		vo.setUserId("admin1");
-//		vo.setUserPw("1234");
-//		vo.setUserCompany("GJAI");
+//	void LoginTest() {
+//		Users usersVO = new Users();
+//		usersVO.setUserId("admin01");
+//		usersVO.setUserPw("1q2w3e");
 //		
-//		userRepository.save(vo);
+//		// Logincheck
+//		if(ssmService.loginCheck(usersVO)) {
+//			Users LoginUser = ssmService.findByUserId(usersVO);
+//			
+//			List<Broadcasting> bcList = ssmService.BcFindAllByUsersVO(LoginUser);
+//			for(Broadcasting bc : bcList) {
+//				System.out.println(bc);
+//			}
+//		}
+//		else {
+//			System.out.println("Login Failed");
+//		}
 //	}
-
-	// User 테이블 selectAll 테스트
+	
+//	@Transactional
 //	@Test
-//	void selectAllUser() {
-//		List<Users> list = userRepository.findAll();
+//	void getBcTest() {
+//		JsonObject obj = new JsonObject();
+//		Long bcSeq = 2L;
+//		Broadcasting bc = ssmService.BcFindByBcSeq(bcSeq);
+//
+//		obj.addProperty("bc_seq", bc.getBcSeq());
+//		obj.addProperty("user_id", bc.getUsersVO().getUserId());
+//		obj.addProperty("our_seq", bc.getOurCategoryVO().getOurSeq());
+//		obj.addProperty("bc_title", bc.getBcTitle());
+//		obj.addProperty("bc_male", bc.getBcMale());
+//		obj.addProperty("bc_female", bc.getBcFemale());
 //		
-//		assertThat(list).isNotEmpty();
+//		
+//		System.out.println(obj.toString());
 //	}
-	@Test
-	void test1() {
-		Users user = new Users();
-		user.setUserId("admin01");
-		user.setUserPw("1q2w3e");
-		
-		Users findUser = ssmService.findByUserId(user);
-		System.out.println(findUser);
-	}
+	
+//	@Transactional
+//	@Test
+//	void getVcListTest() {
+//		Broadcasting bcVO = ssmService.BcFindByBcSeq(1L);
+//		System.out.println(ssmService.getSalesInfo(bcVO));
+//	}
 	
 	@Transactional
 	@Test
-	void test2() {
-		Users usersVO = usersRepository.findByUserId("admin01");
+	void getSalesStarAverageTest() {
+		Broadcasting bcVO = ssmService.BcFindByBcSeq(1L);
+		List<Object> result = ssmService.getStarsAvgGroupBy(bcVO);
 		
-		List<OurCategory> oc = ocRepository.findAllByUsersVO(usersVO);
-		System.out.println(oc);
+		System.out.println(result);
 	}
 }

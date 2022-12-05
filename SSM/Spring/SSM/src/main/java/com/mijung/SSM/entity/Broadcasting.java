@@ -22,14 +22,20 @@ public class Broadcasting {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long bcSeq;
 	
-	@Column(name = "bc_title", length = 400)
+	@Column(name = "bc_title", nullable = false, length = 400)
 	private String bcTitle;
+	
+	@Column(name = "bc_male", nullable = false)
+	private int bcMale;
+	
+	@Column(name = "bc_female", nullable = false)
+	private int bcFemale;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private Users usersVO;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "our_seq")
+	@JoinColumn(name = "our_seq", nullable = false)
 	private OurCategory ourCategoryVO;
 }

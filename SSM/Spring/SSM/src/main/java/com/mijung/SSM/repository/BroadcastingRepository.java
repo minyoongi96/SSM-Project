@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.mijung.SSM.entity.Broadcasting;
 import com.mijung.SSM.entity.Users;
 
+<<<<<<< HEAD
 
 @Repository
 public interface BroadcastingRepository extends JpaRepository<Broadcasting, Long>{
@@ -16,4 +17,10 @@ public interface BroadcastingRepository extends JpaRepository<Broadcasting, Long
 	
 	List<Broadcasting> findAllByUsersVO(Users users);
 	
+=======
+@Repository
+public interface BroadcastingRepository extends JpaRepository<Broadcasting, Long>{
+	Broadcasting findByBcSeq(long bcSeq);
+	List<Broadcasting> findAllByUsersVO(Users users);
+>>>>>>> 46a3e717453d674f4acb1fd719d361080cc66b55
 }

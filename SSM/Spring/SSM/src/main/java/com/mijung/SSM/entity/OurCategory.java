@@ -21,7 +21,7 @@ public class OurCategory {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long ourSeq;
 	
-	@Column(name = "user_company", length = 30)
+	@Column(name = "user_company", nullable = false, length = 30)
 	private String userCompany;
 	
 	/*

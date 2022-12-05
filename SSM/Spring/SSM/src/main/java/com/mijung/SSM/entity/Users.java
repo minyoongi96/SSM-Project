@@ -15,13 +15,13 @@ public class Users {
 	@Column(name ="user_id",length = 30)
 	private String userId;
 	
-	@Column(name ="user_pw",length = 30)
+	@Column(name ="user_pw", nullable = false,length = 30)
 	private String userPw;
 	
-	@Column(name = "user_company",length = 30)
+	@Column(name = "user_company", nullable = false,length = 30)
 	private String userCompany;
 
-	@Column(name = "user_type",length = 1)
+	@Column(name = "user_type", nullable = false,length = 1)
 	private String userType;
 	
 	/*
