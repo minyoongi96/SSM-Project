@@ -30,6 +30,7 @@ public class SsmController {
 	
 	@PostMapping(value = "/login.do")
 <<<<<<< HEAD
+<<<<<<< HEAD
 	public String loginId(Users user,HttpSession session, Model model){
 		Users findUser = ssmService.findByUserId(user);
 		// id 일치 확인
@@ -44,6 +45,8 @@ public class SsmController {
 		} else {
 			return "login";	// **user pw가 틀렸을 때, 로그인 실패
 =======
+=======
+>>>>>>> 46a3e717453d674f4acb1fd719d361080cc66b55
 	public String loginId(Users user, HttpSession session, Model model){
 		if(ssmService.loginCheck(user) == false) {
 			return "redirect:/main.do";
@@ -56,6 +59,9 @@ public class SsmController {
 			model.addAttribute("bcList", bcList);
 			
 			return "login";
+<<<<<<< HEAD
+>>>>>>> 46a3e717453d674f4acb1fd719d361080cc66b55
+=======
 >>>>>>> 46a3e717453d674f4acb1fd719d361080cc66b55
 		}
 	}
