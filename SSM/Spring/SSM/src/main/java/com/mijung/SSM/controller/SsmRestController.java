@@ -1,12 +1,19 @@
 package com.mijung.SSM.controller;
 
+
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+import com.mijung.SSM.Dto.StarDto;
 import com.mijung.SSM.entity.Broadcasting;
 import com.mijung.SSM.service.SsmService;
 
@@ -15,29 +22,27 @@ public class SsmRestController {
 	@Autowired
 	SsmService ssmService;
 	
-	@RequestMapping(value="Broadcasting/{bcSeq}", method=RequestMethod.GET)
-	public String BcRest(@PathVariable("bcSeq") final Long bcSeq) {
-		JsonObject obj = new JsonObject();
-		Broadcasting bc = ssmService.findByBcSeq(bcSeq);
+	// 찐
+	@RequestMapping(value="/sales/{bcSeq}", method=RequestMethod.GET)
+	public String VrSalesSum(@PathVariable("bcSeq") final Long bcSeq) {
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		Broadcasting bc = ssmService.BcFindByBcSeq(bcSeq);	// bcSeq로 객체 호출
 		
-		if(bc == null) {
-			return null;
-		}
+		// Map 형태로 받아서 Json 형태로 변환
+		Map<Object, Object> info = ssmService.getSalesInfo(bc);
 		
-		obj.addProperty("bc_seq", bc.getBcSeq());
-		obj.addProperty("user_id", bc.getUsersVO().getUserId());
-		obj.addProperty("our_seq", bc.getOurCategoryVO().getOurSeq());
-		obj.addProperty("bc_title", bc.getBcTitle());
-		obj.addProperty("bc_male", bc.getBcMale());
-		obj.addProperty("bc_female", bc.getBcFemale());
-		return obj.toString();
+		return gson.toJson(info);
 	}
 	
-	@RequestMapping(value="/salesSum/{bcSeq}", method=RequestMethod.GET)
-	public String VrSalesSumRest(@PathVariable("bcSeq") final Long bcSeq) {
+	// 테스트용
+	@RequestMapping(value="/stars/{bcSeq}", method=RequestMethod.GET)
+	public String getStars(@PathVariable("bcSeq") final Long bcSeq) {
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		Broadcasting bc = ssmService.BcFindByBcSeq(bcSeq);
 		
+		List<Object> result = ssmService.getStarsAvgGroupBy(bc);
 		
-		
-		return "";
+		return gson.toJson(result);
 	}
+	
 }

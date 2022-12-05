@@ -3,18 +3,16 @@ package com.mijung.SSM;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.transaction.Transactional;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
+import com.mijung.SSM.Dto.StarDto;
 import com.mijung.SSM.entity.Broadcasting;
-import com.mijung.SSM.entity.OurCategory;
-import com.mijung.SSM.entity.Users;
 import com.mijung.SSM.repository.OurCategoryRepository;
 import com.mijung.SSM.repository.UsersRepository;
 import com.mijung.SSM.service.SsmService;
@@ -31,61 +29,58 @@ class SsmApplicationTests {
 	@Autowired
 	OurCategoryRepository ocRepository;
 	
-//	@Test
-//	void test1() {
-//		Users user = new Users();
-//		user.setUserId("admin01");
-//		user.setUserPw("1q2w3e");
-//		
-//		Users findUser = ssmService.findByUserId(user);
-//		System.out.println(findUser);
-//	}
-//	
 //	@Transactional
 //	@Test
-//	void test2() {
-//		Users usersVO = usersRepository.findByUserId("admin01");
+//	void LoginTest() {
+//		Users usersVO = new Users();
+//		usersVO.setUserId("admin01");
+//		usersVO.setUserPw("1q2w3e");
 //		
-//		List<OurCategory> oc = ocRepository.findAllByUsersVO(usersVO);
-//		System.out.println(oc);
+//		// Logincheck
+//		if(ssmService.loginCheck(usersVO)) {
+//			Users LoginUser = ssmService.findByUserId(usersVO);
+//			
+//			List<Broadcasting> bcList = ssmService.BcFindAllByUsersVO(LoginUser);
+//			for(Broadcasting bc : bcList) {
+//				System.out.println(bc);
+//			}
+//		}
+//		else {
+//			System.out.println("Login Failed");
+//		}
+//	}
+	
+//	@Transactional
+//	@Test
+//	void getBcTest() {
+//		JsonObject obj = new JsonObject();
+//		Long bcSeq = 2L;
+//		Broadcasting bc = ssmService.BcFindByBcSeq(bcSeq);
+//
+//		obj.addProperty("bc_seq", bc.getBcSeq());
+//		obj.addProperty("user_id", bc.getUsersVO().getUserId());
+//		obj.addProperty("our_seq", bc.getOurCategoryVO().getOurSeq());
+//		obj.addProperty("bc_title", bc.getBcTitle());
+//		obj.addProperty("bc_male", bc.getBcMale());
+//		obj.addProperty("bc_female", bc.getBcFemale());
+//		
+//		
+//		System.out.println(obj.toString());
+//	}
+	
+//	@Transactional
+//	@Test
+//	void getVcListTest() {
+//		Broadcasting bcVO = ssmService.BcFindByBcSeq(1L);
+//		System.out.println(ssmService.getSalesInfo(bcVO));
 //	}
 	
 	@Transactional
 	@Test
-	void LoginTest() {
-		Users usersVO = new Users();
-		usersVO.setUserId("admin01");
-		usersVO.setUserPw("1q2w3e");
+	void getSalesStarAverageTest() {
+		Broadcasting bcVO = ssmService.BcFindByBcSeq(1L);
+		List<Object> result = ssmService.getStarsAvgGroupBy(bcVO);
 		
-		// Logincheck
-		if(ssmService.loginCheck(usersVO)) {
-			Users LoginUser = ssmService.findByUserId(usersVO);
-			
-			List<Broadcasting> bcList = ssmService.BcFindAllByUsersVO(LoginUser);
-			for(Broadcasting bc : bcList) {
-				System.out.println(bc);
-			}
-		}
-		else {
-			System.out.println("Login Failed");
-		}
-	}
-	
-	@Transactional
-	@Test
-	void getBcTest() {
-		JsonObject obj = new JsonObject();
-		Long bcSeq = 2L;
-		Broadcasting bc = ssmService.findByBcSeq(bcSeq);
-
-		obj.addProperty("bc_seq", bc.getBcSeq());
-		obj.addProperty("user_id", bc.getUsersVO().getUserId());
-		obj.addProperty("our_seq", bc.getOurCategoryVO().getOurSeq());
-		obj.addProperty("bc_title", bc.getBcTitle());
-		obj.addProperty("bc_male", bc.getBcMale());
-		obj.addProperty("bc_female", bc.getBcFemale());
-		
-		
-		System.out.println(obj.toString());
+		System.out.println(result);
 	}
 }
