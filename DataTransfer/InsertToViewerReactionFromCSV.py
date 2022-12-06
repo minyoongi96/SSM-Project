@@ -7,7 +7,7 @@ import os
 def convertToViewerReaction(filename, filepath='C:/2nd_project/SSM/ViewerReaction_Data/'):
     
     db = DBController()
-    sql = f'select bc_seq from broadcasting where bc_title = "{filename[:-4]}"'
+    sql = f'select bc_seq from broadcasting where bc_title like "%{filename[:-4]}%"'
     bc_seq = db.selectOne(sql)['bc_seq']
     db.connClose()
     
@@ -35,6 +35,7 @@ def convertToViewerReaction(filename, filepath='C:/2nd_project/SSM/ViewerReactio
 
 if __name__ == "__main__":
     PATH = 'C:/2nd_project/SSM/ViewerReaction_Data/'
-    file_list = os.listdir(PATH)
-    for file in file_list:
-        convertToViewerReaction(file, filepath=PATH)
+    # file_list = os.listdir(PATH)
+    # for file in file_list:
+    file = '포근포근 겨울준비 비비엔다 덮어줘 특가.csv'
+    convertToViewerReaction(file, filepath=PATH)

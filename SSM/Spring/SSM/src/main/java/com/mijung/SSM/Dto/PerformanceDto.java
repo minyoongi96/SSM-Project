@@ -11,9 +11,9 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class StarDto {
-	private String category;	// 리뷰 카테고리
-	private Double avg;			// 평균 별점
+public class PerformanceDto {
+	// 실적 DTO
+	// 실적 -> 결제 수 / 장바구니 수
+	private Long totalBaskets;
+	private Long totalSales;
 }
-
-

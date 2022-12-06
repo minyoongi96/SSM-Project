@@ -8,9 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.mijung.SSM.Dto.StarDto;
-import com.mijung.SSM.entity.Broadcasting;
 import com.mijung.SSM.entity.Items;
-import com.mijung.SSM.entity.OurCategory;
 import com.mijung.SSM.entity.Reviews;
 
 @Repository

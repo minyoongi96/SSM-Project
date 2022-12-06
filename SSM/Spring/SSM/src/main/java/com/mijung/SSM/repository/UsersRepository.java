@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 
 import com.mijung.SSM.entity.Users;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
 
 @Repository                                       // 테이블, pk 타입
 public interface UsersRepository extends JpaRepository<Users, String> {

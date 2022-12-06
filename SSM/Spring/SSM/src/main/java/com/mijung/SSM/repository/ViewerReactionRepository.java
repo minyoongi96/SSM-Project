@@ -7,12 +7,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.mijung.SSM.Dto.PerformanceDto;
+import com.mijung.SSM.Dto.SttDto;
 import com.mijung.SSM.entity.Broadcasting;
 import com.mijung.SSM.entity.OurCategory;
-import com.mijung.SSM.entity.Users;
 import com.mijung.SSM.entity.ViewerReaction;
-
-import ch.qos.logback.core.net.SyslogOutputStream;
 
 @Repository                                       // 테이블, pk 타입
 public interface ViewerReactionRepository extends JpaRepository<ViewerReaction, Long> {
@@ -32,8 +31,18 @@ public interface ViewerReactionRepository extends JpaRepository<ViewerReaction, 
 			"from Broadcasting bc, Items i " +
 			"where i.ourCategoryVO = :#{#oc}")
 	Double getPriceAvg(@Param("oc") OurCategory oc);
+
+	@Query(value = "select new com.mijung.SSM.Dto.PerformanceDto(" +
+			"SUM(vr.vrBaskets), SUM(vr.vrSales)) " + 
+			"from ViewerReaction vr " +
+			"where vr.broadcastingVO = :#{#bc}")
+	PerformanceDto getPerformance(@Param("bc") Broadcasting bc);
 	
-	
-	
-	
+	// +3분까지 시청자 이벤트 데이터
+	@Query(value = "select new com.mijung.SSM.Dto.SttDto(SUM(vr.vrSales), " +
+			"SUM(vr.vrViewers), SUM(vr.vrLookings), SUM(vr.vrBaskets), " +
+			"SUM(vr.vrComments), SUM(vr.vrWishlists)) from ViewerReaction vr " +
+			"where vr.broadcastingVO = :#{#bc} and vrTimes between :time and (:time + 2)"
+			)
+	SttDto findAllToSttDto(@Param("bc") Broadcasting bc, @Param("time") int time);
 }

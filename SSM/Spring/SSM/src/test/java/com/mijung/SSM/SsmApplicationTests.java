@@ -1,7 +1,7 @@
 package com.mijung.SSM;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,11 +10,14 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.google.gson.Gson;
-import com.mijung.SSM.Dto.StarDto;
+import com.mijung.SSM.Dto.SttDto;
 import com.mijung.SSM.entity.Broadcasting;
+import com.mijung.SSM.entity.SpeechAnalysis;
+import com.mijung.SSM.repository.BroadcastingRepository;
 import com.mijung.SSM.repository.OurCategoryRepository;
+import com.mijung.SSM.repository.SpeechAnalysisRepository;
 import com.mijung.SSM.repository.UsersRepository;
+import com.mijung.SSM.repository.ViewerReactionRepository;
 import com.mijung.SSM.service.SsmService;
 
 @SpringBootTest
@@ -28,6 +31,15 @@ class SsmApplicationTests {
 	
 	@Autowired
 	OurCategoryRepository ocRepository;
+	
+	@Autowired
+	BroadcastingRepository bcRepository;
+	
+	@Autowired
+	SpeechAnalysisRepository saRepository;
+	
+	@Autowired
+	ViewerReactionRepository vrRepository;
 	
 //	@Transactional
 //	@Test
@@ -77,10 +89,30 @@ class SsmApplicationTests {
 	
 	@Transactional
 	@Test
-	void getSalesStarAverageTest() {
-		Broadcasting bcVO = ssmService.BcFindByBcSeq(1L);
-		List<Object> result = ssmService.getStarsAvgGroupBy(bcVO);
+	void getSttDataTest() {
+		Broadcasting bc = bcRepository.findByBcSeq(1L);
 		
-		System.out.println(result);
+		// 해당 방송에 나온 키워드 모음
+		List<String> keywordList = saRepository.findKeywords(bc);
+		List<Object> list = new ArrayList<Object>();
+		
+		// 나온 모든 키워드 반복
+		for(String keyword : keywordList) {
+			// 해당 키워드가 나온 시간들 모음
+			List<Integer> timeList = saRepository.findTimeAllByKeyword(keyword);
+			
+			for(Integer time : timeList) {
+				Map<Object, Object> map = new LinkedHashMap<Object, Object>();
+				SttDto dto = vrRepository.findAllToSttDto(bc, time);
+				map.put("keyword", keyword);
+				map.put("speech_time", time);
+				map.put("Cnt", dto);
+				
+				list.add(map);
+				
+			}
+		}
+		System.out.println(list);
+		
 	}
 }

@@ -61,7 +61,6 @@ def data_transform(filename, filepath = './SSM/BroadCast_Data/broadcast'):
         for time in value:
             sql = f'''
             select vr_seq from viewer_reaction where vr_times = {time}
-
             '''
             db = DBController()
             vr_seq = db.selectOne(sql)['vr_seq']
@@ -82,7 +81,7 @@ def data_transform(filename, filepath = './SSM/BroadCast_Data/broadcast'):
 if __name__ == "__main__":
     PATH = 'C:/JupyterProject/SSM/BroadCast_Data/'
     file_list = os.listdir(PATH)
-    
-    for file in file_list:
-        data_transform(file, filepath=PATH)
+    print(file_list)
+    # for file in file_list:
+    #     data_transform(file, filepath=PATH)
     
