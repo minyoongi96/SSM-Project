@@ -41,7 +41,7 @@ public class SsmController {
 			List<Broadcasting> bcList = ssmService.BcFindAllByUsersVO(LoginUser);
 			model.addAttribute("bcList", bcList);
 			
-			return "list";
+			return "listTest";
 		}
 	}
 }
