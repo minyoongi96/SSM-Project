@@ -7,12 +7,6 @@
     <title>Loading</title>
     <meta http-equiv="refresh" content="4;location.href='dashBoard.html'">
     <style>
-body
-{
-  margin:0;
-  padding:0;
-  background:#EDF2F9;
-}
 .ring
 {
   position:absolute;
@@ -48,7 +42,7 @@ body
   border-radius:50%;
   animation:animateC 2s linear infinite;
 }
-span
+.ring_load
 {
   display:block;
   position:absolute;
@@ -60,7 +54,7 @@ span
   transform-origin:left;
   animation:animate 2s linear infinite;
 }
-span:before
+.ring_load:before
 {
   content:'';
   position:absolute;
@@ -98,7 +92,7 @@ span:before
 </head>
 <body>
     <div class="ring">Loading
-        <span></span>
+        <span class="ring_load"></span>
       </div>
 </body>
 </html>
