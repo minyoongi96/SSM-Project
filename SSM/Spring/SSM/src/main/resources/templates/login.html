@@ -10,11 +10,10 @@
 <body>
   <div class="container">
     <div class="move">
-      <div class="p-button normal signin animated pulse">SIGN IN</div>
     </div>
     <div class="welcome">
-      <h4 class="bold welcome-text">Welcome Back!</h4>
-      <p class="normal text">To keep connected with us please login with your personal info</p>
+      <h4 class="bold welcome-text">Welcome Back! SSM</h4><br>
+      <p class="normal text">라이브커머스 <br>인사이트 리포트 서비스<br>지금 바로 시작해보세요!</p>
     </div>
     <div class="hello">
       <h4 class="bold welcome-text">Hello Friend</h4>
@@ -23,21 +22,18 @@
     <div class="form">
       <br>
       <h4 class="bold title">LOGIN</h4>
-
       <p class="normal light">Please log in to use the service.</p>
-      <br>
-      <form method="post" action="/login.do" >
-	      <input name="userId" type="text" placeholder="ID" class="normal">
+      <br> 
+      <form action="/login.do" method="post">
+	      <input type="text" placeholder="ID" class="normal" name="userId" id="userId">
 	      <br/>
-	      
-	      <input name="userPw" type="password" placeholder="Password" class="normal"><br>
+	      <input type="password" placeholder="Password" class="normal" name="userPw" id="userPw"><br>
 	      <p class="normal forgot">Forgot your password?</p>
 	      <br>
 	      <br>
-	      <button class="b-button normal" type="submit" >Login</button>
+	      <button class="b-button normal"type="submit" onclick="location.href='/login.do'">Login</button>
       </form>
     </div>
   </div>
-  <script  src="../js/login.js"></script>
 </body>
 </html>

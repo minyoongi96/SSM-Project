@@ -1,7 +1,9 @@
 /*Fonts*/
 @import url('https://fonts.googleapis.com/css?family=Montserrat:500,700&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Darker+Grotesque&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@200&display=swap');
+
 
 body{
   background: #EDF2F9;
@@ -13,9 +15,9 @@ body{
   font-weight:700;
   font-size:25px;
 }
-
+/*한글*/
 .normal{
-  font-family: 'Darker Grotesque', sans-serif;
+  font-family: 'IBM Plex Sans KR', sans-serif;
   font-weight:500;
   font-size:17px;
 }

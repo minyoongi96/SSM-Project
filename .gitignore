@@ -259,4 +259,6 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+*.mp4
+
 # End of https://www.toptal.com/developers/gitignore/api/macos,linux,windows,java,pythonvanilla,eclipse,visualstudiocode

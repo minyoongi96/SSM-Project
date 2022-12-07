@@ -1,0 +1,157 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
+
+body {
+  font-feature-settings: "kern" 1;
+  font-kerning: normal;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.Title {
+  font-family: 'Poppins', sans-serif;
+  font-style: normal;
+  font-weight: normal;
+}
+
+.Title-cursive { 
+  font-family: 'Caveat', cursive;
+  font-style: normal;
+  font-weight: normal;
+}
+
+body, html {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  background-color: #1C1B21;
+  color: #E8E8E9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+body::before {
+  content: "";
+  display: block;
+  position: absolute;
+  background-color: #2C7BE5;
+  width: 400vw;
+  height: 100vh;
+  top: 0;
+  left: 50%;
+  z-index: -1;
+  transform: skewX(-45deg) translateX(-100%) scaleX(0);
+  will-change: transform;
+  -webkit-animation: revealBG 1400ms cubic-bezier(0.19, 1, 0.22, 1) forwards;
+          animation: revealBG 1400ms cubic-bezier(0.19, 1, 0.22, 1) forwards;
+}
+
+.Title {
+  font-size: 3rem;
+  opacity: 0;
+  transform: translate(0%, 100%) matrix(1, 0, 0, 1, 0, 0);
+  will-change: opacity, transform;
+  -webkit-animation: revealText 1000ms cubic-bezier(0.7, 0, 0.3, 1) forwards 400ms;
+          animation: revealText 1000ms cubic-bezier(0.7, 0, 0.3, 1) forwards 400ms;
+}
+
+.Title-mask {
+  display: block;
+  position: relative;
+  text-align: start;
+  overflow: hidden;
+}
+
+.Title-line {
+  display: inline-block;
+  opacity: 0;
+  transform: translate(0%, 100%) matrix(1, 0, 0, 1, 0, 0);
+  will-change: opacity, transform;
+  -webkit-animation: revealText 1000ms cubic-bezier(0.7, 0, 0.3, 1) forwards;
+          animation: revealText 1000ms cubic-bezier(0.7, 0, 0.3, 1) forwards;
+}
+
+.Title-dot {
+  color: #2C7BE5;
+  font-size: 60px;
+  font-family: 'Luckiest Guy', cursive;
+  transform-origin: 50% 80%;
+  transform: scale(0);
+  display: inline-block;
+  -webkit-animation: revealDot 300ms cubic-bezier(0.19, 1, 0.22, 1) forwards 2000ms;
+          animation: revealDot 300ms cubic-bezier(0.19, 1, 0.22, 1) forwards 2000ms;
+}
+
+.Title-mask:nth-child(1) .Title-line {
+  -webkit-animation-delay: 400ms;
+          animation-delay: 400ms;
+}
+
+.Title-mask:nth-child(2) .Title-line {
+  -webkit-animation-delay: 800ms;
+          animation-delay: 800ms;
+}
+
+.Title-mask:nth-child(3) .Title-line {
+  -webkit-animation-delay: 1200ms;
+          animation-delay: 1200ms;
+}
+
+@-webkit-keyframes revealBG {
+  from {
+    transform: skewX(-45deg) translateX(-100%) scaleX(0);
+  }
+  to {
+    transform: skewX(-45deg) translateX(-100%) scaleX(1);
+  }
+}
+
+@keyframes revealBG {
+  from {
+    transform: skewX(-45deg) translateX(-100%) scaleX(0);
+  }
+  to {
+    transform: skewX(-45deg) translateX(-100%) scaleX(1);
+  }
+}
+@-webkit-keyframes revealDot {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+@keyframes revealDot {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+@-webkit-keyframes revealText {
+  from {
+    opacity: 0;
+    transform: translate(0%, 100%) matrix(1, 0, 0, 1, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0%, 0%) matrix(1, 0, 0, 1, 0, 0);
+  }
+}
+@keyframes revealText {
+  from {
+    opacity: 0;
+    transform: translate(0%, 100%) matrix(1, 0, 0, 1, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0%, 0%) matrix(1, 0, 0, 1, 0, 0);
+  }
+}/*# sourceMappingURL=main.css.map */

@@ -24,6 +24,10 @@ public class SsmController {
 	public String main() {
 		return "main";
 	}
+	@RequestMapping("/loginpage.do")
+	public String loginpage() {
+		return "login";
+	}
 	
 	@PostMapping(value = "/login.do")
 	public String loginId(Users user, HttpSession session, Model model){
@@ -37,7 +41,7 @@ public class SsmController {
 			List<Broadcasting> bcList = ssmService.BcFindAllByUsersVO(LoginUser);
 			model.addAttribute("bcList", bcList);
 			
-			return "login";
+			return "list";
 		}
 	}
 }

@@ -115,11 +115,5 @@ class SsmApplicationTests {
 //		System.out.println(list);
 //		
 //	}
-	
-	@Test
-	void test() {
-		Broadcasting vo = bcRepository.findByBcSeq(2L);
-		System.out.println(ssmService.getInvolvement(vo));
-		
-	}
+
 }
