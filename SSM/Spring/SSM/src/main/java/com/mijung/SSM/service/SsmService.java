@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.mijung.SSM.entity.Board;
 import com.mijung.SSM.entity.Broadcasting;
 import com.mijung.SSM.entity.OurCategory;
 import com.mijung.SSM.entity.SpeechAnalysis;
@@ -17,6 +18,7 @@ public interface SsmService {
 	List<Broadcasting> BcFindAllByUsersVO(Users user);
 	Broadcasting BcFindByBcSeq(Long bcSeq);
 	List<ViewerReaction>  VcFindAllByBroadcastingVO(Broadcasting bcVO);
+	List<Board> BoardfindAll();
 	
 	// RestController 서비스
 	// 방송 상세정보 -> salesCnt(총 결제 수), salesPred(예상 판매액)

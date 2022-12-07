@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en-US" dir="ltr">
-
+<html lang="en-US" dir="ltr" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -28,6 +27,7 @@
 
   <!--ajax-->
   <script th:inline="javascript">
+
     var bcSeq = [[${bc.bcSeq}]];
     var myData;
     
@@ -37,20 +37,20 @@
         async:false,
         dataType:"json",
         success: function(data){
-           console.log("성공")
+           console.log("성공");
            myData = data;
         },
         error:function(){
-           console.log("실패")
+           console.log("실패");
         }
         
-     })
+     });
     
      itemData = myData["Items"];
      console.log(itemData);
   
  </script>
-
+ 
   <!--실적률-->
   <script>
     $(function () {
@@ -60,17 +60,17 @@
         chart: {
           height: 200,
           type: 'radialBar',
-          offsetY: -10
+          offsetY: 5
         },
         plotOptions: {
           radialBar: {
             startAngle: -135,
             endAngle: 135,
             dataLabels: {
-              name: {
+              name: { 
                 fontSize: '16px',
                 color: undefined,
-                offsetY: 60
+                offsetY: 70
               },
               value: {
                 offsetY: -6,
@@ -87,7 +87,7 @@
           colors: ['#46AEFC']
         },
         stroke: {
-          dashArray: 4
+          dashArray: 3
         },
         labels: ['Percent'],
       };
@@ -588,6 +588,7 @@
                   <div class="col-auto">
                     <h6 class="mb-0">제품별 별점</h6>
                   </div>
+
                 </div>
               </div>
               
@@ -627,6 +628,24 @@
                     <h6 class="fs-0 mb-1" style="font-size: 30px;"><span class="fas fa-check text-success mr-1"
                         data-fa-transform="shrink-2"></span><span style="font-family: 'Sunflower', sans-serif;">35,000건</span></h6>
                   </div>
+
+                  <div class="col-auto">
+                    <select class="custom-select custom-select-sm" style="width: 100%;">
+                      <option value="americano">제품전체</option> 
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row flex-grow-1">
+                <div class="col align-self-end" style="top:-15%;">
+                  <!--제품별 별점-->
+                  <h6 class="fs-0 mb-1" style="font-size: 25px;">
+                      &nbsp;&nbsp;&nbsp;&nbsp; <span style="font-size: 20px;font-family: 'Sunflower', sans-serif;">디자인 : </span> <span>⭐⭐⭐⭐</span><br>
+                      &nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size: 20px;font-family: 'Sunflower', sans-serif;"> 만족도 : </span> <span>⭐</span><br>
+                      &nbsp;&nbsp;&nbsp;&nbsp; <span style="font-size: 20px;font-family: 'Sunflower', sans-serif;">안정성 : </span> <span>⭐⭐</span><br>
+                      &nbsp;&nbsp;&nbsp;&nbsp; <span style="font-size: 20px;font-family: 'Sunflower', sans-serif;">기능성 : </span> <span>⭐⭐⭐⭐</span><br>
+                  </h6>
                 </div>
               </div>
             </div>
@@ -658,6 +677,21 @@
                 <div class="row h-100">
                   <div class="col align-self-end" style="top:-30%;">
                     <!--예상매출액-->
+
+                    <h6 class="mb-0">판매수량</h6>
+                  </div>
+                  <div class="col-auto">
+                    <select class="custom-select custom-select-sm" style="width: 100%;">
+                      <option value="americano">제품전체</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body pt-0">
+                <div class="row h-100">
+                  <div class="col align-self-end" style="top:-30%;">
+                    <!--판매수량-->
+
                     <h6 class="fs-0 mb-1" style="font-size: 30px;"><span class="fas fa-check text-success mr-1"
                         data-fa-transform="shrink-2"></span><span style="font-family: 'Sunflower', sans-serif;">35,000건</span></h6>
                   </div>
@@ -665,6 +699,37 @@
               </div>
             </div>
           </div>
+
+
+          
+          <div class="col-md-6 col-xxl-3 mb-3 pl-md-2 pr-xxl-2">
+            <div class="card h-md-100">
+              <div class="card-header bg-light py-2"
+                style="background-image: linear-gradient(to top, #D5E5FA 0%, #D5E5FA 100%);">
+                <div class="row flex-between-center">
+                  <div class="col-auto">
+                    <h6 class="mb-0">예상 매출액</h6>
+                  </div>
+                  <div class="col-auto">
+                    <select class="custom-select custom-select-sm" style="width: 100%;">
+                      <option value="americano">제품전체</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body pt-0">
+                <div class="row h-100">
+                  <div class="col align-self-end" style="top:-30%;">
+                    <!--예상매출액-->
+                    <h6 class="fs-0 mb-1" style="font-size: 30px;"><span class="fas fa-check text-success mr-1"
+                        data-fa-transform="shrink-2"></span><span style="font-family: 'Sunflower', sans-serif;">35,000건</span></h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
           <div class="col-md-6 col-xxl-3 mb-3 pl-md-2">
             <div class="card h-md-100">
               <div class="card-header bg-light py-2"
@@ -673,9 +738,16 @@
                   <div class="col-auto">
                     <h6 class="mb-0">실적률</h6>
                   </div>
+
                   <div class="col-auto">
                     <select class="custom-select custom-select-sm" style="width: 100%;">
                       <option value="americano">제품전체</option>
+
+                  
+                  <div class="col-auto">
+                    <select class="custom-select custom-select-sm" style="width: 100%;">
+                      <option value="americano">제품전체</option> 
+
                     </select>
                   </div>
                 </div>
@@ -690,6 +762,7 @@
             </div>
           </div>
         </div>
+
         <!--테이블-->
         <div class="row">
           <div class="col">
@@ -906,7 +979,7 @@
             <div class="card-body">
               <div class="row justify-content-between align-items-center">
                 <div class="col-md">
-                  <h5 class="mb-2 mb-md-0">분석 보고서 출력하기</h5>
+                  <h5 class="mb-2 mb-md-0" style="font-family: 'Sunflower', sans-serif;">분석 보고서 출력하기</h5>
                 </div>
                 <div class="col-auto">
                   <button class="btn btn-falcon-primary btn-sm">내보내기</button>
