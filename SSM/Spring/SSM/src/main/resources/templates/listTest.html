@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en-US" dir="ltr">
+<html lang="ko" dir="ltr" xmlns:th="http://www.thymeleaf.org">
 
 <head>
   <meta charset="utf-8">
@@ -208,7 +208,7 @@
           <ul class="navbar-nav navbar-nav-icons ml-auto flex-row align-items-center">
             <li class="nav-item dropdown dropdown-on-hover"><a class="nav-link pr-0" id="navbarDropdownUser" href="#"
                 role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                '김미정'님 안녕하세요.
+                '<span th:text="${session.user.userId}"></span>' 님 안녕하세요.
               </a>
               <div class="dropdown-menu dropdown-menu-right py-0" aria-labelledby="navbarDropdownUser">
                 <div class="bg-white rounded-soft py-2">
@@ -226,55 +226,26 @@
 
               <div class="col-12 col-lg-8">
                 <div class="row" id="flex-conainer" style="border: none;">
-                  <!-- 방송 리스트 화면 뿌리기 -->
-                  <div class="col-12 col-md flex-items" id="plz">
-                    <strong>
-                      <p id="p${idx}" class="pit" value="video">[NEW쿨토퍼] 닿자마자 시원한 아이싱 쿨매트 앵콜특가</p>
-                    </strong>
-                    <div class="border rounded-soft overflow-hidden">
-                      <div class="d-flex justify-content-between align-items-center p-4">
-                        <video id="video" class="video" src="[NEW쿨토퍼] 닿자마자 시원한 아이싱 쿨매트 앵콜특가 2022-11-22 01_09.mp4"
-                          controls muted></video>
-                      </div>
-                    </div>
-                    <div class="p-4 bg-light" id="texta">
-                      <a href="load.html"
-                        class="btn btn-primary btn-block" type="button">상세보기</a>
-                    </div>
-                  </div>
-                  <!--두번쨰방송-->
-                  <div class="col-12 col-md flex-items" id="plz">
-                    <strong>
-                      <p id="p${idx}" class="pit" value="video">[키즈라이브데이] 지금 쓰기 딱 좋은 패드&토퍼 모음전</p>
-                    </strong>
-                    <div class="border rounded-soft overflow-hidden">
-                      <div class="d-flex justify-content-between align-items-center p-4">
-                        <video id="video" class="video" controls muted
-                          src="[키즈라이브데이] 지금 쓰기 딱 좋은 패드&토퍼 모음전 2022-11-21 23_14.mp4"></video>
-                      </div>
-                    </div>
-                    <div class="p-4 bg-light" id="texta">
-                      <a href="/load.html"
-                        class="btn btn-primary btn-block" type="button">상세보기</a>
-                    </div>
-                  </div>
-                  <!--세번째반송-->
-                  <div class="col-12 col-md flex-items" id="plz">
-                    <strong>
-                      <p id="p${idx}" class="pit" value="video">🤎포근포근 겨울준비 비비엔다 덮어줘 특가🤎</p>
-                    </strong>
-                    <div class="border rounded-soft overflow-hidden">
-                      <div class="d-flex justify-content-between align-items-center p-4">
-                        <video id="video" class="video" controls muted
-                          src="🤎포근포근 겨울준비 비비엔다 덮어줘 특가🤎 2022-11-22 12_03.mp4"></video>
-                      </div>
-                    </div>
-                    <div class="p-4 bg-light" id="texta">
-                      <a href="/SSM/page/load.html"
-                        class="btn btn-primary btn-block" type="button">상세보기
-                      </a>
-                    </div>
-                  </div>
+                 <!-- 방송 리스트 화면 뿌리기 -->
+                  <th:block th:each="vo : ${bcList}" th:object="${vo}">
+	                  <div class="col-12 col-md flex-items" id="plz">
+	                    <strong>
+	                      <p th:id="*{bcSeq}" class="pit" th:text=*{bcTitle}></p>
+	                    </strong>
+	                    <div class="border rounded-soft overflow-hidden">
+	                      <div class="d-flex justify-content-between align-items-center p-4">
+	                        <video id="video" class="video" src="[NEW쿨토퍼] 닿자마자 시원한 아이싱 쿨매트 앵콜특가 2022-11-22 01_09.mp4"
+	                          controls muted></video>
+	                      </div>
+	                    </div>
+	                    <div class="p-4 bg-light" id="texta">
+	                      <a th:href="@{/Dashboard/{bcSeq}(bcSeq=*{bcSeq})}" class="btn btn-primary btn-block" type="button">
+	                      <span>상세보기</span>
+	                      </a>
+	                    </div>
+	                  </div>
+                  </th:block>
+                  
 
                   <!-- 연습 중-->
                   <div id="start">
