@@ -17,12 +17,14 @@ import com.mijung.SSM.Dto.SpeechKeywordCateDto;
 import com.mijung.SSM.Dto.StarDto;
 import com.mijung.SSM.Dto.SttDto;
 import com.mijung.SSM.Dto.TimeKeywordDto;
+import com.mijung.SSM.entity.Board;
 import com.mijung.SSM.entity.Broadcasting;
 import com.mijung.SSM.entity.Items;
 import com.mijung.SSM.entity.OurCategory;
 import com.mijung.SSM.entity.SpeechAnalysis;
 import com.mijung.SSM.entity.Users;
 import com.mijung.SSM.entity.ViewerReaction;
+import com.mijung.SSM.repository.BoardRepository;
 import com.mijung.SSM.repository.BroadcastingRepository;
 import com.mijung.SSM.repository.ItemsRepository;
 import com.mijung.SSM.repository.KeywordsRepository;
@@ -60,6 +62,9 @@ public class SsmServiceImpl implements SsmService{
 	
 	@Autowired
 	KeywordsRepository kRepository;
+	
+	@Autowired
+	BoardRepository boardRepository;
 	
 	@Override
 	public Users findByUserId(Users usersVO) {
@@ -257,7 +262,18 @@ public class SsmServiceImpl implements SsmService{
 		}
 		return list;
 	}
+
+	@Override
+	public List<Board> BoardfindAll() {
+		List<Board> boardList = boardRepository.findAll();
+		
+		return boardList;
+	}
 	
 	// 8. 기여도 계산은 자바스크립트에서
+	
+	
+
+
 	
 }

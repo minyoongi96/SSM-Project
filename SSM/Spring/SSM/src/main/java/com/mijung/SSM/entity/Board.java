@@ -1,0 +1,39 @@
+package com.mijung.SSM.entity;
+
+import java.sql.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import lombok.Data;
+
+@Entity
+@Table
+@Data
+public class Board {
+	@Id
+	@Column(name = "board_seq")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long boardSeq;
+	
+	@Column(name = "board_title", nullable = false, length = 500)
+	private String boardTitle;
+	
+	@Column(name = "board_date", nullable = false)
+	private Date boardDate;
+	
+	@Column(name = "board_content", nullable = false, length=500)
+	private String boardContents;
+	
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_id")
+	private Users usersVO;
+}

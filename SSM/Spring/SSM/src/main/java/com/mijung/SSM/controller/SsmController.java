@@ -7,9 +7,11 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.mijung.SSM.entity.Board;
 import com.mijung.SSM.entity.Broadcasting;
 import com.mijung.SSM.entity.Users;
 import com.mijung.SSM.service.SsmService;
@@ -44,4 +46,13 @@ public class SsmController {
 			return "list";
 		}
 	}
+	
+	@GetMapping(value="boardList.do")
+	public String boardList(Model model) {
+		List<Board> boardList = ssmService.BoardfindAll();
+		model.addAttribute("boardList", boardList);
+		System.out.println(boardList.toString());
+		return "boardList";
+	}
+	
 }
