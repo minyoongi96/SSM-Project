@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.mijung.SSM.Dto.SentimentDto;
 import com.mijung.SSM.Dto.StarDto;
 import com.mijung.SSM.entity.Items;
 import com.mijung.SSM.entity.Reviews;
@@ -37,6 +38,12 @@ public interface ReviewsRepository extends JpaRepository<Reviews, Long> {
 			"from Reviews r " +
 			"where r.itemsVO = :#{#item} group by r.reviewCategory")
 	List<StarDto> getStarAvg(@Param("item") Items item);
+	
+	// 제품 별로
+	@Query(value = "select new com.mijung.SSM.Dto.SentimentDto(r.reviewCategory, AVG(r.reviewSentiment)) " +
+			"from Reviews r " +
+			"where r.itemsVO = :#{#item} group by r.reviewCategory")
+	List<SentimentDto> getSentimentAvg(@Param("item") Items item);
 
 	List<Reviews> findAllByItemsVO(Items item);
 }

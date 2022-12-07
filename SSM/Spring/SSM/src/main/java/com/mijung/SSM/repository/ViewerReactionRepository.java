@@ -7,7 +7,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.mijung.SSM.Dto.KeywordVrCntDto;
 import com.mijung.SSM.Dto.PerformanceDto;
+import com.mijung.SSM.Dto.SpeechKeywordCateDto;
 import com.mijung.SSM.Dto.SttDto;
 import com.mijung.SSM.entity.Broadcasting;
 import com.mijung.SSM.entity.OurCategory;
@@ -45,4 +47,11 @@ public interface ViewerReactionRepository extends JpaRepository<ViewerReaction, 
 			"where vr.broadcastingVO = :#{#bc} and vrTimes between :time and (:time + 2)"
 			)
 	SttDto findAllToSttDto(@Param("bc") Broadcasting bc, @Param("time") int time);
+	
+	@Query(value = "select new com.mijung.SSM.Dto.KeywordVrCntDto(" +
+			"SUM(vr.vrSales), SUM(vr.vrBaskets)) " +
+			"from ViewerReaction vr " +
+			"where vr.broadcastingVO = :#{#bc}")
+	List<KeywordVrCntDto> getKeywordVrCnt(@Param("bc") Broadcasting bc);
+	
 }

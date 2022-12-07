@@ -1,5 +1,6 @@
 package com.mijung.SSM.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,8 +30,9 @@ public interface SsmService {
 	Double getPerformRate(Broadcasting bc);
 	
 	// 6. 해당 하는 방송의 사용자 반응 테이블 가져오기
-	List<Object> getViewReactionChart(Broadcasting bc);
+	Map<Integer, Object> getViewReactionChart(Broadcasting bc);
 	
 	// 7.
 	List<Object> getKeywordCount(Broadcasting bc);
+	
 }

@@ -87,32 +87,39 @@ class SsmApplicationTests {
 //		System.out.println(ssmService.getSalesInfo(bcVO));
 //	}
 	
-	@Transactional
+//	@Transactional
+//	@Test
+//	void getSttDataTest() {
+//		Broadcasting bc = bcRepository.findByBcSeq(1L);
+//		
+//		// 해당 방송에 나온 키워드 모음
+//		List<String> keywordList = saRepository.findKeywords(bc);
+//		List<Object> list = new ArrayList<Object>();
+//		
+//		// 나온 모든 키워드 반복
+//		for(String keyword : keywordList) {
+//			// 해당 키워드가 나온 시간들 모음
+//			List<Integer> timeList = saRepository.findTimeAllByKeyword(keyword);
+//			
+//			for(Integer time : timeList) {
+//				Map<Object, Object> map = new LinkedHashMap<Object, Object>();
+//				SttDto dto = vrRepository.findAllToSttDto(bc, time);
+//				map.put("keyword", keyword);
+//				map.put("speech_time", time);
+//				map.put("Cnt", dto);
+//				
+//				list.add(map);
+//				
+//			}
+//		}
+//		System.out.println(list);
+//		
+//	}
+	
 	@Test
-	void getSttDataTest() {
-		Broadcasting bc = bcRepository.findByBcSeq(1L);
-		
-		// 해당 방송에 나온 키워드 모음
-		List<String> keywordList = saRepository.findKeywords(bc);
-		List<Object> list = new ArrayList<Object>();
-		
-		// 나온 모든 키워드 반복
-		for(String keyword : keywordList) {
-			// 해당 키워드가 나온 시간들 모음
-			List<Integer> timeList = saRepository.findTimeAllByKeyword(keyword);
-			
-			for(Integer time : timeList) {
-				Map<Object, Object> map = new LinkedHashMap<Object, Object>();
-				SttDto dto = vrRepository.findAllToSttDto(bc, time);
-				map.put("keyword", keyword);
-				map.put("speech_time", time);
-				map.put("Cnt", dto);
-				
-				list.add(map);
-				
-			}
-		}
-		System.out.println(list);
+	void test() {
+		Broadcasting vo = bcRepository.findByBcSeq(2L);
+		System.out.println(ssmService.getInvolvement(vo));
 		
 	}
 }

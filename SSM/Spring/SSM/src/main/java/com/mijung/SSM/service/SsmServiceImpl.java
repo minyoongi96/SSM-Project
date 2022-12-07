@@ -2,6 +2,7 @@ package com.mijung.SSM.service;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,7 +10,10 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mijung.SSM.Dto.PerformanceDto;
+import com.mijung.SSM.Dto.SentimentDto;
+import com.mijung.SSM.Dto.SpeechKeywordCateDto;
 import com.mijung.SSM.Dto.StarDto;
 import com.mijung.SSM.Dto.SttDto;
 import com.mijung.SSM.Dto.TimeKeywordDto;
@@ -21,6 +25,7 @@ import com.mijung.SSM.entity.Users;
 import com.mijung.SSM.entity.ViewerReaction;
 import com.mijung.SSM.repository.BroadcastingRepository;
 import com.mijung.SSM.repository.ItemsRepository;
+import com.mijung.SSM.repository.KeywordsRepository;
 import com.mijung.SSM.repository.OurCategoryRepository;
 import com.mijung.SSM.repository.ReviewsRepository;
 import com.mijung.SSM.repository.SpeechAnalysisRepository;
@@ -52,6 +57,9 @@ public class SsmServiceImpl implements SsmService{
 	
 	@Autowired
 	SpeechAnalysisRepository saRepository;
+	
+	@Autowired
+	KeywordsRepository kRepository;
 	
 	@Override
 	public Users findByUserId(Users usersVO) {
@@ -125,7 +133,7 @@ public class SsmServiceImpl implements SsmService{
 		map.put("salesCnt", cnt);
 		map.put("salesPred", format);	// String 형태
 		
-		/* 4. 아이템(제품)별 {카테고리:별점 평균} 리스트 가져오기 */
+		/* 4. 아이템(제품)별 {카테고리: {별점 평균}, {감정점수 평균} 리스트 가져오기 */
 		List<Object> itemMapList = getStarsAvgGroupBy(bc);
 		map.put("Items", itemMapList);
 		
@@ -134,38 +142,52 @@ public class SsmServiceImpl implements SsmService{
 		map.put("performance", porformance);
 		
 		/* 6. 1~60분 단위 시청자 반응 정보 가져오기 */
-		List<Object> reactionMap = getViewReactionChart(bc);
+		Map<Integer, Object> reactionMap = getViewReactionChart(bc);
 		map.put("ViewerReactions", reactionMap);
 		
 		/* 7. 등장한 키워드 별 등장시간과 +3분 시청자 반응 누적 가져오기 */
 		List<Object> keywordCountList = getKeywordCount(bc);
 		map.put("KeywordReactionCount", keywordCountList);
 		
+		/* 8. 각 키워드 카테고리별 기여도 가져오기*/
+//		Map<String, Long> involveMap = getInvolvement(bc);
+//		map.put("CategoryInvolvement", involveMap);
 		return map;
 	}
 
 	@Override
 	public List<Object> getStarsAvgGroupBy(Broadcasting bc) {
 	
-		/* 4. item리스트 -> [{item_seq, item_name, 카테고리별 별점 평균}]*/
+		/* 4. item리스트 -> [{item_seq, item_name, 카테고리별 별점 평균, 카테고리별 감정점수 평균}]*/
 		// 방송에 따른 제품들 가져오기
 		List<Items> itemsList = iRepository.findAllByOurCategoryVO(bc.getOurCategoryVO());
 		
-		Map<String, Double> starMap = new LinkedHashMap<String, Double>();
 		
 		List<Object> itemMapList = new ArrayList<Object>();
 		
-		// 아이템마다 리뷰 카테고리별 별점 평균 가져오기
-		for(Items item : itemsList) {	
-			List<StarDto> list = rRepository.getStarAvg(item);
+		// 아이템마다 리뷰 카테고리별 별점, 감정점수 평균 가져오기
+		for(Items item : itemsList) {
+			// 아이템별로 카테고리당 별점, 감정점수 들어있는 리스트 불러오기
+			List<StarDto> starList = rRepository.getStarAvg(item);
+			List<SentimentDto> sentimentList = rRepository.getSentimentAvg(item);
+			
+			// 별점, 감정점수 담을 맵
 			Map<Object, Object> itemMap = new LinkedHashMap<Object, Object>();
 			
-			for(StarDto dto : list) {
+			Map<String, Double> starMap = new LinkedHashMap<String, Double>();
+			Map<String, Double> sentimentMap = new LinkedHashMap<String, Double>();
+			
+			for(StarDto dto : starList) {
 				starMap.put(dto.getCategory(), dto.getAvg());
 			}
+			for(SentimentDto dto : sentimentList) {
+				sentimentMap.put(dto.getCategory(), dto.getAvg());
+			}
+			
 			itemMap.put("item_seq", item.getItemSeq());
 			itemMap.put("item_name", item.getItemName());
-			itemMap.put("starAvg", starMap);
+			itemMap.put("star_avg", starMap);
+			itemMap.put("sentiment_avg", sentimentMap);
 			itemMapList.add(itemMap);
 		}
 		
@@ -183,14 +205,15 @@ public class SsmServiceImpl implements SsmService{
 	// 6. 1 ~ 60분 까지 사용자 반응 정보를 담은 Map을 리스트로 반환
 	// 형태 : [1 : {시청자 반응}, 2: {시청자 반응}, ...]
 	@Override
-	public List<Object> getViewReactionChart(Broadcasting bc) {
+	public Map<Integer, Object> getViewReactionChart(Broadcasting bc) {
 		// 방송에 따른 ViewerReaction 불러오기
 		List<ViewerReaction> vrList = vrRepository.findAllByBroadcastingVO(bc);
 		
-		// 1 ~ 60분까지 사용자 반응 Map 데이터 담을 리스트
-		List<Object> result = new ArrayList<Object>();
+		// 1 ~ 60분까지 사용자 반응 Map 데이터 담을 맵 키값은 분으로
+		Map<Integer, Object> timeMap = new LinkedHashMap<Integer, Object>();
+//		List<Object> result = new ArrayList<Object>();
 		for(ViewerReaction vr : vrList) {
-			Map<Integer, Object> timeMap = new LinkedHashMap<Integer, Object>();
+			
 			Map<String, Integer> temp = new LinkedHashMap<String, Integer>();
 			
 			temp.put("viewer", vr.getVrViewers());
@@ -201,32 +224,40 @@ public class SsmServiceImpl implements SsmService{
 			temp.put("wishlist", vr.getVrWishlists());
 			
 			timeMap.put((Integer)vr.getVrTimes(), temp);
-			result.add(timeMap);
+//			result.add(timeMap);
 		}
 		
-		return result;
+//		return result;
+		return timeMap;
 	}
 
-	// 7. 등장 키워드, 등장 시간, +3분 누적 반응 모은 객체 쌍의 Map을 담은 list 반환
+	// 7. 등장 키워드, 키워드 카테고리, 등장 시간, +3분 누적 반응 모은 객체 쌍의 Map을 담은 list 반환
 	@Override
 	public List<Object> getKeywordCount(Broadcasting bc) {
 		// 해당 방송에 나온 키워드 모음
-		List<TimeKeywordDto> keywordTimeList = saRepository.findKeywordTime(bc);
+		List<TimeKeywordDto> timeKeywordList = saRepository.findKeywordTime(bc);
 		List<Object> list = new ArrayList<Object>();
 		
 		// 해당 방송에 나온 키워드,시간 모음
-		for(TimeKeywordDto timeKeywordDto : keywordTimeList) {
+		for(TimeKeywordDto timeKeywordDto : timeKeywordList) {
 			Map<String, Object> map = new LinkedHashMap<String, Object>();
+			String keyword_category = kRepository.findCategory(timeKeywordDto.getKeyword());
 			// 시간만 뽑아서 repository에 전달
 			int speech_time = timeKeywordDto.getSpeechTime();
-			// 해당 시간의 +3분 시청자 반응 누적
-			SttDto sttDto = vrRepository.findAllToSttDto(bc, speech_time);
-			
-			map.put("speech_keyword", timeKeywordDto.getKeyword());
-			map.put("speech_time", speech_time);
-			map.put("reaction_count", sttDto);
-			list.add(map);
+			if(speech_time < 58) {				
+				// 해당 시간의 +3분 시청자 반응 누적
+				SttDto sttDto = vrRepository.findAllToSttDto(bc, speech_time);
+				
+				map.put("speech_keyword", timeKeywordDto.getKeyword());
+				map.put("keyword_category", keyword_category);
+				map.put("speech_time", speech_time);
+				map.put("reaction_count", sttDto);
+				list.add(map);
+			}
 		}
 		return list;
 	}
+	
+	// 8. 기여도 계산은 자바스크립트에서
+	
 }
