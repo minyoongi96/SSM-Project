@@ -28,7 +28,7 @@
 
   <!--ajax-->
   <script th:inline="javascript">
-    var bcSeq = [[${bcSeq}]],
+    var bcSeq = [[${bc.bcSeq}]];
     var myData;
     
      $.ajax({
@@ -50,44 +50,6 @@
      console.log(itemData);
   
  </script>
-
-
-
-  <!--별점 분포-->
-  <script>
-    $(function () {
-      var options = {
-        series: [{
-          //데이터 : 제품별 리뷰 별점
-          data: [4, 3, 2, 5]
-        }],
-        chart: {
-          type: 'bar',
-          width: 280,
-          height: 150
-        },
-        plotOptions: {
-          bar: {
-            borderRadius: 4,
-            horizontal: true,
-          }
-        },
-        dataLabels: {
-          enabled: false
-        },
-        legend: {
-          display: true
-        },
-        colors: ['#26A0FC'],
-        xaxis: {
-          //데이터 : 제품별 리뷰 카테고리
-          categories: ['디자인', '안정성', '만족도', '기능성'],
-        }
-      };
-      var chart = new ApexCharts(document.querySelector("#chart_st"), options);
-      chart.render();
-    })
-  </script>
 
   <!--실적률-->
   <script>
@@ -544,10 +506,6 @@
 <body>
 
 
-
-    <div class="ring">Loading
-        <span class="ring_load"></span>
-      </div>
       
   <!-- ===============================================-->
   <!--    메뉴바   -->
@@ -571,8 +529,8 @@
             </div>
             <ul class="navbar-nav flex-column">
               <li class="nav-item"><a class="nav-link" href="./방송목록.html">
-                  <div class="d-flex align-items-center"><span class="nav-link-icon"><span
-                        class="fas fa-poll"></span></span><span class="nav-link-text"> Live-Commerce</span>
+                  <div class="d-flex align-items-center">
+                  <span class="nav-link-icon"><span class="fas fa-poll"></span></span><span class="nav-link-text"> Live-Commerce</span>
                   </div>
                 </a></li>
               <li class="nav-item"><a class="nav-link" href="./글목록.html">
@@ -621,33 +579,53 @@
             </li>
           </ul>
         </nav>
-
-
-        <div class="row no-gutters">
+<div class="row no-gutters">
           <div class="col-md-6 col-xxl-3 mb-3 pr-md-2">
             <div class="card h-md-100">
-              <div class="card-header bg-light py-2" style="background-image: linear-gradient(to top, #D5E5FA 0%, #D5E5FA 100%);">
-              <div class="row flex-between-center">
-                <div class="col-auto">
-                  <h6 class="mb-0">제품별 별점</h6>
+              <div class="card-header bg-light py-2"
+                style="background-image: linear-gradient(to top, #D5E5FA 0%, #D5E5FA 100%);">
+                <div class="row flex-between-center">
+                  <div class="col-auto">
+                    <h6 class="mb-0">제품별 별점</h6>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="row flex-grow-1">
+                  
+                <div class="col align-self-end" style="top:-20%;">
+                  <!--제품별 별점-->
+                  <h6 class="fs-0 mb-1" style="font-size: 25px;">
+                      &nbsp;&nbsp;&nbsp;&nbsp; <span style="font-size: 20px;font-family: 'Sunflower', sans-serif;">디자인 : </span> <span>⭐⭐</span><br>
+                      &nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size: 20px;font-family: 'Sunflower', sans-serif;"> 만족도 : </span> <span>⭐⭐⭐⭐</span><br>
+                      &nbsp;&nbsp;&nbsp;&nbsp; <span style="font-size: 20px;font-family: 'Sunflower', sans-serif;">안정성 : </span> <span>⭐⭐⭐⭐</span><br>
+                      &nbsp;&nbsp;&nbsp;&nbsp; <span style="font-size: 20px;font-family: 'Sunflower', sans-serif;">기능성 : </span> <span>⭐⭐</span><br>
+                  </h6>
                 </div>
               </div>
             </div>
-              <div class="col-auto" style="width: 40%; left:60%;">
-                <select class="custom-select custom-select-sm">
-                  <!--스크립트-->
-                  <script>
-                    for(var item of itemData){
-                       document.write("<option>");
-                       document.write(item.item_name);
-                       document.write("</option>");
-                    }
-                 </script> 
-                </select>
+          </div>
+          <div class="col-md-6 col-xxl-3 mb-3 pl-md-2 pr-xxl-2">
+            <div class="card h-md-100">
+              <div class="card-header bg-light py-2"
+                style="background-image: linear-gradient(to top, #D5E5FA 0%, #D5E5FA 100%);">
+                <div class="row flex-between-center">
+                  <div class="col-auto">
+                    <h6 class="mb-0">판매수량</h6>
+                  </div>
+                  <div class="col-auto">
+                    <select class="custom-select custom-select-sm" style="width: 100%;">
+                      <option value="americano">제품전체</option>
+                    </select>
+                  </div>
+                </div>
               </div>
-              <div class="row flex-grow-1">
-                <div class="col">
-                  <div id="chart_st">
+              <div class="card-body pt-0">
+                <div class="row h-100">
+                  <div class="col align-self-end" style="top:-30%;">
+                    <!--판매수량-->
+                    <h6 class="fs-0 mb-1" style="font-size: 30px;"><span class="fas fa-check text-success mr-1"
+                        data-fa-transform="shrink-2"></span><span style="font-family: 'Sunflower', sans-serif;">35,000건</span></h6>
                   </div>
                 </div>
               </div>
@@ -655,59 +633,53 @@
           </div>
           <div class="col-md-6 col-xxl-3 mb-3 pl-md-2 pr-xxl-2">
             <div class="card h-md-100">
-              <div class="card-header bg-light py-2"style="background-image: linear-gradient(to top, #D5E5FA 0%, #D5E5FA 100%);">
-              <div class="row flex-between-center">
-                <div class="col-auto">
-                  <h6 class="mb-0">누적 판매수량</h6>
+              <div class="card-header bg-light py-2"
+                style="background-image: linear-gradient(to top, #D5E5FA 0%, #D5E5FA 100%);">
+                <div class="row flex-between-center">
+                  <div class="col-auto">
+                    <h6 class="mb-0">예상 매출액</h6>
+                  </div>
                 </div>
               </div>
-            </div>
+              <div class="col-auto">
+                    <select class="custom-select custom-select-sm" style="width: 100%;">
+                    <option>제품전체</option>
+                      <!--스크립트-->
+                  <script>
+                    for(var item of itemData){
+                       document.write("<option>");
+                       document.write(item.item_name);
+                       document.write("</option>");
+                    }
+                 </script>
+                    </select>
+                  </div>
               <div class="card-body pt-0">
                 <div class="row h-100">
-                  <div class="col align-self-end" style="top:-60%;">
-                    <!--누적 판매수량-->
+                  <div class="col align-self-end" style="top:-30%;">
+                    <!--예상매출액-->
                     <h6 class="fs-0 mb-1" style="font-size: 30px;"><span class="fas fa-check text-success mr-1"
-                        data-fa-transform="shrink-2"></span>35,000건</h6>
+                        data-fa-transform="shrink-2"></span><span style="font-family: 'Sunflower', sans-serif;">35,000건</span></h6>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-
-          <div class="col-md-6 col-xxl-3 mb-3 pr-md-2 pl-xxl-2">
-            <div class="card h-md-100">
-              <div class="card-header bg-light py-2"style="background-image: linear-gradient(to top, #D5E5FA 0%, #D5E5FA 100%);">
-              <div class="row flex-between-center">
-                <div class="col-auto">
-                  <h6 class="mb-0">예상 매출액</h6>
-                </div>
-              </div>
-            </div>
-              <div class="card-body pt-0">
-                <div class="row h-100">
-                  <div class="col align-self-end" style="top:-60%; ">
-                    <!--예상 매출액-->
-                    <h6 class="fs-0 mb-1" style="font-size: 30px;"><span class="fas fa-check text-success mr-1"
-                        data-fa-transform="shrink-2">
-
-                        <br><br><br>
-                      </span>13,000,000원
-                    </h6>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
           <div class="col-md-6 col-xxl-3 mb-3 pl-md-2">
             <div class="card h-md-100">
-              <div class="card-header bg-light py-2"style="background-image: linear-gradient(to top, #D5E5FA 0%, #D5E5FA 100%);">
-              <div class="row flex-between-center">
-                <div class="col-auto">
-                  <h6 class="mb-0">실적률</h6>
+              <div class="card-header bg-light py-2"
+                style="background-image: linear-gradient(to top, #D5E5FA 0%, #D5E5FA 100%);">
+                <div class="row flex-between-center">
+                  <div class="col-auto">
+                    <h6 class="mb-0">실적률</h6>
+                  </div>
+                  <div class="col-auto">
+                    <select class="custom-select custom-select-sm" style="width: 100%;">
+                      <option value="americano">제품전체</option>
+                    </select>
+                  </div>
                 </div>
               </div>
-            </div>
               <div class="card-body pt-2">
                 <div class="row no-gutters h-100 align-items-center">
                   <div class="col">
@@ -718,7 +690,6 @@
             </div>
           </div>
         </div>
-
         <!--테이블-->
         <div class="row">
           <div class="col">
