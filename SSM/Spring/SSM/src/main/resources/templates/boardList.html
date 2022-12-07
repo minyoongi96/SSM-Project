@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
-
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -249,8 +249,8 @@
                     </thead>
 
                     <tbody id="purchases">
-
-
+							<!--  TODO 반복문 적용 시키기 -->
+					<table th:each="board : ${boardList}">
                       <tr class="btn-reveal-trigger">
                         <td class="align-middle">
                           <div class="custom-control custom-checkbox">
@@ -259,14 +259,14 @@
                             <label class="custom-control-label" for="checkbox-0"></label>
                           </div>
                         </td>
-                        <th class="align-middle">Sylvia Plath</th>
-                        <td class="align-middle">2022-12-05</td>
-                        <td class="align-middle"><a href="./글보기.html">엑셀 출력 문의</a></td>
+                        <th th:text="${board.user_id}" class="align-middle"></th>
+                        <td th:text="${board.board_date}" class="align-middle"></td>
+                        <td th:text="${board.board_title}" class="align-middle"><a href="boardView.do"></a></td>
                         <td class="align-middle text-center fs-0"><span
                             class="badge badge rounded-capsule badge-soft-success">완료<span class="ml-1 fas fa-check"
                               data-fa-transform="shrink-2"></span></span>
                         </td>
-                        <td class="align-middle text-center">김미정</td>
+                        <td class="align-middle text-center">관리자</td>
                         <td class="align-middle white-space-nowrap">
                           <div class="dropdown text-sans-serif">
                             <button class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal mr-3" type="button"
@@ -280,64 +280,8 @@
                           </div>
                         </td>
                       </tr>
-                      <tr class="btn-reveal-trigger">
-                        <td class="align-middle">
-                          <div class="custom-control custom-checkbox">
-                            <input class="custom-control-input checkbox-bulk-select-target" type="checkbox"
-                              id="checkbox-0" />
-                            <label class="custom-control-label" for="checkbox-0"></label>
-                          </div>
-                        </td>
-                        <th class="align-middle">Sylvia Plath</th>
-                        <td class="align-middle">2022-12-05</td>
-                        <td class="align-middle"><a href="./글보기.html">엑셀 출력 문의</a></td>
-                        <td class="align-middle text-center fs-0"><span
-                            class="badge badge rounded-capsule badge-soft-secondary">반려<span class="ml-1 fas fa-ban"
-                              data-fa-transform="shrink-2"></span></span>
-                        </td>
-                        <td class="align-middle text-center">김미정</td>
-                        <td class="align-middle white-space-nowrap">
-                          <div class="dropdown text-sans-serif">
-                            <button class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal mr-3" type="button"
-                              id="dropdown0" data-toggle="dropdown" data-boundary="html" aria-haspopup="true"
-                              aria-expanded="false"><span class="fas fa-ellipsis-h fs--1"></span></button>
-                            <div class="dropdown-menu dropdown-menu-right border py-0" aria-labelledby="dropdown0">
-                              <div class="bg-white py-2">
-                                <a class="dropdown-item text-danger" href="#!">Delete</a>
-                              </div>
-                            </div>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr class="btn-reveal-trigger">
-                        <td class="align-middle">
-                          <div class="custom-control custom-checkbox">
-                            <input class="custom-control-input checkbox-bulk-select-target" type="checkbox"
-                              id="checkbox-0" />
-                            <label class="custom-control-label" for="checkbox-0"></label>
-                          </div>
-                        </td>
-                        <th class="align-middle">Sylvia Plath</th>
-                        <td class="align-middle">2022-12-05</td>
-                        <td class="align-middle"><a href="./글보기.html">엑셀 출력 문의</a></td>
-                        <td class="align-middle text-center fs-0"><span
-                            class="badge badge rounded-capsule badge-soft-warning">처리중<span class="ml-1 fas fa-stream"
-                              data-fa-transform="shrink-2"></span></span>
-                        </td>
-                        <td class="align-middle text-center">김미정</td>
-                        <td class="align-middle white-space-nowrap">
-                          <div class="dropdown text-sans-serif">
-                            <button class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal mr-3" type="button"
-                              id="dropdown0" data-toggle="dropdown" data-boundary="html" aria-haspopup="true"
-                              aria-expanded="false"><span class="fas fa-ellipsis-h fs--1"></span></button>
-                            <div class="dropdown-menu dropdown-menu-right border py-0" aria-labelledby="dropdown0">
-                              <div class="bg-white py-2">
-                                <a class="dropdown-item text-danger" href="#!">Delete</a>
-                              </div>
-                            </div>
-                          </div>
-                        </td>
-                      </tr>
+                    </table>
+                      
                     </tbody>
                   </table>
                 </div>
