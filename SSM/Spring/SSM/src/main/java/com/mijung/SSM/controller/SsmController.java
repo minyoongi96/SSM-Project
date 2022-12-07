@@ -43,11 +43,11 @@ public class SsmController {
 			List<Broadcasting> bcList = ssmService.BcFindAllByUsersVO(LoginUser);
 			model.addAttribute("bcList", bcList);
 			
-			return "listTest";
+			return "list";
 		}
 	}
 	
-	@GetMapping(value="boardList.do")
+	@GetMapping(value="/boardList.do")
 	public String boardList(Model model) {
 		List<Board> boardList = ssmService.BoardfindAll();
 		model.addAttribute("boardList", boardList);
