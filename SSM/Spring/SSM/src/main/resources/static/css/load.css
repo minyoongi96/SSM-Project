@@ -40,7 +40,7 @@ body
   border-radius:50%;
   animation:animateC 2s linear infinite;
 }
-span
+.ring_load
 {
   display:block;
   position:absolute;
@@ -52,7 +52,7 @@ span
   transform-origin:left;
   animation:animate 2s linear infinite;
 }
-span:before
+.ring_load:before
 {
   content:'';
   position:absolute;

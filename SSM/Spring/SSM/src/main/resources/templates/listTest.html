@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="ko" dir="ltr" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+  <!-- ===============================================-->
+  <!--    Document Title-->
+  <!-- ===============================================-->
+  <title>Falcon | Dashboard &amp; WebApp Template</title>
+
+
+  <!-- ===============================================-->
+  <!--    Favicons-->
+  <!-- ===============================================-->
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/favicons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicons/favicon-16x16.png">
+  <link rel="shortcut icon" type="image/x-icon" href="/img/favicons/favicon.ico">
+  <link rel="manifest" href="/img/favicons/manifest.json">
+  <meta name="msapplication-TileImage" content="/img/favicons/mstile-150x150.png">
+  <meta name="theme-color" content="#ffffff">
+
+
+  <!-- ===============================================-->
+  <!--    Stylesheets-->
+  <!-- ===============================================-->
+  <script src="/js/config.navbar-vertical.js"></script>
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+  <link href="/libs/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet">
+  <link href="/css/theme_1.css" rel="stylesheet">
+  <script src="jquery-3.6.0.js"></script>
+</head>
+
+
+<body>
+
+  <!-- ===============================================-->
+  <!--    메뉴바   -->
+  <!-- ===============================================-->
+  <main class="main" id="top">
+    <div class="container" data-layout="container">
+      <nav class="navbar navbar-vertical navbar-expand-xl navbar-light">
+        <div class="d-flex align-items-center">
+          <div class="toggle-icon-wrapper">
+            <button class="btn navbar-toggler-humburger-icon navbar-vertical-toggle" data-toggle="tooltip"
+              data-placement="left"><span class="navbar-toggle-icon"><span class="toggle-line"></span></span></button>
+          </div><a class="navbar-brand" href="../index.html">
+            <div class="d-flex align-items-center py-3"><span class="text-sans-serif">SSM</span>
+            </div>
+          </a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbarVerticalCollapse">
+          <div class="navbar-vertical-content perfect-scrollbar scrollbar">
+            <div class="navbar-vertical-divider">
+              <hr class="navbar-vertical-hr my-2" />
+            </div>
+            <ul class="navbar-nav flex-column">
+              <li class="nav-item"><a class="nav-link" href="./방송목록.html">
+                  <div class="d-flex align-items-center"><span class="nav-link-icon"><span
+                        class="fas fa-poll"></span></span><span class="nav-link-text"> Live-Commerce</span>
+                  </div>
+                </a></li>
+              <li class="nav-item"><a class="nav-link" href="./글목록.html">
+                  <div class="d-flex align-items-center"><span class="nav-link-icon"><span
+                        class="fas fa-comments"></span></span><span class="nav-link-text">Contect</span>
+                  </div>
+                </a></li>
+            </ul>
+            <div class="navbar-vertical-divider">
+              <hr class="navbar-vertical-hr my-2" />
+            </div>
+            <ul class="navbar-nav flex-column">
+
+              <li class="nav-item"><a class="nav-link" href="../changelog.html">
+                  <div class="d-flex align-items-center"><span class="nav-link-icon"><span
+                        class="fas fa-code-branch"></span></span><span class="nav-link-text"> About</span><span
+                      class="badge badge-pill ml-2 badge-soft-primary">v1</span>
+                  </div>
+                </a></li>
+            </ul>
+      </nav>
+      <div class="content">
+        <nav class="navbar navbar-light navbar-glass navbar-top sticky-kit navbar-expand">
+
+          <button class="btn navbar-toggler-humburger-icon navbar-toggler mr-1 mr-sm-3" type="button"
+            data-toggle="collapse" data-target="#navbarVerticalCollapse" aria-controls="navbarVerticalCollapse"
+            aria-expanded="false" aria-label="Toggle Navigation"><span class="navbar-toggle-icon"><span
+                class="toggle-line"></span></span></button>
+          <a class="navbar-brand mr-1 mr-sm-3" href="../index.html">
+            <div class="d-flex align-items-center"><img class="mr-2" src="/img/illustrations/falcon.png" alt=""
+                width="40" /><span class="text-sans-serif">falcon</span>
+            </div>
+          </a>
+          <ul class="navbar-nav align-items-center d-none d-lg-block">
+            <li class="nav-item">
+              <div class="search-box">
+                <button class="close" type="button" data-dismiss="search"><span class="fas fa-times"></span></button>
+                <div class="dropdown-menu">
+                  <div class="scrollbar perfect-scrollbar py-3" style="height: 24rem;">
+                    <h6 class="dropdown-header px-card pt-0 pb-2">Recently Browsed</h6>
+                    <a class="dropdown-item fs--1 px-card py-1 hover-primary" href="../pages/events.html">
+                      <div class="d-flex align-items-center">
+                        <span class="fas fa-circle mr-2 text-300 fs--2"></span>
+
+                        <div class="font-weight-normal">Pages <span class="fas fa-chevron-right mx-1 text-500 fs--2"
+                            data-fa-transform="shrink-2"></span> Events</div>
+                      </div>
+                    </a>
+                    <a class="dropdown-item fs--1 px-card py-1 hover-primary" href="../e-commerce/customers.html">
+                      <div class="d-flex align-items-center">
+                        <span class="fas fa-circle mr-2 text-300 fs--2"></span>
+
+                        <div class="font-weight-normal">E-commerce <span
+                            class="fas fa-chevron-right mx-1 text-500 fs--2" data-fa-transform="shrink-2"></span>
+                          Customers</div>
+                      </div>
+                    </a>
+
+                    <hr class="border-200" />
+                    <h6 class="dropdown-header px-card pt-0 pb-2">Suggested Filter</h6>
+                    <a class="dropdown-item px-card py-1 fs-0" href="../e-commerce/customers.html">
+                      <div class="d-flex align-items-center"><span
+                          class="badge font-weight-medium text-decoration-none mr-2 badge-soft-warning">customers:</span>
+                        <div class="flex-1 fs--1">All customers list</div>
+                      </div>
+                    </a>
+                    <a class="dropdown-item px-card py-1 fs-0" href="../pages/events.html">
+                      <div class="d-flex align-items-center"><span
+                          class="badge font-weight-medium text-decoration-none mr-2 badge-soft-success">events:</span>
+                        <div class="flex-1 fs--1">Latest events in current month</div>
+                      </div>
+                    </a>
+                    <a class="dropdown-item px-card py-1 fs-0" href="../e-commerce/product-grid.html">
+                      <div class="d-flex align-items-center"><span
+                          class="badge font-weight-medium text-decoration-none mr-2 badge-soft-info">products:</span>
+                        <div class="flex-1 fs--1">Most popular products</div>
+                      </div>
+                    </a>
+                    <hr class="border-200" />
+                    <h6 class="dropdown-header px-card pt-0 pb-2">Files</h6>
+                    <a class="dropdown-item px-card py-2" href="#!">
+                      <div class="d-flex align-items-center">
+                        <div class="file-thumbnail mr-2"><img class="border h-100 w-100 fit-cover rounded-lg"
+                            src="/img/products/3-thumb.png" alt="" /></div>
+                        <div class="flex-1">
+                          <h6 class="mb-0">iPhone</h6>
+                          <p class="fs--2 mb-0"><span class="font-weight-semi-bold">Antony</span><span
+                              class="font-weight-medium text-600 ml-2">27 Sep at 10:30 AM</span></p>
+                        </div>
+                      </div>
+                    </a>
+                    <a class="dropdown-item px-card py-2" href="#!">
+                      <div class="d-flex align-items-center">
+                        <div class="file-thumbnail mr-2"><img class="img-fluid" src="/img/icons/zip.png"
+                            alt="" /></div>
+                        <div class="flex-1">
+                          <h6 class="mb-0">Falcon v1.8.2</h6>
+                          <p class="fs--2 mb-0"><span class="font-weight-semi-bold">John</span><span
+                              class="font-weight-medium text-600 ml-2">30 Sep at 12:30 PM</span></p>
+                        </div>
+                      </div>
+                    </a>
+                    <hr class="border-200" />
+                    <h6 class="dropdown-header px-card pt-0 pb-2">Members</h6>
+                    <a class="dropdown-item px-card py-2" href="../pages/profile.html">
+                      <div class="d-flex align-items-center">
+                        <div class="avatar avatar-l status-online mr-2">
+                          <img class="rounded-circle" src="/img/team/1.jpg" alt="" />
+                        </div>
+                        <div class="flex-1">
+                          <h6 class="mb-0">Anna Karinina</h6>
+                          <p class="fs--2 mb-0">Technext Limited</p>
+                        </div>
+                      </div>
+                    </a>
+                    <a class="dropdown-item px-card py-2" href="../pages/profile.html">
+                      <div class="d-flex align-items-center">
+                        <div class="avatar avatar-l mr-2">
+                          <img class="rounded-circle" src="/img/team/2.jpg" alt="" />
+
+                        </div>
+                        <div class="flex-1">
+                          <h6 class="mb-0">Antony Hopkins</h6>
+                          <p class="fs--2 mb-0">Brain Trust</p>
+                        </div>
+                      </div>
+                    </a>
+                    <a class="dropdown-item px-card py-2" href="../pages/profile.html">
+                      <div class="d-flex align-items-center">
+                        <div class="avatar avatar-l mr-2">
+                          <img class="rounded-circle" src="/img/team/3.jpg" alt="" />
+                        </div>
+                        <div class="flex-1">
+                          <h6 class="mb-0">Emma Watson</h6>
+                          <p class="fs--2 mb-0">Google</p>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+          <ul class="navbar-nav navbar-nav-icons ml-auto flex-row align-items-center">
+            <li class="nav-item dropdown dropdown-on-hover"><a class="nav-link pr-0" id="navbarDropdownUser" href="#"
+                role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                '<span th:text="${session.user.userId}"></span>' 님 안녕하세요.
+              </a>
+              <div class="dropdown-menu dropdown-menu-right py-0" aria-labelledby="navbarDropdownUser">
+                <div class="bg-white rounded-soft py-2">
+                  <a class="dropdown-item" href="http://127.0.0.1:5500/SSM/page/real_main.html">Logout</a>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </nav>
+
+        <div class="card mb-3">
+          <div class="card-body">
+            <div class="row justify-content-center">
+			
+
+              <div class="col-12 col-lg-8">
+                <div class="row" id="flex-conainer" style="border: none;">
+                 <!-- 방송 리스트 화면 뿌리기 -->
+                  <th:block th:each="vo : ${bcList}" th:object="${vo}">
+	                  <div class="col-12 col-md flex-items" id="plz">
+	                    <strong>
+	                      <p th:id="*{bcSeq}" class="pit" th:text=*{bcTitle}></p>
+	                    </strong>
+	                    <div class="border rounded-soft overflow-hidden">
+	                      <div class="d-flex justify-content-between align-items-center p-4">
+	                        <video id="video" class="video" src="[NEW쿨토퍼] 닿자마자 시원한 아이싱 쿨매트 앵콜특가 2022-11-22 01_09.mp4"
+	                          controls muted></video>
+	                      </div>
+	                    </div>
+	                    <div class="p-4 bg-light" id="texta">
+	                      <a th:href="@{/Dashboard/{bcSeq}(bcSeq=*{bcSeq})}" class="btn btn-primary btn-block" type="button">
+	                      <span>상세보기</span>
+	                      </a>
+	                    </div>
+	                  </div>
+                  </th:block>
+                  
+
+                  <!-- 연습 중-->
+                  <div id="start">
+                    <!-- 첫방송-->
+
+                  </div>
+                  <!--- <button id="btn2" class="btn btn-info btn-sm">방송업데이트</button>-->
+
+
+                </div>
+              </div>
+              <div class="col-12 text-center" id="bobtn">
+
+                <!-- Button trigger modal-->
+                <button class="btn btn-primary" id="btn2" type="button" data-toggle="modal"
+                  data-target="#exampleModal">방송</button>
+                <button id="btn4" class="btn btn-warning">삭제</button>
+                <!-- Modal-->
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                  aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">방송 업로드</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span
+                            class="font-weight-light" aria-hidden="true">&times;</span></button>
+                      </div>
+                      <form>
+
+                        <div class="modal-body">
+
+                          <input id="file" type="file" accept="video/mp4,video/mkv,video/x-m4v,video/*">
+                          <p></p>
+
+
+                        </div>
+                        <div class="modal-footer">
+                          <button class="btn btn-secondary btn-sm" type="button" data-dismiss="modal">Close</button>
+                          <!--<a class="btn btn-primary btn-sm" type="submit" id="vvv">Save changes</a>-->
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <footer>
+        <div class="row no-gutters justify-content-between fs--1 mt-4 mb-3">
+          <div class="col-12 col-sm-auto text-center">
+            <p class="mb-0 text-600">미정이조<span class="d-none d-sm-inline-block">| </span><br class="d-sm-none" /> 2022
+              &copy; <a href="https://themewagon.com">광주인공지능사관학교</a></p>
+          </div>
+        </div>
+      </footer>
+    </div>
+    <div class="modal fade" id="authentication-modal" tabindex="-1" role="dialog"
+      aria-labelledby="authentication-modal-label" aria-hidden="true">
+      <div class="modal-dialog mt-6" role="document">
+        <div class="modal-content border-0">
+          <div class="modal-header px-5 text-white position-relative modal-shape-header">
+            <div class="position-relative z-index-1">
+              <div>
+                <h4 class="mb-0 text-white" id="authentication-modal-label">Register</h4>
+                <p class="fs--1 mb-0">Please create your free Falcon account</p>
+              </div>
+            </div>
+            <button class="close text-white position-absolute t-0 r-0 mt-1 mr-1" data-dismiss="modal"
+              aria-label="Close"><span class="font-weight-light" aria-hidden="true">&times;</span></button>
+          </div>
+          <div class="modal-body py-4 px-5">
+            <form>
+              <div class="form-group">
+                <label for="modal-auth-name">Name</label>
+                <input class="form-control" type="text" id="modal-auth-name" />
+              </div>
+              <div class="form-group">
+                <label for="modal-auth-email">Email address</label>
+                <input class="form-control" type="email" id="modal-auth-email" />
+              </div>
+              <div class="form-row">
+                <div class="form-group col-6">
+                  <label for="modal-auth-password">Password</label>
+                  <input class="form-control" type="password" id="modal-auth-password" />
+                </div>
+                <div class="form-group col-6">
+                  <label for="modal-auth-confirm-password">Confirm Password</label>
+                  <input class="form-control" type="password" id="modal-auth-confirm-password" />
+                </div>
+              </div>
+              <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="modal-auth-register-checkbox" />
+                <label class="custom-control-label" for="modal-auth-register-checkbox">I accept the <a href="#!">terms
+                  </a>and <a href="#!">privacy policy</a></label>
+              </div>
+              <div class="form-group">
+                <button class="btn btn-primary btn-block mt-3" type="submit" name="submit">Register</button>
+              </div>
+            </form>
+            <div class="w-100 position-relative mt-5">
+              <hr class="text-300" />
+              <div
+                class="position-absolute absolute-centered t-0 px-3 bg-white text-sans-serif fs--1 text-500 text-nowrap">
+                or register with</div>
+            </div>
+            <div class="form-group mb-0">
+              <div class="row no-gutters">
+                <div class="col-sm-6 pr-sm-1"><a class="btn btn-outline-google-plus btn-sm btn-block mt-2"
+                    href="#"><span class="fab fa-google-plus-g mr-2" data-fa-transform="grow-8"></span> google</a>
+                </div>
+                <div class="col-sm-6 pl-sm-1">
+                  <a class="btn btn-outline-facebook btn-sm btn-block mt-2" href="#">
+                    <span
+                      class="fab fa-facebook-square mr-2" data-fa-transform="grow-8">
+                    </span> facebook
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+  <!-- ===============================================-->
+  <!--    End of Main Content-->
+  <!-- ===============================================-->
+
+  <!-- ===============================================-->
+  <!--    End of Main Content-->
+  <!-- ===============================================-->
+
+
+
+
+  <!-- ===============================================-->
+  <!--    JavaScripts-->
+  <!-- ===============================================-->
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/popper.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+  <script src="/libs/@fortawesome/all.min.js"></script>
+  <script src="/libs/stickyfilljs/stickyfill.min.js"></script>
+  <script src="/libs/sticky-kit/sticky-kit.min.js"></script>
+  <script src="/libs/is_js/is.min.js"></script>
+  <script src="/libs/lodash/lodash.min.js"></script>
+  <script src="/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700%7cPoppins:100,200,300,400,500,600,700,800,900&amp;display=swap"
+    rel="stylesheet">
+  <script src="/js/theme.js"></script>
+  <script>
+    let idx = 3
+
+    $(function () {
+      $('#btn2').click(() => {
+
+        const inputFile = document.getElementById("file");
+        const video = document.getElementsByClassName("video");
+
+        $('#start').before(`<div class="col-12 col-md flex-items"id="plz"><strong><p id="p${idx}" class="pit" value="video">${name}</p></strong><div class="border rounded-soft overflow-hidden"><div class="d-flex justify-content-between align-items-center p-4"><video id="video" class="video" controls muted></video></div></div><div class="p-4 bg-light" id="texta"><a href="/Users/iyunho/Downloads/falcon-v2.8.2/pages/home/dashboard-alt.html" class="btn btn-primary btn-block" type="button">상세보기</a> </div></div> `)
+
+
+
+        /** const button = document.getElementById("vvv")**/
+
+        inputFile.addEventListener("change", function () {
+          const file = inputFile.files[0];
+          const videourl = URL.createObjectURL(file);
+          video[idx].setAttribute("src", videourl);
+          video[idx].play();
+          $("#p" + idx).text(file.name.slice(0, -20));
+          console.log(file.name.slice(0, -20));
+          idx++;
+        })
+
+      })
+    })
+
+    $(function () {
+      $(document).ready(function () {
+        $('.pit').val('');
+
+      });
+    })
+    $(function () {
+      //아이디가 btn1 버튼을 클릭했을때 해당요소앞에 04.png추가
+      $('#btn1').click(() => {
+        $('div').prepend('<img src=02.png>')
+      })
+      //2. id가 btn2 버튼을 클릭했을때 해당요소두에 03.png추가
+      //append()
+
+      //3. id가 btn3인 버튼을 클릭했을때 div 외부요소 앞에 추가
+      // <button id ="newbtn"> 새 버튼</button> => before()
+      $('#btn3').click(() => {
+        $('div').before('<button id ="newbtn">새버튼')
+      })
+      //4. id가 btn4를 클릭했을 때 id가 img1 삭제 : remove()
+
+      $('#btn4').click(() => {
+        $('#plz').remove()
+
+        idx--;
+
+
+      })
+      //5. btn5클릭할때 div요소 삭제:empty()
+      $('#btn5').click(() => {
+        $('div').empty()
+      })
+      //6. btn6 클릭할때 img요소에 c1인 클래스 추가 : addClass()
+      $('#btn6').click(() => {
+        $('img').addClass('c1')
+      })
+      //7. btn7클릭할때 img요소에 c1인 클래스 삭제 : removeClass()
+      $('#btn7').click(() => {
+        $('img').removeClass('c1')
+      })
+      //8. btn8클릭할 때 배경색 변경 부모요소접근 parent()       
+
+    })
+
+  </script>
+</body>
+
+</html>
