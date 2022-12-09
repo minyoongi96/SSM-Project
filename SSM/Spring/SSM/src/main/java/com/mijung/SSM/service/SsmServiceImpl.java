@@ -284,8 +284,4 @@ public class SsmServiceImpl implements SsmService{
 		return ItemSentimentMap;
 	}
 	
-	
-
-
-	
 }
