@@ -33,7 +33,7 @@ public class SsmController {
 		return "login";
 	}
 	
-	@PostMapping(value = "/login.do")
+	@PostMapping(value = "/list.do")
 	public String loginId(Users user, HttpSession session, Model model){
 		if(ssmService.loginCheck(user) == false) {
 			return "redirect:/main.do";
@@ -44,7 +44,7 @@ public class SsmController {
 			
 			List<Broadcasting> bcList = ssmService.BcFindAllByUsersVO(LoginUser);
 			model.addAttribute("bcList", bcList);
-			
+
 			return "list";
 		}
 	}

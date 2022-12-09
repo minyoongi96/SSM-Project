@@ -270,7 +270,19 @@ public class SsmServiceImpl implements SsmService{
 		return boardList;
 	}
 	
-	// 8. 기여도 계산은 자바스크립트에서
+	// 아이템 감성점수 데이터
+	@Override
+	public Map<String, Double> itemSentiment(Long itemSeq) {
+		Items item = iRepository.findByItemSeq(itemSeq);
+		List<SentimentDto> sentimentList = rRepository.getSentimentAvg(item);
+		Map<String, Double> ItemSentimentMap = new HashMap<String, Double>();
+		
+		for(SentimentDto sentiment : sentimentList) {
+			ItemSentimentMap.put(sentiment.getCategory(), sentiment.getAvg());
+		}
+		
+		return ItemSentimentMap;
+	}
 	
 	
 

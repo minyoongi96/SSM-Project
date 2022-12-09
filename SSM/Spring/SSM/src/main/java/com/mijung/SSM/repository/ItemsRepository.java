@@ -9,4 +9,6 @@ import com.mijung.SSM.entity.OurCategory;
 
 public interface ItemsRepository extends JpaRepository<Items, Long>{
 	List<Items> findAllByOurCategoryVO(OurCategory ocVO);
+
+	Items findByItemSeq(Long itemSeq);
 }

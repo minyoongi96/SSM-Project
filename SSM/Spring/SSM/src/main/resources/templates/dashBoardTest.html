@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+
+
+  <!-- ===============================================-->
+  <!--    Stylesheets-->
+  <!-- ===============================================-->
+  <script src="/js/config.navbar-vertical.js"></script>
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+  <link href="/libs/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet">
+  <link href="/css/theme.css" rel="stylesheet">
+  <link href="/libs/datatables-bs4/dataTables.bootstrap4.min.css" rel="stylesheet">
+  <link href="/libs/datatables.net-responsive-bs4/responsive.bootstrap4.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link href="/libs/raty-js/jquery.raty.css" rel="stylesheet">
+  <!--스크립트-->
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+  <script src="https://cdn.anychart.com/releases/v8/js/anychart-base.min.js"></script>
+  <script src="https://cdn.anychart.com/releases/v8/js/anychart-tag-cloud.min.js"></script>
+  <script src="/libs/raty-js/jquery.raty.js"></script>
+  <script src="/js/dashboardTest.js"></script>
+  
+  
+  <!--성별-->
+  <script>
+    const data = {
+      labels: [
+        'Red',
+        'Blue',
+        'Yellow'
+      ],
+      datasets: [{
+        label: 'My First Dataset',
+        data: [300, 50, 100],
+        backgroundColor: [
+          'rgb(255, 99, 132)',
+          'rgb(54, 162, 235)',
+          'rgb(255, 205, 86)'
+        ],
+        hoverOffset: 4
+      }]
+    };
+    const config = {
+      type: 'doughnut',
+      data: data,
+    };
+
+    const myChart = new Chart(
+      document.getElementById('chart_sex'),
+      config
+    );
+    myChart.render();
+  </script>
+
+
+  <!--시청자 증감수 -->
+  <script>
+    $(function () {
+      var options = {
+        series: [{
+          //데이터 : 3분동안의 시청자 증감 수
+          data: [
+            {
+              x: 1,
+              y: [15, 15, 1, 1]
+            },
+            {
+              x: 2,
+              y: [15, 15, 1, 1]
+            }, {
+              x: 3,
+              y: [3, 3, 15, 15]
+            }, {
+              x: 4,
+              y: [30, 30, 15, 15]
+            }, {
+              x: 5,
+              y: [30, 30, 15, 15]
+            }, {
+              x: 6,
+              y: [30, 30, 15, 15]
+            }, {
+              x: 7,
+              y: [30, 30, 15, 15]
+            }, {
+              x: 8,
+              y: [30, 30, 15, 15]
+            }, {
+              x: 9,
+              y: [30, 30, 15, 15]
+            }, {
+              x: 10,
+              y: [30, 30, 15, 15]
+            }, {
+              x: 11,
+              y: [30, 30, 15, 15]
+            }, {
+              x: 12,
+              y: [30, 30, 15, 15]
+            }, {
+              x: 13,
+              y: [30, 30, 15, 15]
+            }, {
+              x: 14,
+              y: [30, 30, 15, 15]
+            }, {
+              x: 15,
+              y: [30, 30, 15, 15]
+            }, {
+              x: 16,
+              y: [30, 30, 15, 15]
+            }, {
+              x: 17,
+              y: [30, 30, 15, 15]
+            }, {
+              x: 18,
+              y: [30, 30, 15, 15]
+            }, {
+              x: 19,
+              y: [30, 30, 15, 15]
+            }, {
+              x: 20,
+              y: [30, 30, 15, 15]
+            }]
+        }],
+        chart: {
+          type: 'candlestick',
+          height: 350
+        },
+        xaxis: {
+          type: 'time'
+        },
+        yaxis: {
+          tooltip: {
+            enabled: true
+          }
+        },
+        plotOptions: {
+          candlestick: {
+            colors: {
+              upward: '#FD8A9E',
+              downward: '#6FC5FD'
+            }
+          }
+        }
+      };
+      // var chart = new ApexCharts(document.querySelector("#keyword-reactions-chart"), options);
+      // chart.render();
+      var chart2 = new ApexCharts(document.querySelector("#chart_viewer"), options);
+      
+      chart2.render();
+    })
+  </script>
+
+
+
+  <!--긍정 워드클라우드-->
+  <script>
+    anychart.onDocumentReady(function () {
+
+      var data = [
+        {
+          "x": "디자인",
+          "value": 362
+        },
+        {
+          "x": "아기",
+          "value": 332
+        },
+        {
+          "x": "매트",
+          "value": 252
+        },
+        {
+          "x": "구매",
+          "value": 250
+        }, {
+          "x": "인견",
+          "value": 236
+        }, {
+          "x": "여름",
+          "value": 200,
+        }, {
+          "x": "만족",
+          "value": 197,
+        }, {
+          "x": "땀흡수",
+          "value": 173,
+        }, {
+          "x": "세탁",
+          "value": 158,
+        }, {
+          "x": "배송",
+          "value": 152,
+        }, {
+          "x": "시원",
+          "value": 122,
+        }, {
+          "x": "감촉",
+          "value": 422,
+        }, {
+          "x": "교환",
+          "value": 322,
+        },
+
+
+      ]
+        ;
+      var chart = anychart.tagCloud(data);
+      chart.angles([0]);
+      chart.container("container");
+      chart.normal().fontWeight(600);
+      // chart.getCredits().setEnabled(false);
+      chart.draw();
+
+    });
+  </script>
+
+  <!--부정 워드클라우드-->
+  <script>
+    anychart.onDocumentReady(function () {
+      var data = [
+        {
+          "x": "배송",
+          "value": 662
+        },
+        {
+          "x": "세탁",
+          "value": 332
+        },
+        {
+          "x": "얇아",
+          "value": 252
+        },
+        {
+          "x": "느려",
+          "value": 450
+        }, {
+          "x": "지연",
+          "value": 236
+        },
+        {
+          "x": "비싸",
+          "value": 280
+        },
+        {
+          "x": "너무",
+          "value": 140
+        }, {
+          "x": "맨살",
+          "value": 120
+        }, {
+          "x": "이미지",
+          "value": 40
+        }, {
+          "x": "사이즈",
+          "value": 422,
+        }, {
+          "x": "불량",
+          "value": 132,
+        },
+      ];
+      var chart = anychart.tagCloud(data);
+      chart.angles([0]);
+      chart.container("container_qnwjd");
+      chart.normal().fontWeight(600);
+      // chart.getCredits().setEnabled(false);
+      chart.draw();
+    });
+  </script>
+
+
+  <!--키워드 별 감성점수-->
+  <script>
+    $(function () {
+      var options = {
+        //데이터 : 제품 카테고리 별 감성점수
+        series: [{
+          name: '디자인',
+          data: [1, -1, 1, 1]
+        }, {
+          name: '만족도',
+          data: [1, -1, 0, 1]
+        }, {
+          name: '기능성',
+          data: [1, -1, -1, -1]
+        }, {
+          name: '안정성',
+          data: [1, 1, 1, -1]
+        }
+        ],
+        chart: {
+          type: 'bar',
+          height: 430
+        },
+        plotOptions: {
+          bar: {
+            horizontal: true,
+            dataLabels: {
+              position: 'top',
+            },
+          }
+        },
+
+        dataLabels: {
+          enabled: true,
+          offsetX: -6,
+          style: {
+            fontSize: '12px',
+            colors: ['#fff']
+          }
+        },
+        stroke: {
+          show: true,
+          width: 1,
+          colors: ['#fff']
+        },
+        tooltip: {
+          shared: true,
+          intersect: false
+        },
+        xaxis: {
+          //데이터 : 제품명
+          //제품명에 비비앤다 그대로 노출되면 안될것같아서 일단 제품 1~n 식으로 진행 
+          categories: ['제품1', '제품2', '제품3', '제품4', '제품5'],
+        },
+      };
+      var chart = new ApexCharts(document.querySelector("#chart_keyword_sense"), options);
+      
+      chart.render();
+    });
+  </script>
+
+
+
+  <!--카테고리 판매 기여도-->
+  <script>
+    $(function () {
+      var options = {
+        series: [{
+          name: '제품 1',
+          data: [80, 50, 30, 40],
+        }, {
+          name: '제품 2',
+          data: [20, 30, 40, 80],
+        }, {
+          name: '제품 3',
+          data: [14, 26, 78, 13],
+        }, {
+          name: '제품 4',
+          data: [3, 7, 7, 93],
+        }, {
+          name: '제품 5',
+          data: [44, 76, 79, 23],
+        },
+        ],
+        chart: {
+          height: 500,
+          type: 'radar',
+          dropShadow: {
+            enabled: true,
+            blur: 1,
+            left: 1,
+            top: 1
+          }
+        },
+        stroke: {
+          width: 3
+        },
+        fill: {
+          opacity: 0.1
+        },
+        markers: {
+          size: 0
+        },
+        xaxis: {
+          categories: ['디자인', '안정성', '가격', '기능성']
+        }
+      };
+
+      var chart = new ApexCharts(document.querySelector("#chart_sales"), options);
+      chart.render();
+
+    })
+  </script>
+
+
+</head>
+
+<body>
+
+
+      
+  <!-- ===============================================-->
+  <!--    메뉴바   -->
+  <!-- ===============================================-->
+  <main class="main" id="top">
+    <div class="container" data-layout="container">
+      <nav class="navbar navbar-vertical navbar-expand-xl navbar-light">
+        <div class="d-flex align-items-center">
+          <div class="toggle-icon-wrapper">
+            <button class="btn navbar-toggler-humburger-icon navbar-vertical-toggle" data-toggle="tooltip"
+              data-placement="left"><span class="navbar-toggle-icon"><span class="toggle-line"></span></span></button>
+          </div><a class="navbar-brand" href="../index.html">
+            <div class="d-flex align-items-center py-3"><span class="text-sans-serif">SSM</span>
+            </div>
+          </a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbarVerticalCollapse">
+          <div class="navbar-vertical-content perfect-scrollbar scrollbar">
+            <div class="navbar-vertical-divider">
+              <hr class="navbar-vertical-hr my-2" />
+            </div>
+            <ul class="navbar-nav flex-column">
+              <li class="nav-item"><a class="nav-link" href="./방송목록.html">
+                  <div class="d-flex align-items-center">
+                  <span class="nav-link-icon"><span class="fas fa-poll"></span></span><span class="nav-link-text"> Live-Commerce</span>
+                  </div>
+                </a></li>
+              <li class="nav-item"><a class="nav-link" href="./글목록.html">
+                  <div class="d-flex align-items-center"><span class="nav-link-icon"><span
+                        class="fas fa-comments"></span></span><span class="nav-link-text">Contect</span>
+                  </div>
+                </a></li>
+            </ul>
+            <div class="navbar-vertical-divider">
+              <hr class="navbar-vertical-hr my-2" />
+            </div>
+            <ul class="navbar-nav flex-column">
+
+              <li class="nav-item"><a class="nav-link" href="../changelog.html">
+                  <div class="d-flex align-items-center"><span class="nav-link-icon"><span
+                        class="fas fa-code-branch"></span></span><span class="nav-link-text"> About</span><span
+                      class="badge badge-pill ml-2 badge-soft-primary">v1</span>
+                  </div>
+                </a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <div class="content">
+        <nav class="navbar navbar-light navbar-glass navbar-top sticky-kit navbar-expand">
+          <button class="btn navbar-toggler-humburger-icon navbar-toggler mr-1 mr-sm-3" type="button"
+            data-toggle="collapse" data-target="#navbarVerticalCollapse" aria-controls="navbarVerticalCollapse"
+            aria-expanded="false" aria-label="Toggle Navigation"><span class="navbar-toggle-icon"><span
+                class="toggle-line"></span></span></button>
+          <a class="navbar-brand mr-1 mr-sm-3" href="../index.html">
+            <div class="d-flex align-items-center">
+              <span class="text-sans-serif">SSM</span>
+            </div>
+          </a>
+          <ul class="navbar-nav navbar-nav-icons ml-auto flex-row align-items-center">
+            <li class="nav-item dropdown dropdown-on-hover"><a class="nav-link pr-0" id="navbarDropdownUser" href="#"
+                role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                '<span th:text="${session.user.userId}"></span>'님 안녕하세요.
+              </a>
+              <div class="dropdown-menu dropdown-menu-right py-0" aria-labelledby="navbarDropdownUser">
+                <div class="bg-white rounded-soft py-2">
+                  <a class="dropdown-item" href="http://127.0.0.1:5500/SSM/page/real_main.html">Logout</a>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </nav><div class="row no-gutters">
+          <div class="col-md-6 col-xxl-3 mb-3 pr-md-2">
+            <div class="card h-md-100">
+              <div class="card-header bg-light py-2"
+                style="background-image: linear-gradient(to top, #D5E5FA 0%, #D5E5FA 100%);">
+                <div class="row flex-between-center">
+                  <div class="col-auto">
+                    <h6 class="mb-0">평균 별점</h6>
+                  </div>
+                </div>
+              </div>
+              <div class="row flex-grow-1">
+                <div class="col align-self-end" style="top:-20%;">
+                  <!--누적 판매수량-->
+                  <h6 class="fs-0 mb-1" style="font-size: 25px;">
+                      &nbsp;&nbsp;&nbsp;&nbsp; <span style="font-size: 20px;font-family: 'Sunflower', sans-serif;">디자인 : </span> <span style="color:yellow;">★</span><br>
+                      &nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size: 20px;font-family: 'Sunflower', sans-serif;"> 만족도 : </span> <span>:별:</span><br>
+                      &nbsp;&nbsp;&nbsp;&nbsp; <span style="font-size: 20px;font-family: 'Sunflower', sans-serif;">안정성 : </span> <span>:별::별:</span><br>
+                      &nbsp;&nbsp;&nbsp;&nbsp; <span style="font-size: 20px;font-family: 'Sunflower', sans-serif;">기능성 : </span> <span>:별::별::별::별:</span><br>
+                  </h6>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-xxl-3 mb-3 pl-md-2 pr-xxl-2">
+            <div class="card h-md-100">
+              <div class="card-header bg-light py-2"
+                style="background-image: linear-gradient(to top, #D5E5FA 0%, #D5E5FA 100%);">
+                <div class="row flex-between-center">
+                  <div class="col-auto">
+                    <h6 class="mb-0">판매수량</h6>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body pt-0">
+                <div class="row h-100">
+                  <div class="col align-self-end" style="top:-30%;">
+                    <!--누적 판매수량-->
+                    <h6 class="fs-0 mb-1" style="font-size: 30px;"><span class="fas fa-check text-success mr-1"
+                        data-fa-transform="shrink-2"></span><span id="salesCnt" style="font-family: 'Sunflower', sans-serif;"></span></h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-xxl-3 mb-3 pl-md-2 pr-xxl-2">
+            <div class="card h-md-100">
+              <div class="card-header bg-light py-2"
+                style="background-image: linear-gradient(to top, #D5E5FA 0%, #D5E5FA 100%);">
+                <div class="row flex-between-center">
+                  <div class="col-auto">
+                    <h6 class="mb-0">예상 매출액</h6>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body pt-0">
+                <div class="row h-100">
+                  <div class="col align-self-end" style="top:-30%;">
+                    <!--누적 판매수량-->
+                    <h6 class="fs-0 mb-1" style="font-size: 30px;"><span class="fas fa-check text-success mr-1"
+                        data-fa-transform="shrink-2"></span><span id="salesPred" style="font-family: 'Sunflower', sans-serif;"></span></h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-xxl-3 mb-3 pl-md-2">
+            <div class="card h-md-100">
+              <div class="card-header bg-light py-2"
+                style="background-image: linear-gradient(to top, #D5E5FA 0%, #D5E5FA 100%);">
+                <div class="row flex-between-center">
+                  <div class="col-auto">
+                    <h6 class="mb-0">실적률</h6>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body pt-2">
+                <div class="row no-gutters h-100 align-items-center">
+                  <div class="col">
+                    <div id="chart_goal"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--테이블-->
+        <div class="row">
+          <div class="col">
+            <div class="card mb-3">
+              <div class="card-header bg-light py-2"style="background-image: linear-gradient(to top, #D5E5FA 0%, #D5E5FA 100%);">
+                <div class="row flex-between-center">
+                  <div class="col-auto">
+                    <h6 class="mb-0">키워드별 고객이벤트 발생 추이</h6>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body p-0">
+                <div class="falcon-data-table">
+                  <table
+                    class="table table-sm mb-0 table-striped table-dashboard fs--1 data-table border-bottom border-200"
+                    data-options='{"searching":false,"responsive":false,"info":false,"lengthChange":false,"sWrapper":"falcon-data-table-wrapper","dom":"<&#39;row mx-1&#39;<&#39;col-sm-12 col-md-6&#39;l><&#39;col-sm-12 col-md-6&#39;f>><&#39;table-responsive&#39;tr><&#39;row no-gutters px-1 py-3 align-items-center justify-content-center&#39;<&#39;col-auto&#39;p>>","language":{"paginate":{"next":"<span class=\"fas fa-chevron-right\"></span>","previous":"<span class=\"fas fa-chevron-left\"></span>"}}}'>
+                    <thead class="bg-200 text-900">
+                      <tr>
+                      	<!--
+                        <th class="align-middle no-sort" style="width: 60px;">
+                          <div class="custom-control custom-checkbox">
+                            <input class="custom-control-input checkbox-bulk-select" id="checkbox-bulk-purchases-select"
+                              type="checkbox" data-checkbox-body="#orders" data-checkbox-actions="#orders-actions"
+                              data-checkbox-replaced-element="#dashboard-actions">
+                            <label class="custom-control-label" for="checkbox-bulk-purchases-select"></label>
+                          </div>
+                        </th>
+                        -->
+                        <th class="align-middle sort" style="width: 90px;">등장 시간</th>
+                        <th class="align-middle sort" style="width: 90px;">카테고리</th>
+                        <th class="align-middle sort" style="width: 90px;">키워드</th>
+                        <th class="sort sort" style="width: 80px;">판매</th>
+                        <th class="sort sort" style="width: 80px;">장바구니</th>
+                        <th class="sort sort" style="width: 80px;">조회 수</th>
+                        <th class="sort sort" style="width: 80px;">시청자</th>
+                        <th class="sort sort" style="width: 80px;">댓글</th>
+                        <th class="sort sort" style="width: 80px;">찜하기</th>
+                      </tr>
+                    </thead>
+
+                    <!--테이블내용-->
+                    <tbody id="orders">
+                      <!--<tr class="btn-reveal-trigger">
+                      
+                        <td class="py-2 align-middle">
+                          <div class="custom-control custom-checkbox">
+                            <input class="custom-control-input checkbox-bulk-select-target" type="checkbox"
+                              id="checkbox-0" />
+                            <label class="custom-control-label" for="checkbox-0"></label>
+                          </div>
+                        </td>
+                        
+                        <td class="py-2 align-middle">00:29</td>
+                        <td class="py-2 align-middle">디자인</td>
+                        <td class="py-2 align-middle">예쁜</td>
+                        <td class="py-2 align-middle">20명</td>
+                        <td class="py-2 align-middle">100명</td>
+                        <td class="py-2 align-middle">20명</td>
+                        <td class="py-2 align-middle">300명</td>
+                        <td class="py-2 align-middle">150명</td>
+                        <td class="py-2 align-middle">100명</td>
+                      </tr>-->
+                        <!--데이터 : 음성키워드별 고객 이벤트 발생 추이-->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <!--시간대 별 고객이벤트-->
+        <div class="row">
+          <div class="col">
+            <div class="card">
+              <div class="card-header bg-light py-2"style="background-image: linear-gradient(to top, #D5E5FA 0%, #D5E5FA 100%);">
+                <div class="row flex-between-center">
+                  <div class="col-auto">
+                    <h6 class="mb-0">시간대 별 고객 이벤트</h6>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="w-100">
+                  <div id="viewer-reactions"></div>
+                  <div id="keyword-reactions-chart"></div>
+                </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br>
+
+        <!--시청자 성별 차트-->
+        <div class="row">
+          <div class="col-lg-5 col-xl-4">
+            <div class="card h-lg-100">
+              <div class="card-header bg-light py-2"style="background-image: linear-gradient(to top, #D5E5FA 0%, #D5E5FA 100%);">
+                <div class="row flex-between-center">
+                  <div class="col-auto">
+                    <h6 class="mb-0">시청자 성별 차트</h6>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body d-flex align-items-center">
+                <div class="w-100">
+                  <div>
+                    <canvas id="chart_sex"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-7 col-xl-8 ">
+            <div class="card h-lg-100 overflow-hidden">
+              <div class="card-header bg-light py-2"style="background-image: linear-gradient(to top, #D5E5FA 0%, #D5E5FA 100%);">
+                <div class="row flex-between-center">
+                  <div class="col-auto">
+                    <h6 class="mb-0">시청자 증감수</h6>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body d-flex align-items-center">
+                <div class="w-100">
+                  <div id="chart_viewer">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="row no-gutters">
+          <div class="col-lg-6 pr-lg-2 mb-3">
+            <div class="card h-lg-100 overflow-hidden">
+              <div class="card-header bg-light py-2"style="background-image: linear-gradient(to top, #D5E5FA 0%, #D5E5FA 100%);">
+                <div class="row flex-between-center">
+                  <div class="col-auto">
+                    <h6 class="mb-0">긍정 리뷰 워드클라우드</h6>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body p-0">
+                <br><br>
+                <div class="w-100">
+                  <div class="chart-area">
+                    <div id="container"></div>
+                  </div>
+                </div>
+                <br><br>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 pr-lg-2 mb-3">
+            <div class="card h-lg-100 overflow-hidden">
+              <div class="card-header bg-light py-2"style="background-image: linear-gradient(to top, #D5E5FA 0%, #D5E5FA 100%);">
+                <div class="row flex-between-center">
+                  <div class="col-auto">
+                    <h6 class="mb-0">부정 리뷰 워드클라우드</h6>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body p-0">
+                <div class="w-100">
+                  <br><br>
+                  <div class="chart-area">
+                    <div id="container_qnwjd"></div>
+                  </div>
+                  <br><br>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row no-gutters">
+          <div class="col-lg-6 pr-lg-2 mb-3">
+            <div class="card h-lg-100 overflow-hidden">
+              <div class="card-header bg-light py-2"style="background-image: linear-gradient(to top, #D5E5FA 0%, #D5E5FA 100%);">
+                <div class="row flex-between-center">
+                  <div class="col-auto">
+                    <h6 class="mb-0">카테고리 별 감성점수</h6>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body p-0">
+                <br><br>
+                <div class="w-100">
+                  <div>
+                    <div id="chart_keyword_sense"></div>
+                  </div>
+                </div>
+                <br><br>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 pr-lg-2 mb-3">
+            <div class="card h-lg-100 overflow-hidden">
+              <div class="card-header bg-light py-2"style="background-image: linear-gradient(to top, #D5E5FA 0%, #D5E5FA 100%);">
+                <div class="row flex-between-center">
+                  <div class="col-auto">
+                    <h6 class="mb-0">카테고리 판매 기여도</h6>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body p-0">
+                <div class="w-100">
+                  <br><br>
+                  <div class="chart-area">
+                    <div id="chart_sales">
+                    </div>
+                    <br><br>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card mt-3" style="width: 100%;">
+            <div class="card-body">
+              <div class="row justify-content-between align-items-center">
+                <div class="col-md">
+                  <h5 class="mb-2 mb-md-0" style="font-family: 'Sunflower', sans-serif;">분석 보고서 출력하기</h5>
+                </div>
+                <div class="col-auto">
+                  <button class="btn btn-falcon-primary btn-sm">내보내기</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <footer>
+          <div class="row no-gutters justify-content-between fs--1 mt-4 mb-3">
+            <div class="col-12 col-sm-auto text-center">
+              <p class="mb-0 text-600">미정이조<span class="d-none d-sm-inline-block">| </span><br class="d-sm-none" />
+                2022
+                &copy; <a href="https://themewagon.com">광주인공지능사관학교</a></p>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+  </main>
+  <!-- ===============================================-->
+  <!--    End of Main Content-->
+  <!-- ===============================================-->
+
+
+
+
+  <!-- ===============================================-->
+  <!--    JavaScripts-->
+  <!-- ===============================================-->
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/popper.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+  <script src="/libs/@fortawesome/all.min.js"></script>
+  <script src="/libs/stickyfilljs/stickyfill.min.js"></script>
+  <script src="/libs/sticky-kit/sticky-kit.min.js"></script>
+  <script src="/libs/is_js/is.min.js"></script>
+  <script src="/libs/lodash/lodash.min.js"></script>
+  <script src="/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700%7cPoppins:100,200,300,400,500,600,700,800,900&amp;display=swap"
+    rel="stylesheet">
+  <script src="/libs/echarts/echarts.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.15/browser-polyfill.min.js"></script>
+  <script src="/libs/progressbar.js/progressbar.min.js"></script>
+  <script src="/js/theme.js"></script>
+  <script src="/libs/datatables/js/jquery.dataTables.min.js"></script>
+  <script src="/libs/datatables-bs4/dataTables.bootstrap4.min.js"></script>
+  <script src="/libs/datatables.net-responsive/dataTables.responsive.js"></script>
+  <script src="/libs/datatables.net-responsive-bs4/responsive.bootstrap4.js"></script>
+  <script src="/libs/chart.js/Chart.min.js"></script>
+
+
+
+
+
+
+</body>
+
+</html>

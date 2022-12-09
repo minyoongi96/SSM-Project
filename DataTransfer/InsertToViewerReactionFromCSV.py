@@ -37,5 +37,5 @@ if __name__ == "__main__":
     PATH = 'C:/2nd_project/SSM/ViewerReaction_Data/'
     # file_list = os.listdir(PATH)
     # for file in file_list:
-    file = '포근포근 겨울준비 비비엔다 덮어줘 특가.csv'
+    file = '22년 얼리버드 썸머특가! 비비엔다 인견편.csv'
     convertToViewerReaction(file, filepath=PATH)
