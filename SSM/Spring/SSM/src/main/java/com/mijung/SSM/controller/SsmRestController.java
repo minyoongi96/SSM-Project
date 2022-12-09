@@ -44,4 +44,14 @@ public class SsmRestController {
 		return gson.toJson(itemSentimentMap);
 	}
 	
+	// 아이템 별점
+	@RequestMapping(value="/itemStar/{itemSeq}", method=RequestMethod.GET)
+	public String itemStar(@PathVariable("itemSeq") final Long itemSeq) {
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+			
+		Map<String, Double> itemStarMap = ssmService.itemStar(itemSeq);
+			
+		return gson.toJson(itemStarMap);
+	}
+	
 }
