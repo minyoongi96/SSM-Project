@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
-
+<html xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -59,12 +59,12 @@
               <hr class="navbar-vertical-hr my-2" />
             </div>
             <ul class="navbar-nav flex-column">
-              <li class="nav-item"><a class="nav-link" href="./방송목록.html">
+              <li class="nav-item"><a class="nav-link" href="이거 어떻게 넣지?">
                   <div class="d-flex align-items-center"><span class="nav-link-icon"><span
                         class="fas fa-poll"></span></span><span class="nav-link-text"> Live-Commerce</span>
                   </div>
                 </a></li>
-              <li class="nav-item"><a class="nav-link" href="./글목록.html">
+              <li class="nav-item"><a class="nav-link" href="/boardList.do">
                   <div class="d-flex align-items-center"><span class="nav-link-icon"><span
                         class="fas fa-comments"></span></span><span class="nav-link-text">Contect</span>
                   </div>
@@ -208,7 +208,7 @@
           <ul class="navbar-nav navbar-nav-icons ml-auto flex-row align-items-center">
             <li class="nav-item dropdown dropdown-on-hover"><a class="nav-link pr-0" id="navbarDropdownUser" href="#"
                 role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                '김미정'님 안녕하세요.
+                <span th:text="|${session.user.userCompany}님 안녕하세요.|"></span>
               </a>
               <div class="dropdown-menu dropdown-menu-right py-0" aria-labelledby="navbarDropdownUser">
                 <div class="bg-white rounded-soft py-2">
@@ -225,7 +225,7 @@
           <div class="card mb-3">
             <div class="card-body d-flex justify-content-between">
               <!--뒤로가기-->
-              <div><a class="btn btn-falcon-default btn-sm" href="./글목록.html" data-toggle="tooltip" data-placement="top" title="Back to inbox"><span class="fas fa-arrow-left"></span></a><span class="mx-1 mx-sm-2 text-300">|</span>
+              <div><a class="btn btn-falcon-default btn-sm" href="/boardList.do" data-toggle="tooltip" data-placement="top" title="Back to inbox"><span class="fas fa-arrow-left"></span></a><span class="mx-1 mx-sm-2 text-300">|</span>
               </div>
             </div>
           </div>
@@ -238,29 +238,33 @@
 
                     </div>
                     <div class="media-body ml-2">
-                      <h5 class="mb-0">글 제목</h5><a class="text-800 fs--1" href="#!"><span class="font-weight-semi-bold">작성자</span><span class="ml-1 text-500">회사이름</span></a>
+                      <h5 class="mb-0"><span th:text="${boardVO.boardTitle}"></span></h5><a class="text-800 fs--1" href="#!"><span class="font-weight-semi-bold"><span th:text="${boardVO.usersVO.userId}"></span></span><span class="ml-1 text-500"><span th:text="${boardVO.usersVO.userCompany}"></span></span></a>
                     </div>
                   </div>
                 </div>
-                <div class="col-auto ml-auto d-flex align-items-center"><small>작성시간</small></div>
+                <div class="col-auto ml-auto d-flex align-items-center"><small><span th:text="${boardVO.boardDate}"></span></small></div>
               </div>
             </div>
             <div class="card-body bg-light">
-              글내용
+              <span th:text="${boardVO.boardContents}"></span>
             </div>
             <div class="card-footer"> 
             </div>
           </div>
           <br>
           <!--답글-->
+          
+        
           <div class="card">
             <div class="card-header">
               <div class="row"> 
-                <div class="col-auto ml-auto d-flex align-items-center"><small>작성시간</small></div>
+                <div class="col-auto ml-auto d-flex align-items-center"><small></small></div>
               </div>
             </div>
             <div class="card-body bg-light">
-              처리내용
+            
+              <span th:if="${comment != null}" th:text="${comment.commentContent}"></span>
+              <span th:if="${comment == null}">답변 대기 중</span>
             </div>
             <div class="card-footer"> 
             </div>
@@ -272,17 +276,20 @@
             <div class="card h-100">
               <div class="card-header bg-light">
                 <div class="media align-items-center"> 
-                  <div class="media-body ml-2">
-                    <h5 class="mb-0 fs-0">답글 남기기</h5>
+                  <div class="media-body ml-2">                <!--   이거 밑에 답변하기에 조건 추가 해!! 그리고 이거는 뭔지 확인해!!-->
+                    <h5 th:if="${comment == null} and ${session.user.userId.toString().equals('관리자')}" class="mb-0 fs-0">답글 남기기</h5>
+                  	<h5 th:if="${comment != null} and ${session.user.userId.toString().equals('관리자')}" class="mb-0 fs-0">답글 수정</h5>
                   </div>
                 </div>
               </div>
               <div class="card-body p-0">
-                <form>
-                  <textarea class="form-control border-0 rounded-0 resize-none" placeholder="답글을 입력하세요" rows="4"></textarea>
+                <form method="get" th:action="@{/insert.do/{boardSeq}(boardSeq=${boardVO.boardSeq})}">
+                  <textarea th:if="${comment == null}" name="commentContent" class="form-control border-0 rounded-0 resize-none" placeholder="답글을 입력하세요" rows="4"></textarea>
+                  <textarea th:if="${comment != null}" name="commentContent" class="form-control border-0 rounded-0 resize-none" th:placeholder="${comment.commentContent}" rows="4"></textarea>
                   <div class="row no-gutters justify-content-between mt-3 px-3 pb-3">                                                                       
-                    <div class="col-auto">
-                      <button class="btn btn-primary btn-sm px-4 px-sm-5" type="submit">답변하기</button>
+                    <div class="col-auto">         
+                      <button th:if="${comment == null}" class="btn btn-primary btn-sm px-4 px-sm-5" type="submit">답변하기</button> 
+					  <button th:if="${comment != null}" class="btn btn-primary btn-sm px-4 px-sm-5" type="submit">수정하기</button>
                     </div>
                   </div>
                 </form>

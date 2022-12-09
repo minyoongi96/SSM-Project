@@ -206,7 +206,7 @@
           <ul class="navbar-nav navbar-nav-icons ml-auto flex-row align-items-center">
             <li class="nav-item dropdown dropdown-on-hover"><a class="nav-link pr-0" id="navbarDropdownUser" href="#"
                 role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span th:text="|${session.user.userId}님 안녕하세요.|"></span>
+                <span th:text="|${session.user.userCompany}님 안녕하세요.|"></span>
               </a>
               <div class="dropdown-menu dropdown-menu-right py-0" aria-labelledby="navbarDropdownUser">
                 <div class="bg-white rounded-soft py-2">
@@ -239,7 +239,7 @@
                             <label class="custom-control-label" for="checkbox-bulk-purchases-select"></label>
                           </div>
                         </th>
-                        <th class="sort pr-1 align-middle">아이디</th>
+                        <th class="sort pr-1 align-middle">기업명</th>
                         <th class="sort pr-1 align-middle">작성일자</th>
                         <th class="sort pr-1 align-middle">제목</th>
                         <th class="sort pr-1 align-middle text-center">처리상태</th>
@@ -249,7 +249,6 @@
                     </thead>
 
                     <tbody id="purchases">
-							<!--  TODO 반복문 적용 시키기 -->
                       <tr th:each="board : ${boardList}" class="btn-reveal-trigger">
                         <td class="align-middle">
                           <div class="custom-control custom-checkbox">
@@ -258,9 +257,9 @@
                             <label class="custom-control-label" for="checkbox-0"></label>
                           </div>
                         </td>
-                        <td th:text="${board.usersVO.userId}" class="align-middle"></th>
+                        <td th:text="${board.usersVO.userCompany}" class="align-middle"></th>
                         <td th:text="${board.boardDate}" class="align-middle"></td>
-                        <td th:text="${board.boardTitle}" class="align-middle"><a href="boardView.do"></a></td>
+                        <td class="align-middle"><a th:href="@{/boardView.do/{boardSeq}(boardSeq=${board.boardSeq})}" th:text="${board.boardTitle}"></a></td>
                         <td class="align-middle text-center fs-0"><span
                             class="badge badge rounded-capsule badge-soft-success">완료<span class="ml-1 fas fa-check"
                               data-fa-transform="shrink-2"></span></span>
@@ -273,7 +272,7 @@
                               aria-expanded="false"><span class="fas fa-ellipsis-h fs--1"></span></button>
                             <div class="dropdown-menu dropdown-menu-right border py-0" aria-labelledby="dropdown0">
                               <div class="bg-white py-2">
-                                <a class="dropdown-item text-danger" href="#!">Delete</a>
+                                <a class="dropdown-item text-danger" th:href="@{/delete.do/{boardSeq}(boardSeq=${board.boardSeq})}">Delete</a>
                               </div>
                             </div>
                           </div>

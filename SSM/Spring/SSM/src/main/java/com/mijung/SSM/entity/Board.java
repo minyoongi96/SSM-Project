@@ -1,6 +1,8 @@
 package com.mijung.SSM.entity;
 
-import java.sql.Date;
+
+import java.time.LocalDate;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +13,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
 
 import lombok.Data;
 
@@ -26,8 +33,11 @@ public class Board {
 	@Column(name = "board_title", nullable = false, length = 500)
 	private String boardTitle;
 	
-	@Column(name = "board_date", nullable = false)
-	private Date boardDate;
+//	@Temporal(TemporalType.TIMESTAMP)	// 날짜 타입일 때 사용
+//	@UpdateTimestamp
+	@CreatedDate
+	@Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", name = "board_date", nullable = false)
+	private LocalDate boardDate;
 	
 	@Column(name = "board_content", nullable = false, length=500)
 	private String boardContents;
