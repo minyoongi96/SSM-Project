@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>liveList</title>
+    <title>방송 리스트</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -24,12 +24,26 @@
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-    <script>
+    <script type="text/javascript">
         ; $(function () {
             $('#sidebarToggle').trigger('click');
             $('#sidebarToggle').css({ 'display': 'none' });
         });
 
+    </script>
+    <script th:inline="javascript">
+    	function loadDashboard(bcSeq){    		
+    		var url = '/loadingDashboard.do/' +bcSeq;
+    		var width=1400, height=700;
+    		var left = (screen.availWidth - width)/2;
+    		var top = (screen.availHeight - height)/2;
+    		var specs = "width=" + width;
+    		specs += ",height=" + height;
+    		specs += ",left=" + left;
+    		specs += ",top=" + top;
+    		
+    		window.open(url, '_blank', specs);
+    	}
     </script>
 
 </head>
@@ -149,15 +163,18 @@
                                                     <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                         <span th:text=*{bcTitle}></span></div>
                                                         <div class="row no-gutters align-items-center">
-                                                             
                                                         </div><img th:src="@{/img/} + *{bcTitle} + @{.png}" style="width:255px;height: 400px;"/>
                                                 </div>
                                             </div>
                                         </div>
                                     </div><div class="my-2";></div>
-                                    <a th:href="@{/loadingDashboard.do/{bcSeq}(bcSeq=*{bcSeq})}" class="btn btn-primary btn-icon-split"style="width:100%;">
+                                    <!--  <a th:href="@{/loadingDashboard.do/{bcSeq}(bcSeq=*{bcSeq})}" class="btn btn-primary btn-icon-split"style="width:100%;">
+                                        <span th:text="상세보기" class="text"></span>
+                                    </a> -->
+                                    <a th:id="*{bcSeq}" th:onclick="loadDashboard(this.getAttribute('id'))" class="btn btn-primary btn-icon-split"style="width:100%;">
                                         <span th:text="상세보기" class="text"></span>
                                     </a>
+                                    <!-- <a th:id="*{bcSeq}" th:onclick="loadDashboard(this.getAttribute('id'))">클릭</a>  -->
                                 </div>
         						</th:block>
         						

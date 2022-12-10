@@ -319,8 +319,6 @@ public class SsmServiceImpl implements SsmService{
 		}
 		
 		return ItemStarMap;
-	}
+	}	
 
-
-	
 }
