@@ -9,6 +9,8 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mijung.SSM.Dto.PerformanceDto;
@@ -19,6 +21,7 @@ import com.mijung.SSM.Dto.SttDto;
 import com.mijung.SSM.Dto.TimeKeywordDto;
 import com.mijung.SSM.entity.Board;
 import com.mijung.SSM.entity.Broadcasting;
+import com.mijung.SSM.entity.Comments;
 import com.mijung.SSM.entity.Items;
 import com.mijung.SSM.entity.OurCategory;
 import com.mijung.SSM.entity.SpeechAnalysis;
@@ -26,6 +29,7 @@ import com.mijung.SSM.entity.Users;
 import com.mijung.SSM.entity.ViewerReaction;
 import com.mijung.SSM.repository.BoardRepository;
 import com.mijung.SSM.repository.BroadcastingRepository;
+import com.mijung.SSM.repository.CommentsRepository;
 import com.mijung.SSM.repository.ItemsRepository;
 import com.mijung.SSM.repository.KeywordsRepository;
 import com.mijung.SSM.repository.OurCategoryRepository;
@@ -65,6 +69,9 @@ public class SsmServiceImpl implements SsmService{
 	
 	@Autowired
 	BoardRepository boardRepository;
+	
+	@Autowired
+	CommentsRepository cmRepository;
 	
 	@Override
 	public Users findByUserId(Users usersVO) {
@@ -269,6 +276,23 @@ public class SsmServiceImpl implements SsmService{
 		
 		return boardList;
 	}
+
+	// boardVO와 연결된 댓글리스트 가져오기
+	@Override
+	public Comments CmFindByBoardVO(Board boardVO) {
+		Comments comment = cmRepository.findByBoardVO(boardVO);
+		
+		return comment;
+	}
+	
+	// get방식으로 boardList에서 boardSeq 가져오면 boardVO 생성
+	@Override
+	public Board BoardFindByBoardSeq(Long BoardSeq) {
+		Board boardVO = boardRepository.findAllByBoardSeq(BoardSeq);
+		return boardVO;
+	}
+	
+
 	
 	// 아이템 감성점수 데이터
 	@Override
