@@ -26,7 +26,7 @@ public class SsmController {
 	
 	@RequestMapping("/main.do")
 	public String main() {
-		return "main";
+		return "real_main";
 	}
 	@RequestMapping("/loginpage.do")
 	public String loginpage() {
@@ -36,6 +36,7 @@ public class SsmController {
 	@PostMapping(value = "/list.do")
 	public String loginId(Users user, HttpSession session, Model model){
 		if(ssmService.loginCheck(user) == false) {
+			System.out.println("==========================");
 			return "redirect:/main.do";
 		}
 		else {
