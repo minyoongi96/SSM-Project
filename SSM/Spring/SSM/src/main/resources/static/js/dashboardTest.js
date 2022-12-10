@@ -326,5 +326,29 @@ function getInvolvement(data){
   return options;    
 } 
 
-
+// 카테고리별 별점 태그 style- width로 차트 그리기
+function starChartTag(category, value) {
+	var hTag = '<h4 class="small font-weight=bold">' + category
+		+ '<span class="float-right">' + value + '%</span></h4>';
+	
+	var divTag1 = '<div class="progress mb-4"><div id="'	// + id값
+	var divTag2 = '" class="progress-bar bg-danger"' +
+	' role="progressbar" style="width: ' + value + '%" aria-valuenow="20"'
+	+ ' aria-valuemin="0" aria-valuemax="100"></div></div>';
+	
+	var tagId = '';
+	if(category == '디자인'){
+		tagId = 'design'; 
+	} else if(category == '만족도'){
+		tagId = 'satisfaction';
+	} else if(category == '안정성') {
+		tagId = 'safety';
+	} else if(category == '소재') {
+		tagId = 'functional'
+	}
+	
+	var divTag = divTag1 + tagId + divTag2;
+	
+	return hTag + divTag;
+}
 

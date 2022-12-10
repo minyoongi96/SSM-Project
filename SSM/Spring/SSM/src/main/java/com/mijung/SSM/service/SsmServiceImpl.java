@@ -308,7 +308,18 @@ public class SsmServiceImpl implements SsmService{
 		return ItemSentimentMap;
 	}
 	
-	
+	@Override
+	public Map<String, Double> itemStar(Long itemSeq){
+		Items item = iRepository.findByItemSeq(itemSeq);
+		List<StarDto> starList = rRepository.getStarAvg(item);
+		Map<String, Double> ItemStarMap = new HashMap<String, Double>();
+		
+		for(StarDto star : starList) {
+			ItemStarMap.put(star.getCategory(), star.getAvg());
+		}
+		
+		return ItemStarMap;
+	}
 
 
 	
