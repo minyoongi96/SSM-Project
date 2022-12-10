@@ -33,11 +33,10 @@ public class Board {
 	@Column(name = "board_title", nullable = false, length = 500)
 	private String boardTitle;
 	
-//	@Temporal(TemporalType.TIMESTAMP)	// 날짜 타입일 때 사용
-//	@UpdateTimestamp
-	@CreatedDate
+	@Temporal(TemporalType.TIMESTAMP)	// 날짜 타입일 때 사용
+	@UpdateTimestamp
 	@Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", name = "board_date", nullable = false)
-	private LocalDate boardDate;
+	private Date boardDate;
 	
 	@Column(name = "board_content", nullable = false, length=500)
 	private String boardContents;

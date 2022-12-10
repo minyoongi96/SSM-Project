@@ -1,974 +1,1025 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<html lang="en-US" dir="ltr">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#ffffff">
 
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-  <!-- ===============================================-->
-  <!--    Stylesheets-->
-  <!-- ===============================================-->
-  <script src="/js/config.navbar-vertical.js"></script>
-  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
-  <link href="/libs/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet">
-  <link href="/css/theme.css" rel="stylesheet">
-  <link href="/libs/datatables-bs4/dataTables.bootstrap4.min.css" rel="stylesheet">
-  <link href="/libs/datatables.net-responsive-bs4/responsive.bootstrap4.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <link href="/libs/raty-js/jquery.raty.css" rel="stylesheet">
-  <!--스크립트-->
-  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-  <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-  <script src="https://cdn.anychart.com/releases/v8/js/anychart-base.min.js"></script>
-  <script src="https://cdn.anychart.com/releases/v8/js/anychart-tag-cloud.min.js"></script>
-  <script src="/libs/raty-js/jquery.raty.js"></script>
+    <title>dashBoard</title>
 
-  <!--ajax-->
-  <script th:inline="javascript">
-    var bcSeq = [[${bcSeq}]];
-    var myData;
+    <!-- Custom fonts for this template-->
+    <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="/css/sb-admin-2.css" rel="stylesheet">
+    <link href="/css/sb-admin-2.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/v8/js/anychart-base.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/v8/js/anychart-tag-cloud.min.js"></script>
     
-     $.ajax({
-        type:"get",
-        url:"/Dashboard/"+bcSeq,
-        async:false,
-        dataType:"json",
-        success: function(data){
-           console.log("성공");
-           myData = data;
-        },
-        error:function(){
-           console.log("실패");
-        }
-        
-     });
-    
-     itemData = myData["Items"];
-     console.log(itemData);
-  
- </script>
-  <!--실적률-->
-  <script>
-    $(function () {
-      var options = {
-        //데이터 : 장바구니 담긴 수 대비 구매량
-        series: [67],
-        chart: {
-          height: 200,
-          type: 'radialBar',
-          offsetY: 5
-        },
-        plotOptions: {
-          radialBar: {
-            startAngle: -135,
-            endAngle: 135,
-            dataLabels: {
-              name: { 
-                fontSize: '16px',
-                color: undefined,
-                offsetY: 70
-              },
-              value: {
-                offsetY: -6,
-                fontSize: '22px',
-                color: undefined,
-                formatter: function (val) {
-                  return val + "%";
+    <script src="/js/dashboardTest.js"></script>
+    <script type="text/javascript">
+    	;$(function () {
+	      $('#sidebarToggle').trigger('click');
+		  $('#sidebarToggle').css({'display': 'none'});
+		  
+    	});
+    </script>
+    <script th:inline="javascript">
+	    ;$(function () {			  
+	      var bcSeq = '[[${bc.bcSeq}]]';
+	      var info = loadData(bcSeq);
+	      
+	      // 1. 평균 별점
+	      
+	      // 2.판매 수량
+	      $('#salesCnt').text("총 결제 : " + info.salesCnt + "건");
+	      
+	      // 3. 예상 매출액
+	      $('#salesPred').text(info.salesPred + "원");
+	      
+	      // 4. 실적률 차트 그리기
+	      var performance = info.performance;
+	      $('#performRate').css({'width' : (performance + "%")});
+	      $('#performance').text(performance + "%");
+	      
+	      // 4번 그래프 안그리기로 해서 나가리
+	      //var chart4 = new ApexCharts(document.querySelector("#chart_goal"), performanceOptions(info.performance));
+	      //chart4.render();
+	      
+	      // 5. 키워드 별 고객 이벤트 발생 추이
+	      var map = new Map();
+	      map = info.KeywordReactionCount;
+	      
+	      countList = info.KeywordReactionCount;
+	      appendingTrTag(countList, info.ViewerReactions, '#orders');
+	      
+	      // 6. 시간대별(분단위) 1 ~ 60까지 시청자 반응(이벤트: 판매수, 장바구니수, 조회수, 댓글수, 찜수) 차트
+	      reaction_options = viewerReactions1to60(info.ViewerReactions, 1, 60);
+	      //var area_options = reaction_options[0];
+	      var chart6 = new ApexCharts(document.querySelector("#viewer-reactions"), reaction_options[0]);
+	      chart6.render();
+	      
+	      // 7. 시간대별(분 단위) 시청자 증감수 -> 바차트
+	      var chart7 = new ApexCharts(document.querySelector("#keyword-reactions-chart"), reaction_options[1]);
+	      chart7.render();
+	      
+	      // 8. 시간대별(분 단위) 장바구니와 판매량 이벤트 -> 라인차트 
+	      var chart8 = new ApexCharts(document.querySelector("#sales_baskets_1to60"), reaction_options[2]);
+	      chart8.render();
+	      
+	      // 9. 남녀 비율 도넛차트
+	      var chart9 = new ApexCharts(document.querySelector("#chart_sex"), genderDonutChart(info.bcMale, info.bcFemale));
+	      chart9.render();
+	      
+	      // 10. 카테고리 별 판매 기여도 계산
+	      var chart10 = new ApexCharts(document.querySelector("#category-involvement-chart"), getInvolvement(info.KeywordReactionCount));
+          chart10.render();
+          
+          appendingSelect(info.Items, '#item-sentiment');
+          
+	    });
+	    
+	    
+	  	
+	  	
+  </script>
+  <script type="text/javascript">
+  	
+	 // 11. 키워드별 감성점수
+	//  1) select 태그에 아이템 개수만큼 아이템 등록해주기
+	function appendingSelect(items, tagId){
+		items.forEach((cur) => {
+			var tags = '<option value="' + cur.item_seq + '">'
+					+ cur.item_name + '</option>';
+			
+			$(tagId).append(tags);
+		})
+	}
+	//  2) onchange 함수 설정 -> 셀렉스 박스에서 선택된 제품의 차트로 다시 그려주기
+	function changeChartSelect() {
+		var selected = document.getElementById('item-sentiment');
+		var selectedVal = selected.options[selected.selectedIndex].value;
+		
+		// itemseq 전달
+		var item_sentiment = ajaxItemSentiment(selectedVal);
+		let list = [];
+		
+		// json Object 객체를 map으로 셋팅 (카테고리 : 감성점수)쌍으로
+		Object.keys(item_sentiment).forEach(function(k){
+			list.push({x: k, y: item_sentiment[k]});
+		})
+		
+		var options = {
+	                //데이터 : 제품 카테고리 별 감성점수
+	                series: [{
+	                	data: list
+	                }],
+	                chart: {
+	                    type: 'bar',
+	                    height: 350
+	                },
+	                plotOptions: {
+	                    bar: {
+	                        horizontal: true,
+	                        dataLabels: {
+	                            position: 'top',
+	                        },
+	                    }
+	                },
+	                //colors: ['#4E73DF', '#1CC88A', '#F6C23E', '#E74A3B'],
+	                yaxis:{
+	                	show: true,
+	                	showAlways: true,
+	                	min: 0,
+	                	max: 5
+	                }
+	            };
+		//12. 감성점수 그래프 -> select된 그래프로 그려주기
+		$('#chart_sense').empty();
+	  	var chart = new ApexCharts(document.querySelector("#chart_sense"), options);
+	  	chart.render();
+	}
+	
+	//  2-2) select 태그에서 선택된 seq의 아이템 감성점수 가져오기
+	function ajaxItemSentiment(seq){
+		var result;
+		
+		$.ajax({
+	        type:"get",
+	        url:"/itemSentiment/" + seq,
+	        async:false,
+	        dataType:"json",
+	        success: function(data){
+				console.log("성공");
+				result = data;
+	        },
+	        error: function(){
+				console.log("실패");
+	        }
+	    });
+	
+	    return result;
+	}
+	
+  </script>
+    <!--긍정 워드클라우드-->
+    <script>
+        anychart.onDocumentReady(function () {
+
+            var data = [
+                {
+                    "x": "디자인",
+                    "value": 362
+                },
+                {
+                    "x": "아기",
+                    "value": 332
+                },
+                {
+                    "x": "매트",
+                    "value": 252
+                },
+                {
+                    "x": "구매",
+                    "value": 250
+                }, {
+                    "x": "인견",
+                    "value": 236
+                }, {
+                    "x": "여름",
+                    "value": 200,
+                }, {
+                    "x": "만족",
+                    "value": 197,
+                }, {
+                    "x": "땀흡수",
+                    "value": 173,
+                }, {
+                    "x": "세탁",
+                    "value": 158,
+                }, {
+                    "x": "배송",
+                    "value": 152,
+                }, {
+                    "x": "시원",
+                    "value": 122,
+                }, {
+                    "x": "감촉",
+                    "value": 422,
+                }, {
+                    "x": "교환",
+                    "value": 322,
+                },
+
+
+            ]
+                ;
+            var chart = anychart.tagCloud(data);
+            chart.angles([0]);
+            chart.container("container_posi");
+            chart.normal().fontWeight(600);
+            // chart.getCredits().setEnabled(false);
+            chart.draw();
+
+        });
+    </script>
+
+    <!--부정 워드클라우드-->
+    <script>
+        anychart.onDocumentReady(function () {
+            var data = [
+                {
+                    "x": "배송",
+                    "value": 662
+                },
+                {
+                    "x": "세탁",
+                    "value": 332
+                },
+                {
+                    "x": "얇아",
+                    "value": 252
+                },
+                {
+                    "x": "느려",
+                    "value": 450
+                }, {
+                    "x": "지연",
+                    "value": 236
+                },
+                {
+                    "x": "비싸",
+                    "value": 280
+                },
+                {
+                    "x": "너무",
+                    "value": 140
+                }, {
+                    "x": "맨살",
+                    "value": 120
+                }, {
+                    "x": "이미지",
+                    "value": 40
+                }, {
+                    "x": "사이즈",
+                    "value": 422,
+                }, {
+                    "x": "불량",
+                    "value": 132,
+                },
+            ];
+            var chart = anychart.tagCloud(data);
+            chart.angles([0]);
+            chart.container("container_nag");
+            chart.normal().fontWeight(600);
+            // chart.getCredits().setEnabled(false);
+            chart.draw();
+        });
+    </script>
+
+    <!--카테고리 판매 기여도-->
+    <!-- <script>
+        $(function () {
+            var options = {
+                //나온 값 *3해주세요
+                //각 카테고리별 판매 기여도
+                series: [60, 90, 48, 26],
+                chart: {
+                    height: 380,
+                    type: 'radialBar',
+                },
+                plotOptions: {
+                    radialBar: {
+                        offsetY: 0,
+                        startAngle: 0,
+                        endAngle: 300,
+                        hollow: {
+                            margin: 2,
+                            size: '20%',
+                            background: 'transparent',
+                            image: undefined,
+                        },
+                        dataLabels: {
+                            name: {
+                                show: false,
+                            },
+                            value: {
+                                show: false,
+                            }
+                        }
+                    }
+                },
+                colors: ['#0084ff', '#1CC88A', '#F7C548', '#E74A3B'],
+                labels: ['디자인', '만족도', '안정성', '기능성'],
+                legend: {
+                    show: true,
+                    floating: true,
+                    fontSize: '10px',
+                    position: 'left',
+                    offsetX: 85,
+                    offsetY: -12,
+                    labels: {
+                        useSeriesColors: true,
+                    },
+                    markers: {
+                        size: 0
+                    },
+                    formatter: function (seriesName, opts) {
+                        return seriesName + ":  " + opts.w.globals.series[opts.seriesIndex]
+                    },
+                    itemMargin: {
+                        vertical: 3
+                    }
+                },
+                responsive: [{
+                    breakpoint: 480,
+                    options: {
+                        legend: {
+                            show: false
+                        }
+                    }
+                }]
+            };
+
+            var chart = new ApexCharts(document.querySelector("#chart_sales_level"), options);
+            chart.render();
+
+        })
+    </script> -->
+
+    <!--판매와 장바구니-->
+    <!--<script>
+        $(function () {
+
+
+            var options = {
+                series: [
+                    {
+                        // 데이터 : 장바구니수, 판매량 
+                        name: "장바구니수",
+                        data: [29, 33, 36, 32, 32, 33, 20, 20, 40, 60]
+                    },
+                    {
+                        name: "판매량",
+                        data: [12, 11, 14, 18, 17, 13, 13, 40, 60, 69]
+                    }
+                ],
+                chart: {
+
+                    height: 300,
+                    type: 'line',
+                    dropShadow: {
+                        enabled: true,
+                        color: '#000',
+                        top: 18,
+                        left: 7,
+                        blur: 10,
+                        opacity: 0.2
+                    },
+                    toolbar: {
+                        show: false
+                    }
+                },
+                colors: ['#00E396', '#008FFB'],
+                dataLabels: {
+                    enabled: true,
+                },
+                stroke: {
+                    curve: 'smooth'
+                },
+                grid: {
+                    borderColor: '#e7e7e7',
+                    row: {
+                        colors: ['#f3f3f3'], // takes an array which will be repeated on columns
+                        opacity: 0.5
+                    },
+                },
+                markers: {
+                    size: 1
+                },
+                xaxis: {
+                    //데이터 : 1부터 60분까지
+                    categories: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                },
+                yaxis: {
+                    //데이터 : 최대값 나온걸로 맞추면 될듯!
+                    min: 0,
+                    max: 69
+                },
+                legend: {
+                    position: 'top',
+                    horizontalAlign: 'right',
+                    floating: true,
+                    offsetY: -25,
+                    offsetX: -5
                 }
-              }
-            }
-          }
-        },
-        fill: {
-          colors: ['#46AEFC']
-        },
-        stroke: {
-          dashArray: 3
-        },
-        labels: ['Percent'],
-      };
-      var chart = new ApexCharts(document.querySelector("#chart_goal"), options);
-      chart.render();
-    })
-  </script>
+            };
 
-  <!--시간대 별 고객 이벤트 차트-->
-  <script>
-    $(function () {
-      var options = {
-        //데이터 : 1~60분 동안의 판매수, 시청자수, 조회수, 장바구니수, 댓글수, 찜수
-        series: [{
-          name: '판매수',
-          data: [319, 40, 28, 51, 42, 109, 100]
-        }, {
-          name: '시청자수',
-          data: [112, 32, 45, 32, 34, 52, 41]
-        }, {
-          name: '조회수',
-          data: [113, 32, 445, 32, 34, 52, 41]
-        }, {
-          name: '장바구니수',
-          data: [114, 372, 45, 32, 34, 52, 41]
-        }, {
-          name: '댓글수',
-          data: [111, 392, 45, 32, 34, 52, 41]
-        }, {
-          name: '찜 수',
-          data: [211, 352, 45, 32, 34, 52, 41]
-        }],
-        chart: {
-          height: 300,
-          type: 'area'
-        },
-        dataLabels: {
-          enabled: false
-        },
-        stroke: {
-          curve: 'smooth'
-        },
-        xaxis: {
-          //데이터 : 1~60분 시간
-          categories: ["1", "10", "20", "30", "40", "50", "60"]
-        }, theme: {
-          palette: 'palette1'
-        }
-      };
-      var chart = new ApexCharts(document.querySelector("#chart_keyword"), options);
-      chart.render();
-    });
-  </script>
-  
-  <!--성별-->
-  <script>
-    const data = {
-      labels: [
-        'Red',
-        'Blue',
-        'Yellow'
-      ],
-      datasets: [{
-        label: 'My First Dataset',
-        data: [300, 50, 100],
-        backgroundColor: [
-          'rgb(255, 99, 132)',
-          'rgb(54, 162, 235)',
-          'rgb(255, 205, 86)'
-        ],
-        hoverOffset: 4
-      }]
-    };
-    const config = {
-      type: 'doughnut',
-      data: data,
-    };
-
-    const myChart = new Chart(
-      document.getElementById('chart_sex'),
-      config
-    );
-  </script>
+            var chart = new ApexCharts(document.querySelector("#chart_sale_viewer"), options);
+            chart.render();
 
 
-  <!--시청자 증감수 -->
-  <script>
-    $(function () {
-      var options = {
-        series: [{
-          //데이터 : 3분동안의 시청자 증감 수
-          data: [
-            {
-              x: 1,
-              y: [15, 15, 1, 1]
-            },
-            {
-              x: 2,
-              y: [15, 15, 1, 1]
-            }, {
-              x: 3,
-              y: [3, 3, 15, 15]
-            }, {
-              x: 4,
-              y: [30, 30, 15, 15]
-            }, {
-              x: 5,
-              y: [30, 30, 15, 15]
-            }, {
-              x: 6,
-              y: [30, 30, 15, 15]
-            }, {
-              x: 7,
-              y: [30, 30, 15, 15]
-            }, {
-              x: 8,
-              y: [30, 30, 15, 15]
-            }, {
-              x: 9,
-              y: [30, 30, 15, 15]
-            }, {
-              x: 10,
-              y: [30, 30, 15, 15]
-            }, {
-              x: 11,
-              y: [30, 30, 15, 15]
-            }, {
-              x: 12,
-              y: [30, 30, 15, 15]
-            }, {
-              x: 13,
-              y: [30, 30, 15, 15]
-            }, {
-              x: 14,
-              y: [30, 30, 15, 15]
-            }, {
-              x: 15,
-              y: [30, 30, 15, 15]
-            }, {
-              x: 16,
-              y: [30, 30, 15, 15]
-            }, {
-              x: 17,
-              y: [30, 30, 15, 15]
-            }, {
-              x: 18,
-              y: [30, 30, 15, 15]
-            }, {
-              x: 19,
-              y: [30, 30, 15, 15]
-            }, {
-              x: 20,
-              y: [30, 30, 15, 15]
-            }]
-        }],
-        chart: {
-          type: 'candlestick',
-          height: 350
-        },
-        xaxis: {
-          type: 'time'
-        },
-        yaxis: {
-          tooltip: {
-            enabled: true
-          }
-        },
-        plotOptions: {
-          candlestick: {
-            colors: {
-              upward: '#FD8A9E',
-              downward: '#6FC5FD'
-            }
-          }
-        }
-      };
-      var chart = new ApexCharts(document.querySelector("#chart_viewer"), options);
-      chart.render();
-    })
-  </script>
-
-
-
-  <!--긍정 워드클라우드-->
-  <script>
-    anychart.onDocumentReady(function () {
-
-      var data = [
-        {
-          "x": "디자인",
-          "value": 362
-        },
-        {
-          "x": "아기",
-          "value": 332
-        },
-        {
-          "x": "매트",
-          "value": 252
-        },
-        {
-          "x": "구매",
-          "value": 250
-        }, {
-          "x": "인견",
-          "value": 236
-        }, {
-          "x": "여름",
-          "value": 200,
-        }, {
-          "x": "만족",
-          "value": 197,
-        }, {
-          "x": "땀흡수",
-          "value": 173,
-        }, {
-          "x": "세탁",
-          "value": 158,
-        }, {
-          "x": "배송",
-          "value": 152,
-        }, {
-          "x": "시원",
-          "value": 122,
-        }, {
-          "x": "감촉",
-          "value": 422,
-        }, {
-          "x": "교환",
-          "value": 322,
-        },
-
-
-      ]
-        ;
-      var chart = anychart.tagCloud(data);
-      chart.angles([0]);
-      chart.container("container");
-      chart.normal().fontWeight(600);
-      // chart.getCredits().setEnabled(false);
-      chart.draw();
-
-    });
-  </script>
-
-  <!--부정 워드클라우드-->
-  <script>
-    anychart.onDocumentReady(function () {
-      var data = [
-        {
-          "x": "배송",
-          "value": 662
-        },
-        {
-          "x": "세탁",
-          "value": 332
-        },
-        {
-          "x": "얇아",
-          "value": 252
-        },
-        {
-          "x": "느려",
-          "value": 450
-        }, {
-          "x": "지연",
-          "value": 236
-        },
-        {
-          "x": "비싸",
-          "value": 280
-        },
-        {
-          "x": "너무",
-          "value": 140
-        }, {
-          "x": "맨살",
-          "value": 120
-        }, {
-          "x": "이미지",
-          "value": 40
-        }, {
-          "x": "사이즈",
-          "value": 422,
-        }, {
-          "x": "불량",
-          "value": 132,
-        },
-      ];
-      var chart = anychart.tagCloud(data);
-      chart.angles([0]);
-      chart.container("container_qnwjd");
-      chart.normal().fontWeight(600);
-      // chart.getCredits().setEnabled(false);
-      chart.draw();
-    });
-  </script>
-
-
-  <!--키워드 별 감성점수-->
-  <script>
-    $(function () {
-      var options = {
-        //데이터 : 제품 카테고리 별 감성점수
-        series: [{
-          name: '디자인',
-          data: [1, -1, 1, 1]
-        }, {
-          name: '만족도',
-          data: [1, -1, 0, 1]
-        }, {
-          name: '기능성',
-          data: [1, -1, -1, -1]
-        }, {
-          name: '안정성',
-          data: [1, 1, 1, -1]
-        }
-        ],
-        chart: {
-          type: 'bar',
-          height: 430
-        },
-        plotOptions: {
-          bar: {
-            horizontal: true,
-            dataLabels: {
-              position: 'top',
-            },
-          }
-        },
-
-        dataLabels: {
-          enabled: true,
-          offsetX: -6,
-          style: {
-            fontSize: '12px',
-            colors: ['#fff']
-          }
-        },
-        stroke: {
-          show: true,
-          width: 1,
-          colors: ['#fff']
-        },
-        tooltip: {
-          shared: true,
-          intersect: false
-        },
-        xaxis: {
-          //데이터 : 제품명
-          //제품명에 비비앤다 그대로 노출되면 안될것같아서 일단 제품 1~n 식으로 진행 
-          categories: ['제품1', '제품2', '제품3', '제품4', '제품5'],
-        },
-      };
-      var chart = new ApexCharts(document.querySelector("#chart_keyword_sense"), options);
-      chart.render();
-    });
-  </script>
-
-
-
-  <!--카테고리 판매 기여도-->
-  <script>
-    $(function () {
-      var options = {
-        series: [{
-          name: '제품 1',
-          data: [80, 50, 30, 40],
-        }, {
-          name: '제품 2',
-          data: [20, 30, 40, 80],
-        }, {
-          name: '제품 3',
-          data: [14, 26, 78, 13],
-        }, {
-          name: '제품 4',
-          data: [3, 7, 7, 93],
-        }, {
-          name: '제품 5',
-          data: [44, 76, 79, 23],
-        },
-        ],
-        chart: {
-          height: 500,
-          type: 'radar',
-          dropShadow: {
-            enabled: true,
-            blur: 1,
-            left: 1,
-            top: 1
-          }
-        },
-        stroke: {
-          width: 3
-        },
-        fill: {
-          opacity: 0.1
-        },
-        markers: {
-          size: 0
-        },
-        xaxis: {
-          categories: ['디자인', '안정성', '가격', '기능성']
-        }
-      };
-
-      var chart = new ApexCharts(document.querySelector("#chart_sales"), options);
-      chart.render();
-
-    })
-  </script>
-
-
+        })
+    </script>
+	-->
 </head>
 
-<body>
+<body id="page-top">
 
+    <!-- Page Wrapper -->
+    <div id="wrapper">
 
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar"
+            style="background-image: linear-gradient(-20deg, #2b5876 0%, #4e4376 100%);">
 
-    <div class="ring">Loading
-        <span class="ring_load"></span>
-      </div>
-      
-  <!-- ===============================================-->
-  <!--    메뉴바   -->
-  <!-- ===============================================-->
-  <main class="main" id="top">
-    <div class="container" data-layout="container">
-      <nav class="navbar navbar-vertical navbar-expand-xl navbar-light">
-        <div class="d-flex align-items-center">
-          <div class="toggle-icon-wrapper">
-            <button class="btn navbar-toggler-humburger-icon navbar-vertical-toggle" data-toggle="tooltip"
-              data-placement="left"><span class="navbar-toggle-icon"><span class="toggle-line"></span></span></button>
-          </div><a class="navbar-brand" href="../index.html">
-            <div class="d-flex align-items-center py-3"><span class="text-sans-serif">SSM</span>
-            </div>
-          </a>
-        </div>
-        <div class="collapse navbar-collapse" id="navbarVerticalCollapse">
-          <div class="navbar-vertical-content perfect-scrollbar scrollbar">
-            <div class="navbar-vertical-divider">
-              <hr class="navbar-vertical-hr my-2" />
-            </div>
-            <ul class="navbar-nav flex-column">
-              <li class="nav-item"><a class="nav-link" href="./방송목록.html">
-                  <div class="d-flex align-items-center"><span class="nav-link-icon"><span
-                        class="fas fa-poll"></span></span><span class="nav-link-text"> Live-Commerce</span>
-                  </div>
-                </a></li>
-              <li class="nav-item"><a class="nav-link" href="./글목록.html">
-                  <div class="d-flex align-items-center"><span class="nav-link-icon"><span
-                        class="fas fa-comments"></span></span><span class="nav-link-text">Contect</span>
-                  </div>
-                </a></li>
-            </ul>
-            <div class="navbar-vertical-divider">
-              <hr class="navbar-vertical-hr my-2" />
-            </div>
-            <ul class="navbar-nav flex-column">
-
-              <li class="nav-item"><a class="nav-link" href="../changelog.html">
-                  <div class="d-flex align-items-center"><span class="nav-link-icon"><span
-                        class="fas fa-code-branch"></span></span><span class="nav-link-text"> About</span><span
-                      class="badge badge-pill ml-2 badge-soft-primary">v1</span>
-                  </div>
-                </a></li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-
-      <div class="content">
-        <nav class="navbar navbar-light navbar-glass navbar-top sticky-kit navbar-expand">
-          <button class="btn navbar-toggler-humburger-icon navbar-toggler mr-1 mr-sm-3" type="button"
-            data-toggle="collapse" data-target="#navbarVerticalCollapse" aria-controls="navbarVerticalCollapse"
-            aria-expanded="false" aria-label="Toggle Navigation"><span class="navbar-toggle-icon"><span
-                class="toggle-line"></span></span></button>
-          <a class="navbar-brand mr-1 mr-sm-3" href="../index.html">
-            <div class="d-flex align-items-center">
-              <span class="text-sans-serif">SSM</span>
-            </div>
-          </a>
-          <ul class="navbar-nav navbar-nav-icons ml-auto flex-row align-items-center">
-            <li class="nav-item dropdown dropdown-on-hover"><a class="nav-link pr-0" id="navbarDropdownUser" href="#"
-                role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                '김미정'님 안녕하세요.
-              </a>
-              <div class="dropdown-menu dropdown-menu-right py-0" aria-labelledby="navbarDropdownUser">
-                <div class="bg-white rounded-soft py-2">
-                  <a class="dropdown-item" href="http://127.0.0.1:5500/SSM/page/real_main.html">Logout</a>
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-laugh-wink"></i>
                 </div>
-              </div>
+                <div class="sidebar-brand-text mx-3">SSM <sup></sup></div>
+            </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+            <!-- Nav Item - Charts -->
+            <li class="nav-item active">
+                <a class="nav-link" href="index.html">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Live-Commerce</span></a>
             </li>
-          </ul>
-        </nav>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Support
+            </div>
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item">
+                <a class="nav-link" href="boardList.html">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Contect</span></a>
+            </li>
 
 
-        <div class="row no-gutters">
-          <div class="col-md-6 col-xxl-3 mb-3 pr-md-2">
-            <div class="card h-md-100">
-              <div class="card-header bg-light py-2"
-                style="background-image: linear-gradient(to top, #D5E5FA 0%, #D5E5FA 100%);">
-                <div class="row flex-between-center">
-                  <div class="col-auto">
-                    <h6 class="mb-0">제품별 별점</h6>
-                  </div>
-                  <div class="col-auto">
-                    <select class="custom-select custom-select-sm" style="width: 100%;">
-                      <option value="americano">제품전체</option> 
-                    </select>
-                  </div>
-                </div>
-              </div>
 
-              <div class="row flex-grow-1">
-                <div class="col align-self-end" style="top:-15%;">
-                  <!--제품별 별점-->
-                  <h6 class="fs-0 mb-1" style="font-size: 25px;">
-                      &nbsp;&nbsp;&nbsp;&nbsp; <span style="font-size: 20px;font-family: 'Sunflower', sans-serif;">디자인 : </span> <span>⭐⭐⭐⭐</span><br>
-                      &nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size: 20px;font-family: 'Sunflower', sans-serif;"> 만족도 : </span> <span>⭐</span><br>
-                      &nbsp;&nbsp;&nbsp;&nbsp; <span style="font-size: 20px;font-family: 'Sunflower', sans-serif;">안정성 : </span> <span>⭐⭐</span><br>
-                      &nbsp;&nbsp;&nbsp;&nbsp; <span style="font-size: 20px;font-family: 'Sunflower', sans-serif;">기능성 : </span> <span>⭐⭐⭐⭐</span><br>
-                  </h6>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-xxl-3 mb-3 pl-md-2 pr-xxl-2">
-            <div class="card h-md-100">
-              <div class="card-header bg-light py-2"
-                style="background-image: linear-gradient(to top, #D5E5FA 0%, #D5E5FA 100%);">
-                <div class="row flex-between-center">
-                  <div class="col-auto">
-                    <h6 class="mb-0">판매수량</h6>
-                  </div>
-                  <div class="col-auto">
-                    <select class="custom-select custom-select-sm" style="width: 100%;">
-                      <option value="americano">제품전체</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-              <div class="card-body pt-0">
-                <div class="row h-100">
-                  <div class="col align-self-end" style="top:-30%;">
-                    <!--판매수량-->
-                    <h6 class="fs-0 mb-1" style="font-size: 30px;"><span class="fas fa-check text-success mr-1"
-                        data-fa-transform="shrink-2"></span><span style="font-family: 'Sunflower', sans-serif;">35,000건</span></h6>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="col-md-6 col-xxl-3 mb-3 pl-md-2 pr-xxl-2">
-            <div class="card h-md-100">
-              <div class="card-header bg-light py-2"
-                style="background-image: linear-gradient(to top, #D5E5FA 0%, #D5E5FA 100%);">
-                <div class="row flex-between-center">
-                  <div class="col-auto">
-                    <h6 class="mb-0">예상 매출액</h6>
-                  </div>
-                  <div class="col-auto">
-                    <select class="custom-select custom-select-sm" style="width: 100%;">
-                      <option value="americano">제품전체</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-              <div class="card-body pt-0">
-                <div class="row h-100">
-                  <div class="col align-self-end" style="top:-30%;">
-                    <!--예상매출액-->
-                    <h6 class="fs-0 mb-1" style="font-size: 30px;"><span class="fas fa-check text-success mr-1"
-                        data-fa-transform="shrink-2"></span><span style="font-family: 'Sunflower', sans-serif;">35,000건</span></h6>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+            <!-- Divider -->
+            <hr class="sidebar-divider">
 
-          <div class="col-md-6 col-xxl-3 mb-3 pl-md-2">
-            <div class="card h-md-100">
-              <div class="card-header bg-light py-2"
-                style="background-image: linear-gradient(to top, #D5E5FA 0%, #D5E5FA 100%);">
-                <div class="row flex-between-center">
-                  <div class="col-auto">
-                    <h6 class="mb-0">실적률</h6>
-                  </div>
-                  
-                  <div class="col-auto">
-                    <select class="custom-select custom-select-sm" style="width: 100%;">
-                      <option value="americano">제품전체</option> 
-                    </select>
-                  </div>
-                </div>
-              </div>
-              <div class="card-body pt-2">
-                <div class="row no-gutters h-100 align-items-center">
-                  <div class="col">
-                    <div id="chart_goal"></div>
-                  </div>
-                </div>
-              </div>
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                My page
             </div>
-          </div>
-        </div>
+            <!-- Nav Item - Utilities Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+                    aria-expanded="true" aria-controls="collapseUtilities">
+                    <i class="fas fa-fw fa-wrench"></i>
+                    <span>About</span>
+                </a>
+            </li>
 
-        
-        <!--테이블-->
-        <div class="row">
-          <div class="col">
-            <div class="card mb-3">
-              <div class="card-header bg-light py-2"style="background-image: linear-gradient(to top, #D5E5FA 0%, #D5E5FA 100%);">
-                <div class="row flex-between-center">
-                  <div class="col-auto">
-                    <h6 class="mb-0">키워드별 고객이벤트 발생 추이</h6>
-                  </div>
-                </div>
-              </div>
-              <div class="card-body p-0">
-                <div class="falcon-data-table">
-                  <table
-                    class="table table-sm mb-0 table-striped table-dashboard fs--1 data-table border-bottom border-200"
-                    data-options='{"searching":false,"responsive":false,"info":false,"lengthChange":false,"sWrapper":"falcon-data-table-wrapper","dom":"<&#39;row mx-1&#39;<&#39;col-sm-12 col-md-6&#39;l><&#39;col-sm-12 col-md-6&#39;f>><&#39;table-responsive&#39;tr><&#39;row no-gutters px-1 py-3 align-items-center justify-content-center&#39;<&#39;col-auto&#39;p>>","language":{"paginate":{"next":"<span class=\"fas fa-chevron-right\"></span>","previous":"<span class=\"fas fa-chevron-left\"></span>"}}}'>
-                    <thead class="bg-200 text-900">
-                      <tr>
-                        <th class="align-middle no-sort" style="width: 60px;">
-                          <div class="custom-control custom-checkbox">
-                            <input class="custom-control-input checkbox-bulk-select" id="checkbox-bulk-purchases-select"
-                              type="checkbox" data-checkbox-body="#orders" data-checkbox-actions="#orders-actions"
-                              data-checkbox-replaced-element="#dashboard-actions">
-                            <label class="custom-control-label" for="checkbox-bulk-purchases-select"></label>
-                          </div>
-                        </th>
-                        <th class="align-middle sort" style="width: 90px;">카테고리</th>
-                        <th class="align-middle sort" style="width: 90px;">키워드</th>
-                        <th class="sort sort" style="width: 80px;">판매 수</th>
-                        <th class="sort sort" style="width: 80px;">시청자 수</th>
-                        <th class="sort sort" style="width: 80px;">조회 수</th>
-                        <th class="sort sort" style="width: 80px;">장바구니 수</th>
-                        <th class="sort sort" style="width: 80px;">댓글 수</th>
-                        <th class="sort sort" style="width: 80px;">찜 수</th>
-                      </tr>
-                    </thead>
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Logout</span>
+                </a>
+            </li>
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
 
-                    <!--테이블내용-->
-                    <tbody id="orders">
-                      <tr class="btn-reveal-trigger">
-                        <td class="py-2 align-middle">
-                          <div class="custom-control custom-checkbox">
-                            <input class="custom-control-input checkbox-bulk-select-target" type="checkbox"
-                              id="checkbox-0" />
-                            <label class="custom-control-label" for="checkbox-0"></label>
-                          </div>
-                        </td>
-                        <!--데이터 : 음성키워드별 고객 이벤트 발생 추이-->
-                        <td class="py-2 align-middle">디자인</td>
-                        <td class="py-2 align-middle">예쁜</td>
-                        <td class="py-2 align-middle">20명</td>
-                        <td class="py-2 align-middle">100명</td>
-                        <td class="py-2 align-middle">20명</td>
-                        <td class="py-2 align-middle">300명</td>
-                        <td class="py-2 align-middle">150명</td>
-                        <td class="py-2 align-middle">100명</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
-          </div>
-        </div>
+        </ul>
+        <!-- End of Sidebar -->
 
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column" `>
 
-        <!--시간대 별 고객이벤트-->
-        <div class="row">
-          <div class="col">
-            <div class="card">
-              <div class="card-header bg-light py-2"style="background-image: linear-gradient(to top, #D5E5FA 0%, #D5E5FA 100%);">
-                <div class="row flex-between-center">
-                  <div class="col-auto">
-                    <h6 class="mb-0">시간대 별 고객 이벤트</h6>
-                  </div>
-                </div>
-              </div>
-              <div class="card-body">
-                <div class="w-100">
-                  <div id="chart_keyword">
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <br>
-
-        <!--시청자 성별 차트-->
-        <div class="row">
-          <div class="col-lg-5 col-xl-4">
-            <div class="card h-lg-100">
-              <div class="card-header bg-light py-2"style="background-image: linear-gradient(to top, #D5E5FA 0%, #D5E5FA 100%);">
-                <div class="row flex-between-center">
-                  <div class="col-auto">
-                    <h6 class="mb-0">시청자 성별 차트</h6>
-                  </div>
-                </div>
-              </div>
-              <div class="card-body d-flex align-items-center">
-                <div class="w-100">
-                  <div>
-                    <canvas id="chart_sex"></canvas>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-7 col-xl-8 ">
-            <div class="card h-lg-100 overflow-hidden">
-              <div class="card-header bg-light py-2"style="background-image: linear-gradient(to top, #D5E5FA 0%, #D5E5FA 100%);">
-                <div class="row flex-between-center">
-                  <div class="col-auto">
-                    <h6 class="mb-0">시청자 증감수</h6>
-                  </div>
-                </div>
-              </div>
-              <div class="card-body d-flex align-items-center">
-                <div class="w-100">
-                  <div id="chart_viewer">
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <br>
-        <div class="row no-gutters">
-          <div class="col-lg-6 pr-lg-2 mb-3">
-            <div class="card h-lg-100 overflow-hidden">
-              <div class="card-header bg-light py-2"style="background-image: linear-gradient(to top, #D5E5FA 0%, #D5E5FA 100%);">
-                <div class="row flex-between-center">
-                  <div class="col-auto">
-                    <h6 class="mb-0">긍정 리뷰 워드클라우드</h6>
-                  </div>
-                </div>
-              </div>
-              <div class="card-body p-0">
-                <br><br>
-                <div class="w-100">
-                  <div class="chart-area">
-                    <div id="container"></div>
-                  </div>
-                </div>
-                <br><br>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-6 pr-lg-2 mb-3">
-            <div class="card h-lg-100 overflow-hidden">
-              <div class="card-header bg-light py-2"style="background-image: linear-gradient(to top, #D5E5FA 0%, #D5E5FA 100%);">
-                <div class="row flex-between-center">
-                  <div class="col-auto">
-                    <h6 class="mb-0">부정 리뷰 워드클라우드</h6>
-                  </div>
-                </div>
-              </div>
-              <div class="card-body p-0">
-                <div class="w-100">
-                  <br><br>
-                  <div class="chart-area">
-                    <div id="container_qnwjd"></div>
-                  </div>
-                  <br><br>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row no-gutters">
-          <div class="col-lg-6 pr-lg-2 mb-3">
-            <div class="card h-lg-100 overflow-hidden">
-              <div class="card-header bg-light py-2"style="background-image: linear-gradient(to top, #D5E5FA 0%, #D5E5FA 100%);">
-                <div class="row flex-between-center">
-                  <div class="col-auto">
-                    <h6 class="mb-0">카테고리 별 감성점수</h6>
-                  </div>
-                </div>
-              </div>
-              <div class="card-body p-0">
-                <br><br>
-                <div class="w-100">
-                  <div>
-                    <div id="chart_keyword_sense"></div>
-                  </div>
-                </div>
-                <br><br>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-6 pr-lg-2 mb-3">
-            <div class="card h-lg-100 overflow-hidden">
-              <div class="card-header bg-light py-2"style="background-image: linear-gradient(to top, #D5E5FA 0%, #D5E5FA 100%);">
-                <div class="row flex-between-center">
-                  <div class="col-auto">
-                    <h6 class="mb-0">카테고리 판매 기여도</h6>
-                  </div>
-                </div>
-              </div>
-              <div class="card-body p-0">
-                <div class="w-100">
-                  <br><br>
-                  <div class="chart-area">
-                    <div id="chart_sales">
+            <!-- Main Content -->
+            <div id="content" style="background-image: linear-gradient(-20deg, #4e4376 0%, #2b5876 100%);">
+                <div class="container-fluid" style="padding-left: 1rem;
+                padding-right: 1rem;">
+                    <br>
+                    <div class="card"
+                        style="background-color: rgba(255, 255, 255, 0.887);border-radius: 20px 20px 0px 0px; border: 0px solid white;">
+                        <div style="overflow-x:hidden; width:100%; height:30px;">
+                        </div>
                     </div>
-                    <br><br>
-                  </div>
                 </div>
-              </div>
+                <!-- Begin Page Content -->
+                <div class="container-fluid" style="padding-left: 1rem;
+                padding-right: 1rem;">
+                    <div class="card" style="background-color: rgba(255, 255, 255, 0.887);border-radius: 0px 0px 0px 0px;overflow-x:hidden; width:100%; 
+                        height:640px; border: 0px;">
+                        <div>
+                            <!-- Page Heading -->
+                            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                                <h1 class="h3 mb-0 text-gray-800"></h1>
+
+                            </div>
+                            <div class="container-fluid">
+                                <!-- Content Row -->
+                                <div class="row">
+
+                                    <!-- Earnings (Monthly) Card Example -->
+                                    <div class="col-xl-3 col-md-6 mb-4">
+                                        <div class="card border-left-primary shadow h-100 py-2">
+                                            <div class="card-body">
+                                                <div class="row no-gutters align-items-center">
+                                                    <div class="col mr-2">
+                                                        <div
+                                                            class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                            총점 (Total score)</div>
+                                                        <div class="h5 mb-0 font-weight-bold text-gray-800">4.0</div>
+                                                    </div>
+                                                    <div class="col-auto">
+                                                        <i class="fas fa-star fa-2x text-gray-300"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Earnings (Monthly) Card Example -->
+                                    <div class="col-xl-3 col-md-6 mb-4">
+                                        <div class="card border-left-success shadow h-100 py-2">
+                                            <div class="card-body">
+                                                <div class="row no-gutters align-items-center">
+                                                    <div class="col mr-2">
+                                                        <div
+                                                            class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                            총 판매 수량 (Total Sales Volume)</div>
+                                                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                        	<span id="salesCnt"></span>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="col-auto">
+                                                        <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Earnings (Monthly) Card Example -->
+                                    <div class="col-xl-3 col-md-6 mb-4">
+                                        <div class="card border-left-info shadow h-100 py-2">
+                                            <div class="card-body">
+                                                <div class="row no-gutters align-items-center">
+                                                    <div class="col mr-2">
+                                                        <div
+                                                            class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                                            실적률 (Performance)
+                                                        </div>
+                                                        <div class="row no-gutters align-items-center">
+                                                            <div class="col-auto">
+                                                                <div
+                                                                    class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
+                                                                    <span id="performance"></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col">
+                                                                <div class="progress progress-sm mr-2">
+                                                                    <div id="performRate" class="progress-bar bg-info" role="progressbar"
+                                                                        style="width: 0%" aria-valuenow="50"
+                                                                        aria-valuemin="0" aria-valuemax="100"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-auto">
+                                                        <i class="fas fa-heart fa-2x text-gray-300"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Pending Requests Card Example -->
+                                    <div class="col-xl-3 col-md-6 mb-4">
+                                        <div class="card border-left-warning shadow h-100 py-2">
+                                            <div class="card-body">
+                                                <div class="row no-gutters align-items-center">
+                                                    <div class="col mr-2">
+                                                        <div
+                                                            class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                                            예상 매출액 (expected sales)</div>
+                                                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                        	<span id="salesPred"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-auto">
+                                                        <i class="fas fa-dollar-sign  fa-2x text-gray-300"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Content Row -->
+                            <div class="container-fluid">
+                                <!-- Page Heading -->
+                                <h1 class="h3 mb-2 text-gray-800">고객 이벤트</h1>
+                                <p class="mb-4">&nbsp;방송 진행 시간대별 고객 이벤트 추이와 시청자의 성별을 확인합니다.</p>
+    
+
+                                <div class="row">
+
+                                    <!-- Area Chart -->
+                                    <div class="col-xl-8 col-lg-7">
+                                        <div class="card shadow mb-4">
+                                            <!-- Card Header - Dropdown -->
+                                            <div
+                                                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                                <h6 class="m-0 font-weight-bold text-primary">시간대별 고객 이벤트(상품 조회, 댓글)</h6>
+
+                                            </div>
+                                            <!-- Card Body -->
+
+                                            <div class="card-body">
+
+                                                <div id="viewer-reactions">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Pie Chart -->
+                                    <div class="col-xl-4 col-lg-5">
+                                        <div class="card shadow mb-4">
+                                            <!-- Card Header - Dropdown -->
+                                            <div
+                                                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                                <h6 class="m-0 font-weight-bold text-primary">시청자 성별</h6>
+                                                <div class="dropdown no-arrow">
+                                                    <a class="dropdown-toggle" href="#" role="button"
+                                                        id="dropdownMenuLink" data-toggle="dropdown"
+                                                        aria-haspopup="true" aria-expanded="false">
+                                                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                                    </a>
+                                                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                                        aria-labelledby="dropdownMenuLink">
+                                                        <div class="dropdown-header">Dropdown Header:</div>
+                                                        <a class="dropdown-item" href="#">Action</a>
+                                                        <a class="dropdown-item" href="#">Another action</a>
+                                                        <div class="dropdown-divider"></div>
+                                                        <a class="dropdown-item" href="#">Something else here</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Card Body -->
+                                            <div class="card-body">
+                                                <div id="chart_sex"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="container-fluid">
+                                <!-- Page Heading -->
+                                <h1 class="h3 mb-2 text-gray-800">판매량과 장바구니수</h1>
+                                <p class="mb-4">&nbsp;장바구니에 담긴 수 대비 판매량을 나타냅니다.</p>
+    
+
+                                <div class="row">
+
+                                    <!-- Area Chart -->
+                                    <div class="col-xl-8 col-lg-7">
+                                        <div class="card shadow mb-4">
+                                            <!-- Card Header - Dropdown -->
+                                            <div
+                                                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                                <h6 class="m-0 font-weight-bold text-primary">판매량과 장바구니</h6>
+
+                                            </div>
+                                            <!-- Card Body -->
+
+                                            <div class="card-body">
+
+                                                <div id="sales_baskets_1to60">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Pie Chart -->
+                                    <div class="col-xl-4 col-lg-5">
+                                        <div class="card shadow mb-4">
+                                            <!-- Card Header - Dropdown -->
+                                            <div
+                                                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                                <h6 class="m-0 font-weight-bold text-primary">카테고리별 판매 기여도</h6>
+                                                <div class="dropdown no-arrow">
+                                                    <a class="dropdown-toggle" href="#" role="button"
+                                                        id="dropdownMenuLink" data-toggle="dropdown"
+                                                        aria-haspopup="true" aria-expanded="false">
+                                                    </a>
+                                                    <!-- 
+                                                    <select style="max-width:200px;">
+                                                        <option>포근포근 낮잠 이불</option>
+                                                    </select>
+                                                     -->
+                                                </div>
+                                            </div>
+                                            <!-- Card Body -->
+                                            <div class="card-body">
+                                                <div id="category-involvement-chart"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- Begin Page Content -->
+                            <div class="container-fluid">
+                                <!-- Page Heading -->
+                                <h1 class="h3 mb-2 text-gray-800">음성 키워드별 고객이벤트</h1>
+                                <p class="mb-4">&nbsp;제품과 관련한 특정 키워드를 언급했을 때, 고객 이벤트 증가 값을 확인합니다. </p>
+                                <!-- DataTales Example -->
+                                <div class="card shadow mb-4">
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered" id="dataTable" width="100%"
+                                                cellspacing="0">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width:120px;text-align:center;background-color: #E8EFF4;">등장시간</th>
+                                                        <th style="width:120px;text-align:center;background-color: #E8EFF4;">키워드</th>
+                                                        <th style="width:120px;text-align:center;background-color: #E8EFF4;">카테고리</th>
+                                                        <th style="width:120px;text-align:center;background-color: #E8EFF4;">판매</th>
+                                                        <th style="width:120px;text-align:center;background-color: #E8EFF4;">장바구니</th>
+                                                        <th style="width:120px;text-align:center;background-color: #E8EFF4;">상품조회</th>
+                                                        <th style="width:120px;text-align:center;background-color: #E8EFF4;">시청자</th>
+                                                        <th style="width:120px;text-align:center;background-color: #E8EFF4;">댓글</th>
+                                                        <th style="width:120px;text-align:center;background-color: #E8EFF4;">찜</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="orders">
+                                                    
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            <!-- /.container-fluid -->
+                            <div class="container-fluid">
+                                <!-- Page Heading -->
+                                <p class="mb-4">&nbsp;리뷰 등장한 키워드의 긍정과 부정점수 입니다.</p>
+                                <div class="row">
+
+                                    <!-- Pie Chart -->
+                                    <div class="col-xl-4 col-lg-5">
+                                        <div class="card shadow mb-4">
+
+                                            <!-- Card Header - Dropdown -->
+                                            <div
+                                                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                                <h6 class="m-0 font-weight-bold text-primary">키워드별 감성점수</h6>
+                                                	<div class="dropdown no-arrow">
+	                                                    <a class="dropdown-toggle" href="#" role="button"
+	                                                        id="dropdownMenuLink" data-toggle="dropdown"
+	                                                        aria-haspopup="true" aria-expanded="false">
+	                                                    </a>
+	                                                    <select id="item-sentiment" onchange="changeChartSelect()" style="max-width:200px;">
+	                                                        
+	                                                    </select><!--미안해요ㅠㅠ-->
+                                                	</div>
+                                                <!-- <div class="dropdown no-arrow">
+                                                    <a class="dropdown-toggle" href="#" role="button"
+                                                        id="dropdownMenuLink" data-toggle="dropdown"
+                                                        aria-haspopup="true" aria-expanded="false">
+                                                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                                    </a>
+                                                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                                        aria-labelledby="dropdownMenuLink">
+                                                        <div class="dropdown-header">Dropdown Header:</div>
+                                                        <a class="dropdown-item" href="#">Action</a>
+                                                        <a class="dropdown-item" href="#">Another action</a>
+                                                        <div class="dropdown-divider"></div>
+                                                        <a class="dropdown-item" href="#">Something else here</a>
+                                                    </div>
+                                                </div> -->
+                                            </div>
+                                            <!-- Card Body -->
+                                            <div class="card-body">
+                                                <div id="chart_sense"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Area Chart -->
+                                    <div class="col-xl-8 col-lg-7">
+                                        <div class="card shadow mb-4">
+                                            <!-- Card Header - Dropdown -->
+                                            <div
+                                                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                                <h6 class="m-0 font-weight-bold text-primary">시청자 증감</h6>
+
+                                            </div>
+                                            <!-- Card Body -->
+
+                                            <div class="card-body">
+
+                                                <div id="keyword-reactions-chart">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="container-fluid">
+                                <!-- Page Heading -->
+                                <h1 class="h3 mb-2 text-gray-800">워드 클라우드</h1>
+                                <p class="mb-4">&nbsp;긍정, 부정리뷰에서 자주 등장하는 키워드를 한눈에 보여줍니다.</p>
+
+                                <div class="row">
+
+                                    <!-- 긍정리뷰 -->
+                                    <div class="col-lg-6 mb-4">
+                                        <div class="card shadow mb-4">
+                                            <div class="card-header py-3">
+                                                <h6 class="m-0 font-weight-bold text-primary">긍정리뷰 워드클라우드</h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <div id="container_posi"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6 mb-4">
+
+                                        <!--부정리뷰-->
+                                        <div class="card shadow mb-4">
+                                            <div class="card-header py-3">
+                                                <h6 class="m-0 font-weight-bold text-primary">부정리뷰 워드클라우드</h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <div id="container_nag"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.container-fluid -->
+                        </div>
+                        <!-- Content Row -->
+                        <div class="container-fluid">
+                            <!-- Page Heading -->
+                            <h1 class="h3 mb-2 text-gray-800">카테고리별 점수</h1>
+                            <p class="mb-4">&nbsp;카테고리별 평균 별점과, 판매 기여도를 나타냅니다.</p>
+
+                            <div class="row">
+
+                                <!-- Content Column -->
+                                <div class="col-lg-6 mb-4">
+
+                                    <!-- Project Card Example -->
+                                    <div class="card shadow mb-4">
+                                        <div class="card-header py-3">
+                                            <h6 class="m-0 font-weight-bold text-primary">카테고리별 별점</h6>
+                                        </div>
+                                        <div class="card-body">
+                                            <!--데이터 : 별점 평균 백분율로-->
+                                            <h4 class="small font-weight-bold">디자인<span class="float-right">20%</span>
+                                            </h4>
+                                            <div class="progress mb-4">
+                                                <div class="progress-bar bg-danger" role="progressbar"
+                                                    style="width: 20%" aria-valuenow="20" aria-valuemin="0"
+                                                    aria-valuemax="100"></div>
+                                            </div>
+                                            <h4 class="small font-weight-bold">만족도 <span class="float-right">40%</span>
+                                            </h4>
+                                            <div class="progress mb-4">
+                                                <div class="progress-bar bg-warning" role="progressbar"
+                                                    style="width: 40%" aria-valuenow="40" aria-valuemin="0"
+                                                    aria-valuemax="100"></div>
+                                            </div>
+                                            <h4 class="small font-weight-bold">안정성<span class="float-right">60%</span>
+                                            </h4>
+                                            <div class="progress mb-4">
+                                                <div class="progress-bar" role="progressbar" style="width: 60%"
+                                                    aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                            <h4 class="small font-weight-bold">기능성<span class="float-right">80%</span>
+                                            </h4>
+                                            <div class="progress mb-4">
+                                                <div class="progress-bar bg-info" role="progressbar" style="width: 80%"
+                                                    aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                        </div>
+                                    </div><br>
+                                    <!-- Approach -->
+                                    <h1 class="h3 mb-2 text-gray-800">분석 결과</h1>
+                                    <p class="mb-4">&nbsp;라이브커머스 제품판매 결과를 엑셀 보고서 형태로 출력합니다.</p>
+                                    <div class="my-2"></div>
+                                    <a href="#" class="btn btn-primary btn-icon-split btn-lg">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-flag"></i>
+                                        </span>
+                                        <span class="text">보고서 출력하기</span>
+                                    </a>
+                                </div>
+
+                                <div class="col-lg-6 mb-4">
+
+                                    <!-- 분석결과 -->
+                                    <div class="card shadow mb-4">
+                                        <div class="card-header py-3">
+                                            <h6 class="m-0 font-weight-bold text-primary">분석결과</h6>
+                                        </div>
+                                        <div class="card-body" style="height:292px;">
+                                            <div style="overflow-x:hidden; width:100%; height:250px;">
+                                                <p>결과 리포트 부분sdfadfasdfsadfsadfdsfadsfaewaf임부분s
+                                                    dfadfasdfsadfsadfdsfadsfaewaf임부분sdfadfasdfsadfsadfds
+                                                    fadsfaewaf임부분sdfadfasdfsadfsadfdsfadsfaewaf임부분s
+                                                    dfadfasdfsadfsadfdsfadsfaewaf임부분sdfadfasdfsadfsadf
+                                                    dsfadsfaewaf임부분sdfadfasdfsadfsadfdsfadsfaewaf임부
+                                                    분sdfadfasdfsadfsadfdsfadsfaewaf임부분sdfadfasdfsadfs
+                                                    adfdsfadsfaewaf임부분sdfadfasdfsadfsadfdsfadsfaewaf임부
+                                                    분sdfadfasdfsadfsadfdsfadsfaewaf임부분sdfadfasdfsadfsa
+                                                    fdsfadsfaewaf임부분sdfadfasdfsadfsadfdsfadsfaewaf임부분
+                                                    sdfadfasdfsadfsadfdsfadsfaewaf임부분sdfadfasdfsadfsadfdsf
+                                                    adsfaewaf임부분sdfadfasdfsadfsadfdsfadsfaewaf임부분sdfad
+                                                    fasdfsadfsadfdsfadsfaewaf임부분sdfadfasdfsadfsadfdsfadsf
+                                                    aewaf임부분sdfadfasdfsadfsadfdsfadsfaewaf임부분sdfadfasdf
+                                                    sadfsadfdsfadsfaewaf임부분sdfadfasdfsadfsadfdsfadsfaewaf
+                                                    임부분sdfadfasdfsadfsadfdsfadsfaewaf임</p>
+                                                <p class="mb-0">결과 리포트 부분임</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card"
+                        style="background-color: rgba(255, 255, 255, 0.887);border-radius: 0px 0px 20px 20px; border: 0px solid white;">
+                        <div style="overflow-x:hidden; width:100%; height:30px;">
+                        </div>
+                    </div>
+                </div>
+                <!-- End of Main Content -->
+
             </div>
-          </div>
-          <div class="card mt-3" style="width: 100%;">
-            <div class="card-body">
-              <div class="row justify-content-between align-items-center">
-                <div class="col-md">
-                  <h5 class="mb-2 mb-md-0" style="font-family: 'Sunflower', sans-serif;">분석 보고서 출력하기</h5>
-                </div>
-                <div class="col-auto">
-                  <button class="btn btn-falcon-primary btn-sm">내보내기</button>
-                </div>
-              </div>
-            </div>
-          </div>
+            <!-- End of Content Wrapper -->
+
         </div>
+        <!-- End of Page Wrapper -->
 
-        <footer>
-          <div class="row no-gutters justify-content-between fs--1 mt-4 mb-3">
-            <div class="col-12 col-sm-auto text-center">
-              <p class="mb-0 text-600">미정이조<span class="d-none d-sm-inline-block">| </span><br class="d-sm-none" />
-                2022
-                &copy; <a href="https://themewagon.com">광주인공지능사관학교</a></p>
-            </div>
-          </div>
-        </footer>
-      </div>
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
     </div>
-  </main>
-  <!-- ===============================================-->
-  <!--    End of Main Content-->
-  <!-- ===============================================-->
 
 
+    <!-- Bootstrap core JavaScript-->
+    <script src="/vendor/jquery/jquery.min.js"></script>
+    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
+    <!-- Core plugin JavaScript-->
+    <script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
 
-  <!-- ===============================================-->
-  <!--    JavaScripts-->
-  <!-- ===============================================-->
-  <script src="/js/jquery.min.js"></script>
-  <script src="/js/popper.min.js"></script>
-  <script src="/js/bootstrap.min.js"></script>
-  <script src="/libs/@fortawesome/all.min.js"></script>
-  <script src="/libs/stickyfilljs/stickyfill.min.js"></script>
-  <script src="/libs/sticky-kit/sticky-kit.min.js"></script>
-  <script src="/libs/is_js/is.min.js"></script>
-  <script src="/libs/lodash/lodash.min.js"></script>
-  <script src="/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
-  <link
-    href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700%7cPoppins:100,200,300,400,500,600,700,800,900&amp;display=swap"
-    rel="stylesheet">
-  <script src="/libs/echarts/echarts.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.15/browser-polyfill.min.js"></script>
-  <script src="/libs/progressbar.js/progressbar.min.js"></script>
-  <script src="/js/theme.js"></script>
-  <script src="/libs/datatables/js/jquery.dataTables.min.js"></script>
-  <script src="/libs/datatables-bs4/dataTables.bootstrap4.min.js"></script>
-  <script src="/libs/datatables.net-responsive/dataTables.responsive.js"></script>
-  <script src="/libs/datatables.net-responsive-bs4/responsive.bootstrap4.js"></script>
-  <script src="/libs/chart.js/Chart.min.js"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="/js/sb-admin-2.min.js"></script>
 
+    <!-- Page level plugins -->
+    <script src="/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
-
-
+    <!-- Page level custom scripts -->
+    <script src="/js/demo/datatables-demo.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    
 
 
 </body>

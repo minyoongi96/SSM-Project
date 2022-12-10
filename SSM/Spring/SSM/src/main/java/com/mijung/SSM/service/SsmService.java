@@ -41,4 +41,7 @@ public interface SsmService {
 	// 7.
 	List<Object> getKeywordCount(Broadcasting bc);
 	
+	// itemSeq를 가지는 제품의 카테고리별 감성점수 map 반환
+	Map<String, Double> itemSentiment(Long itemSeq);
+	
 }

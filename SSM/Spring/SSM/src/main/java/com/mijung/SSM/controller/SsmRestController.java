@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mijung.SSM.entity.Broadcasting;
+import com.mijung.SSM.entity.Items;
+import com.mijung.SSM.entity.OurCategory;
 import com.mijung.SSM.service.SsmService;
 
 @RestController
@@ -22,7 +24,7 @@ public class SsmRestController {
 	
 	// 대시보드 화면에 들어갈 모든 데이터셋 보내주는 RestController
 	@RequestMapping(value="/Dashboard/{bcSeq}", method=RequestMethod.GET)
-	public String VrSalesSum(@PathVariable("bcSeq") final Long bcSeq) {
+	public String mainDashboard(@PathVariable("bcSeq") final Long bcSeq) {
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		Broadcasting bc = ssmService.BcFindByBcSeq(bcSeq);	// bcSeq로 객체 호출
 		
@@ -32,15 +34,14 @@ public class SsmRestController {
 		return gson.toJson(info);
 	}
 	
-	// 테스트용
-//	@RequestMapping(value="/stars/{bcSeq}", method=RequestMethod.GET)
-//	public String getStars(@PathVariable("bcSeq") final Long bcSeq) {
-//		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-//		Broadcasting bc = ssmService.BcFindByBcSeq(bcSeq);
-//		
-//		List<Object> result = ssmService.getStarsAvgGroupBy(bc);
-//		
-//		return gson.toJson(result);
-//	}
+	// 아이템 감성점수
+	@RequestMapping(value="/itemSentiment/{itemSeq}", method=RequestMethod.GET)
+	public String itemSentiment(@PathVariable("itemSeq") final Long itemSeq) {
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		
+		Map<String, Double> itemSentimentMap = ssmService.itemSentiment(itemSeq);
+		
+		return gson.toJson(itemSentimentMap);
+	}
 	
 }

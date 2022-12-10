@@ -12,10 +12,13 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.mijung.SSM.entity.Board;
 import com.mijung.SSM.entity.Broadcasting;
@@ -45,7 +48,7 @@ public class SsmController {
 		return "login";
 	}
 	
-	@PostMapping(value = "/login.do")
+	@PostMapping(value = "/list.do")
 	public String loginId(Users user, HttpSession session, Model model){
 		if(ssmService.loginCheck(user) == false) {
 			
@@ -57,12 +60,22 @@ public class SsmController {
 			
 			List<Broadcasting> bcList = ssmService.BcFindAllByUsersVO(LoginUser);
 			model.addAttribute("bcList", bcList);
-			
+
 			return "list";
 		}
 	}
 	
 	// boardList 이동
+
+	// 방송정보 갖고 Dashboard로 이동
+	@RequestMapping(value = "/loadingDashboard.do/{bcSeq}", method=RequestMethod.GET)
+	public String loadingDashboard(@PathVariable("bcSeq") final Long bcSeq, Model model) {
+		Broadcasting bcVO = ssmService.BcFindByBcSeq(bcSeq);
+		model.addAttribute("bc", bcVO);
+		
+		return "dashBoard";
+	}
+	// boardList 게시판
 	@GetMapping(value="/boardList.do")
 	public String boardList(Model model) {
 		// 모든 게시판 테이블 가져오기
@@ -70,37 +83,36 @@ public class SsmController {
 		model.addAttribute("boardList", boardList);
 		return "boardList";
 	}
+
 	
 	@GetMapping(value = "/boardView.do/{boardSeq}")
 	public String boardView(@PathVariable Long boardSeq, Model model) {
 		// get방식으로 boardSeq를 자동입력받고 이에 해당하는 BoardVO 새성
 		Board boardVO = ssmService.BoardFindByBoardSeq(boardSeq);
-		// BoardVO에 맞는 댓글리스트 가져옴
 		Comments comment = ssmService.CmFindByBoardVO(boardVO);
-		// boardView에서 사용할 boardVO와 댓글리스트 모델 저장
 		model.addAttribute("boardVO", boardVO);
 		model.addAttribute("comment", comment);
+		
 		return "boardView";
 	}
 	
 	// 문의 답글 작성
 	@GetMapping(value="/insert.do/{boardSeq}")
-	public String insertComment(@PathVariable Long boardSeq, String commentContent) {
+	public String insertComment(@PathVariable Long boardSeq, Comments commentContent,HttpSession session) {
 		Board boardVO = ssmService.BoardFindByBoardSeq(boardSeq);
 		Comments comment = ssmService.CmFindByBoardVO(boardVO);
-		
+		if(comment==null) {
+			comment = new Comments();
+		}
 		comment.setBoardVO(boardVO);
-		comment.setCommentContent(commentContent);
-		// 랑 관리자일때만 답글 작성 보이게 하기!
-		Users user = new Users();
-		user.setUserId("admin01");
-		comment.setUsersVO(user);
+		comment.setCommentContent(commentContent.getCommentContent());
+		comment.setUsersVO((Users) session.getAttribute("user"));
 		cmRepository.save(comment);
 		return "redirect:/boardView.do/"+boardSeq;
 	}
 	
 	@GetMapping(value="/delete.do/{boardSeq}")
-	public String deleteBoard(@PathVariable Long boardSeq) {
+	public String boardDelete(@PathVariable Long boardSeq) {
 		Board boardVO = ssmService.BoardFindByBoardSeq(boardSeq);
 		Comments comment = ssmService.CmFindByBoardVO(boardVO);
 		cmRepository.delete(comment);
@@ -109,11 +121,13 @@ public class SsmController {
 		return "redirect:/boardList.do";
 	}
 	
-	@GetMapping(value="boardWrite.do")
-	public String WriteBoard(Board boardVO) {
-		System.out.println(boardVO); // 확인 해보고.. save해보자..!! 
-//		boardRepository.save(boardVO);
+	@PostMapping(value="boardWrite.do")
+	public String BoardWrite(Board boardVO, HttpSession session) {
+		Users user = (Users) session.getAttribute("user");
+		boardVO.setUsersVO(user);
+		System.out.println(boardVO);
+		boardRepository.save(boardVO);
 		return "redirect:/boardList.do";
 	}
-	
+
 }
