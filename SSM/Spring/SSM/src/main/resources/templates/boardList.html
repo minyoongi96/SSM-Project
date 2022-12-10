@@ -1,416 +1,288 @@
 <!DOCTYPE html>
-<html lang="en-US" dir="ltr">
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="apple-touch-icon" sizes="180x180" href="/img/favicons/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicons/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicons/favicon-16x16.png">
-  <link rel="shortcut icon" type="image/x-icon" href="/img/favicons/favicon.ico">
-  <link rel="manifest" href="/img/favicons/manifest.json">
-  <meta name="msapplication-TileImage" content="/img/favicons/mstile-150x150.png">
-  <meta name="theme-color" content="#ffffff">
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>contectList</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="/css/sb-admin-2.css" rel="stylesheet">
+    <link href="/css/sb-admin-2.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script>
+        ; $(function () {
+            $('#sidebarToggle').trigger('click');
+            $('#sidebarToggle').css({ 'display': 'none' });
+        });
+
+    </script>
 
 
-  <!-- ===============================================-->
-  <!--    Stylesheets-->
-  <!-- ===============================================-->
-  <script src="/js/config.navbar-vertical.js"></script>
-  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
-  <link href="/libs/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet">
-  <link href="/css/theme.css" rel="stylesheet">
-  <link href="/libs/datatables-bs4/dataTables.bootstrap4.min.css" rel="stylesheet">
-  <link href="/libs/datatables.net-responsive-bs4/responsive.bootstrap4.css" rel="stylesheet">
-  <!--스크립트-->
-  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-  <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-  <script src="https://cdn.anychart.com/releases/v8/js/anychart-base.min.js"></script>
-  <script src="https://cdn.anychart.com/releases/v8/js/anychart-tag-cloud.min.js"></script>
-
-
-
-  
 </head>
 
-<body>
+<body id="page-top">
 
-  <!-- ===============================================-->
-  <!--    메뉴바   -->
-  <!-- ===============================================-->
-  <main class="main" id="top">
-    <div class="container" data-layout="container">
-      <nav class="navbar navbar-vertical navbar-expand-xl navbar-light">
-        <div class="d-flex align-items-center">
-          <div class="toggle-icon-wrapper">
-            <button class="btn navbar-toggler-humburger-icon navbar-vertical-toggle" data-toggle="tooltip"
-              data-placement="left"><span class="navbar-toggle-icon"><span class="toggle-line"></span></span></button>
-          </div><a class="navbar-brand" href="../index.html">
-            <div class="d-flex align-items-center py-3"><span class="text-sans-serif">SSM</span>
-            </div>
-          </a>
-        </div>
-        <div class="collapse navbar-collapse" id="navbarVerticalCollapse">
-          <div class="navbar-vertical-content perfect-scrollbar scrollbar">
-            <div class="navbar-vertical-divider">
-              <hr class="navbar-vertical-hr my-2" />
-            </div>
-            <ul class="navbar-nav flex-column">
-              <li class="nav-item"><a class="nav-link" href="./방송목록.html">
-                  <div class="d-flex align-items-center"><span class="nav-link-icon"><span
-                        class="fas fa-poll"></span></span><span class="nav-link-text"> Live-Commerce</span>
-                  </div>
-                </a></li>
-              <li class="nav-item"><a class="nav-link" href="./글목록.html">
-                  <div class="d-flex align-items-center"><span class="nav-link-icon"><span
-                        class="fas fa-comments"></span></span><span class="nav-link-text">Contect</span>
-                  </div>
-                </a></li>
-            </ul>
-            <div class="navbar-vertical-divider">
-              <hr class="navbar-vertical-hr my-2" />
-            </div>
-            <ul class="navbar-nav flex-column">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
 
-              <li class="nav-item"><a class="nav-link" href="../changelog.html">
-                  <div class="d-flex align-items-center"><span class="nav-link-icon"><span
-                        class="fas fa-code-branch"></span></span><span class="nav-link-text"> About</span><span
-                      class="badge badge-pill ml-2 badge-soft-primary">v1</span>
-                  </div>
-                </a></li>
-            </ul>
-      </nav>
-      <div class="content">
-        <nav class="navbar navbar-light navbar-glass navbar-top sticky-kit navbar-expand">
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar"
+            style="background-image: linear-gradient(-20deg, #2b5876 0%, #4e4376 100%);">
 
-          <button class="btn navbar-toggler-humburger-icon navbar-toggler mr-1 mr-sm-3" type="button"
-            data-toggle="collapse" data-target="#navbarVerticalCollapse" aria-controls="navbarVerticalCollapse"
-            aria-expanded="false" aria-label="Toggle Navigation"><span class="navbar-toggle-icon"><span
-                class="toggle-line"></span></span></button>
-          <a class="navbar-brand mr-1 mr-sm-3" href="../index.html">
-            <div class="d-flex align-items-center"><img class="mr-2" src="/img/illustrations/falcon.png" alt=""
-                width="40" /><span class="text-sans-serif">falcon</span>
-            </div>
-          </a>
-          <ul class="navbar-nav align-items-center d-none d-lg-block">
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-laugh-wink"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">SSM <sup></sup></div>
+            </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+            <!-- Nav Item - Charts -->
             <li class="nav-item">
-              <div class="search-box">
-                <button class="close" type="button" data-dismiss="search"><span class="fas fa-times"></span></button>
-                <div class="dropdown-menu">
-                  <div class="scrollbar perfect-scrollbar py-3" style="height: 24rem;">
-                    <h6 class="dropdown-header px-card pt-0 pb-2">Recently Browsed</h6>
-                    <a class="dropdown-item fs--1 px-card py-1 hover-primary" href="../pages/events.html">
-                      <div class="d-flex align-items-center">
-                        <span class="fas fa-circle mr-2 text-300 fs--2"></span>
-
-                        <div class="font-weight-normal">Pages <span class="fas fa-chevron-right mx-1 text-500 fs--2"
-                            data-fa-transform="shrink-2"></span> Events</div>
-                      </div>
-                    </a>
-                    <a class="dropdown-item fs--1 px-card py-1 hover-primary" href="../e-commerce/customers.html">
-                      <div class="d-flex align-items-center">
-                        <span class="fas fa-circle mr-2 text-300 fs--2"></span>
-
-                        <div class="font-weight-normal">E-commerce <span
-                            class="fas fa-chevron-right mx-1 text-500 fs--2" data-fa-transform="shrink-2"></span>
-                          Customers</div>
-                      </div>
-                    </a>
-
-                    <hr class="border-200" />
-                    <h6 class="dropdown-header px-card pt-0 pb-2">Suggested Filter</h6>
-                    <a class="dropdown-item px-card py-1 fs-0" href="../e-commerce/customers.html">
-                      <div class="d-flex align-items-center"><span
-                          class="badge font-weight-medium text-decoration-none mr-2 badge-soft-warning">customers:</span>
-                        <div class="flex-1 fs--1">All customers list</div>
-                      </div>
-                    </a>
-                    <a class="dropdown-item px-card py-1 fs-0" href="../pages/events.html">
-                      <div class="d-flex align-items-center"><span
-                          class="badge font-weight-medium text-decoration-none mr-2 badge-soft-success">events:</span>
-                        <div class="flex-1 fs--1">Latest events in current month</div>
-                      </div>
-                    </a>
-                    <a class="dropdown-item px-card py-1 fs-0" href="../e-commerce/product-grid.html">
-                      <div class="d-flex align-items-center"><span
-                          class="badge font-weight-medium text-decoration-none mr-2 badge-soft-info">products:</span>
-                        <div class="flex-1 fs--1">Most popular products</div>
-                      </div>
-                    </a>
-                    <hr class="border-200" />
-                    <h6 class="dropdown-header px-card pt-0 pb-2">Files</h6>
-                    <a class="dropdown-item px-card py-2" href="#!">
-                      <div class="d-flex align-items-center">
-                        <div class="file-thumbnail mr-2"><img class="border h-100 w-100 fit-cover rounded-lg"
-                            src="/img/products/3-thumb.png" alt="" /></div>
-                        <div class="flex-1">
-                          <h6 class="mb-0">iPhone</h6>
-                          <p class="fs--2 mb-0"><span class="font-weight-semi-bold">Antony</span><span
-                              class="font-weight-medium text-600 ml-2">27 Sep at 10:30 AM</span></p>
-                        </div>
-                      </div>
-                    </a>
-                    <a class="dropdown-item px-card py-2" href="#!">
-                      <div class="d-flex align-items-center">
-                        <div class="file-thumbnail mr-2"><img class="img-fluid" src="/img/icons/zip.png"
-                            alt="" /></div>
-                        <div class="flex-1">
-                          <h6 class="mb-0">Falcon v1.8.2</h6>
-                          <p class="fs--2 mb-0"><span class="font-weight-semi-bold">John</span><span
-                              class="font-weight-medium text-600 ml-2">30 Sep at 12:30 PM</span></p>
-                        </div>
-                      </div>
-                    </a>
-                    <hr class="border-200" />
-                    <h6 class="dropdown-header px-card pt-0 pb-2">Members</h6>
-                    <a class="dropdown-item px-card py-2" href="../pages/profile.html">
-                      <div class="d-flex align-items-center">
-                        <div class="avatar avatar-l status-online mr-2">
-                          <img class="rounded-circle" src="/img/team/1.jpg" alt="" />
-                        </div>
-                        <div class="flex-1">
-                          <h6 class="mb-0">Anna Karinina</h6>
-                          <p class="fs--2 mb-0">Technext Limited</p>
-                        </div>
-                      </div>
-                    </a>
-                    <a class="dropdown-item px-card py-2" href="../pages/profile.html">
-                      <div class="d-flex align-items-center">
-                        <div class="avatar avatar-l mr-2">
-                          <img class="rounded-circle" src="/img/team/2.jpg" alt="" />
-
-                        </div>
-                        <div class="flex-1">
-                          <h6 class="mb-0">Antony Hopkins</h6>
-                          <p class="fs--2 mb-0">Brain Trust</p>
-                        </div>
-                      </div>
-                    </a>
-                    <a class="dropdown-item px-card py-2" href="../pages/profile.html">
-                      <div class="d-flex align-items-center">
-                        <div class="avatar avatar-l mr-2">
-                          <img class="rounded-circle" src="/img/team/3.jpg" alt="" />
-                        </div>
-                        <div class="flex-1">
-                          <h6 class="mb-0">Emma Watson</h6>
-                          <p class="fs--2 mb-0">Google</p>
-                        </div>
-                      </div>
-                    </a>
-                  </div>
-                </div>
-              </div>
+                <a class="nav-link" href="index.html">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Live-Commerce</span></a>
             </li>
-          </ul>
-          <ul class="navbar-nav navbar-nav-icons ml-auto flex-row align-items-center">
-            <li class="nav-item dropdown dropdown-on-hover"><a class="nav-link pr-0" id="navbarDropdownUser" href="#"
-                role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span th:text="|${session.user.userId}님 안녕하세요.|"></span>
-              </a>
-              <div class="dropdown-menu dropdown-menu-right py-0" aria-labelledby="navbarDropdownUser">
-                <div class="bg-white rounded-soft py-2">
-                  <a class="dropdown-item" href="http://127.0.0.1:5500/SSM/page/real_main.html">Logout</a>
-                </div>
-              </div>
-            </li>
-          </ul>
-        </nav>
 
+            <!-- Divider -->
+            <hr class="sidebar-divider">
 
-
-        <div class="card mb-3">
-          <div class="card-header">
-            <h5 class="mb-0">문의하기 게시판</h5>
-          </div>
-          <div class="card-body px-0 pt-0">
-            <div class="row">
-              <div class="col-12">
-                <div class="dashboard-data-table">
-                  <table class="table table-sm table-dashboard fs--1 data-table border-bottom"
-                    data-options='{"responsive":false,"pagingType":"simple","lengthChange":false,"searching":false,"pageLength":8,"columnDefs":[{"targets":[0,6],"orderable":false}],"language":{"info":"_START_ to _END_ Items of _TOTAL_ — <a href=\"#!\" class=\"font-weight-semi-bold\"> view all <span class=\"fas fa-angle-right\" data-fa-transform=\"down-1\"></span> </a>"},"buttons":["copy","excel"]}'>
-                    <thead class="bg-200 text-900">
-                      <tr>
-                        <th class="no-sort pr-1 align-middle data-table-row-bulk-select">
-                          <div class="custom-control custom-checkbox">
-                            <input class="custom-control-input checkbox-bulk-select" id="checkbox-bulk-purchases-select"
-                              type="checkbox" data-checkbox-body="#purchases" data-checkbox-actions="#purchases-actions"
-                              data-checkbox-replaced-element="#dashboard-actions" />
-                            <label class="custom-control-label" for="checkbox-bulk-purchases-select"></label>
-                          </div>
-                        </th>
-                        <th class="sort pr-1 align-middle">아이디</th>
-                        <th class="sort pr-1 align-middle">작성일자</th>
-                        <th class="sort pr-1 align-middle">제목</th>
-                        <th class="sort pr-1 align-middle text-center">처리상태</th>
-                        <th class="sort pr-1 align-middle text-center">담당자</th>
-                        <th class="no-sort pr-1 align-middle data-table-row-action"></th>
-                      </tr>
-                    </thead>
-
-                    <tbody id="purchases">
-							<!--  TODO 반복문 적용 시키기 -->
-                      <tr th:each="board : ${boardList}" class="btn-reveal-trigger">
-                        <td class="align-middle">
-                          <div class="custom-control custom-checkbox">
-                            <input class="custom-control-input checkbox-bulk-select-target" type="checkbox"
-                              id="checkbox-0" />
-                            <label class="custom-control-label" for="checkbox-0"></label>
-                          </div>
-                        </td>
-                        <td th:text="${board.usersVO.userId}" class="align-middle"></th>
-                        <td th:text="${board.boardDate}" class="align-middle"></td>
-                        <td th:text="${board.boardTitle}" class="align-middle"><a href="boardView.do"></a></td>
-                        <td class="align-middle text-center fs-0"><span
-                            class="badge badge rounded-capsule badge-soft-success">완료<span class="ml-1 fas fa-check"
-                              data-fa-transform="shrink-2"></span></span>
-                        </td>
-                        <td class="align-middle text-center">관리자</td>
-                        <td class="align-middle white-space-nowrap">
-                          <div class="dropdown text-sans-serif">
-                            <button class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal mr-3" type="button"
-                              id="dropdown0" data-toggle="dropdown" data-boundary="html" aria-haspopup="true"
-                              aria-expanded="false"><span class="fas fa-ellipsis-h fs--1"></span></button>
-                            <div class="dropdown-menu dropdown-menu-right border py-0" aria-labelledby="dropdown0">
-                              <div class="bg-white py-2">
-                                <a class="dropdown-item text-danger" href="#!">Delete</a>
-                              </div>
-                            </div>
-                          </div>
-                        </td>
-                      </tr>
-                      
-                    </tbody>
-                  </table>
-                </div>
-              </div>
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Support
             </div>
-          </div> 
-                
-                <br>
-                <br><br>
-              </div>
-              <div class="row">
-                <div class="col">
-                  <button class="btn btn-success" type="button" style="background-color: #2C7BE5;border:0;"
-                    onClick="location.href='글작성.html'">문의하기
-                  </button>
-                </div>
-              </div>
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
+                <a class="nav-link" href="/boardList.do">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Contect</span></a>
+            </li>
 
-              <footer>
-                <div class="row no-gutters justify-content-between fs--1 mt-4 mb-3">
-                  <div class="col-12 col-sm-auto text-center">
-                    <p class="mb-0 text-600">미정이조<span class="d-none d-sm-inline-block">| </span><br
-                        class="d-sm-none" /> 2022
-                      &copy; <a href="https://themewagon.com">광주인공지능사관학교</a></p>
-                  </div>
+
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                My page
+            </div>
+            <!-- Nav Item - Utilities Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+                    aria-expanded="true" aria-controls="collapseUtilities">
+                    <i class="fas fa-fw fa-wrench"></i>
+                    <span>About</span>
+                </a>
+            </li>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Logout</span>
+                </a>
+            </li>
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+        </ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column" `>
+
+            <!-- Main Content -->
+            <div id="content" style="background-image: linear-gradient(-20deg, #4e4376 0%, #2b5876 100%);">
+                <div class="container-fluid" style="padding-left: 3rem;
+                padding-right: 3rem;">
+                    <br>
+                    <div class="card"
+                        style="background-color: rgba(255, 255, 255, 0.887);border-radius: 20px 20px 0px 0px; border: 0px solid white;">
+                        <div style="overflow-x:hidden; width:100%; height:30px;">
+                        </div>
+                    </div>
                 </div>
-              </footer>
-              <div class="modal fade" id="authentication-modal" tabindex="-1" role="dialog"
-                aria-labelledby="authentication-modal-label" aria-hidden="true">
-                <div class="modal-dialog mt-6" role="document">
-                  <div class="modal-content border-0">
-                    <div class="modal-header px-5 text-white position-relative modal-shape-header">
-                      <div class="position-relative z-index-1">
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid" style="padding-left: 3rem;
+                padding-right: 3rem;">
+                    <div class="card" style="background-color: rgba(255, 255, 255, 0.887);border-radius: 0px 0px 0px 0px;overflow-x:hidden; width:100%; 
+                        height:640px; border: 0px;">
                         <div>
-                          <h4 class="mb-0 text-white" id="authentication-modal-label">Register</h4>
-                          <p class="fs--1 mb-0">Please create your free Falcon account</p>
+                            <!-- Page Heading -->
+                            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                                <h1 class="h3 mb-0 text-gray-800"></h1>
+                            </div>
+                            <!-- Begin Page Content -->
+                            <div class="container-fluid">
+
+                                <!-- Page Heading -->
+                                <h1 class="h3 mb-2 text-gray-800">문의사항</h1>
+                                <p class="mb-4">서비스에 대한 문의사항이나 개선사항을 남겨주세요. </p>
+                                <!-- DataTales Example -->
+                                <div class="card shadow mb-4" style="overflow-x:hidden; width:100%; height:450px;">
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered" id="dataTable" cellspacing="0">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width:140px; text-align: center;">기업명</th>
+                                                        <th style="width:160px; text-align: center;">작성일자</th>
+                                                        <th style="width:640px; text-align: center;">제목</th>
+                                                        <th style="width:140px; text-align: center;">처리상태</th>
+                                                        <th style="width:140px; text-align: center;">담당자</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr th:each="board : ${boardList}">
+                                                        <td th:text="${board.usersVO.userCompany}" style="width:140px; text-align: center;"></td>
+                                                        <td th:text="${#strings.substring(board.boardDate,0,10)}" style="width:140px; text-align:center;"></td>
+                                                        <td style="width:140px; text-align: center;"><a th:href="@{/boardView.do/{boardSeq}(boardSeq=${board.boardSeq})}" th:text="${board.boardTitle}" ></a></td>
+                  												                               
+                                                        <td style="width:140px; text-align: center;">완료</td>
+                                                        <td style="width:140px; text-align: center;">관리자</td>
+                                                    </tr>
+                                                    <tr>
+                                                    	<td style="width:140px; text-align: center;">광주AI사관학교</td>
+                                                        <td style="width:140px; text-align:center;">2022-12-12</td>
+                                                        <td style="width:140px; text-align: center;"><a href="dsadsa">답변 부탁드립니다.<a></td>
+                                                        <td style="width:140px; text-align: center;">처리 중</td>
+                                                        <td style="width:140px; text-align: center;">관리자</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--문의하기-->
+                                <!--글들어올부분-->
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal" data-bs-whatever="제목을 입력하세요.">문의하기</button>
+
+                                <div class="modal fade" id="exampleModal" tabindex="-1"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form method="post" action="boardWrite.do">
+                                                    <div class="mb-3">
+
+                                                        <!--데이터 : 글제목 글내용-->
+                                                        <label for="recipient-name" class="col-form-label">제목:</label>
+                                                        <input type="text" name="boardTitle" class="form-control" id="recipient-name">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="message-text" class="col-form-label">내용:</label>
+                                                        <textarea class="form-control" name="boardContents" id="message-text"
+                                                            placeholder="내용을 입력하세요."></textarea>
+                                                    </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">닫기</button>
+                                                <button type="submit" class="btn btn-primary">문의하기</button>
+                                            </div>
+                                          </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+                            </div>
+                            <!-- /.container-fluid -->
+
+
                         </div>
-                      </div>
-                      <button class="close text-white position-absolute t-0 r-0 mt-1 mr-1" data-dismiss="modal"
-                        aria-label="Close"><span class="font-weight-light" aria-hidden="true">&times;</span></button>
                     </div>
-                    <div class="modal-body py-4 px-5">
-                      <form>
-                        <div class="form-group">
-                          <label for="modal-auth-name">Name</label>
-                          <input class="form-control" type="text" id="modal-auth-name" />
+                    <!--동그란 아래부분-->
+                    <div class="card"
+                        style="background-color: rgba(255, 255, 255, 0.887);border-radius: 0px 0px 20px 20px; border: 0px solid white;">
+                        <div style="overflow-x:hidden; width:100%; height:30px;">
                         </div>
-                        <div class="form-group">
-                          <label for="modal-auth-email">Email address</label>
-                          <input class="form-control" type="email" id="modal-auth-email" />
-                        </div>
-                        <div class="form-row">
-                          <div class="form-group col-6">
-                            <label for="modal-auth-password">Password</label>
-                            <input class="form-control" type="password" id="modal-auth-password" />
-                          </div>
-                          <div class="form-group col-6">
-                            <label for="modal-auth-confirm-password">Confirm Password</label>
-                            <input class="form-control" type="password" id="modal-auth-confirm-password" />
-                          </div>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input class="custom-control-input" type="checkbox" id="modal-auth-register-checkbox" />
-                          <label class="custom-control-label" for="modal-auth-register-checkbox">I accept the <a
-                              href="#!">terms
-                            </a>and <a href="#!">privacy policy</a></label>
-                        </div>
-                        <div class="form-group">
-                          <button class="btn btn-primary btn-block mt-3" type="submit" name="submit">Register</button>
-                        </div>
-                      </form>
-                      <div class="w-100 position-relative mt-5">
-                        <hr class="text-300" />
-                        <div
-                          class="position-absolute absolute-centered t-0 px-3 bg-white text-sans-serif fs--1 text-500 text-nowrap">
-                          or register with</div>
-                      </div>
-                      <div class="form-group mb-0">
-                        <div class="row no-gutters">
-                          <div class="col-sm-6 pr-sm-1"><a class="btn btn-outline-google-plus btn-sm btn-block mt-2"
-                              href="#"><span class="fab fa-google-plus-g mr-2" data-fa-transform="grow-8"></span>
-                              google</a>
-                          </div>
-                          <div class="col-sm-6 pl-sm-1"><a class="btn btn-outline-facebook btn-sm btn-block mt-2"
-                              href="#"><span class="fab fa-facebook-square mr-2" data-fa-transform="grow-8"></span>
-                              facebook</a></div>
-                        </div>
-                      </div>
                     </div>
-                  </div>
                 </div>
-              </div>
+                <!-- End of Main Content -->
+
             </div>
-          </div>
-  </main>
-  <!-- ===============================================-->
-  <!--    End of Main Content-->
-  <!-- ===============================================-->
+            <!-- End of Content Wrapper -->
+
+        </div>
+        <!-- End of Page Wrapper -->
+
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
+    </div>
 
 
+    <!-- Bootstrap core JavaScript-->
+    <script src="/vendor/jquery/jquery.min.js"></script>
+    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
+    <!-- Core plugin JavaScript-->
+    <script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
 
-  <!-- ===============================================-->
-  <!--    JavaScripts-->
-  <!-- ===============================================-->
-  <script src="/js/jquery.min.js"></script>
-  <script src="/js/popper.min.js"></script>
-  <script src="/js/bootstrap.min.js"></script>
-  <script src="/libs/@fortawesome/all.min.js"></script>
-  <script src="/libs/stickyfilljs/stickyfill.min.js"></script>
-  <script src="/libs/sticky-kit/sticky-kit.min.js"></script>
-  <script src="/libs/is_js/is.min.js"></script>
-  <script src="/libs/lodash/lodash.min.js"></script>
-  <script src="/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
-  <link
-    href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700%7cPoppins:100,200,300,400,500,600,700,800,900&amp;display=swap"
-    rel="stylesheet">
-  <script src="/libs/echarts/echarts.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.15/browser-polyfill.min.js"></script>
-  <script src="/libs/progressbar.js/progressbar.min.js"></script>
-  <script src="/js/theme.js"></script>
-  <script src="/libs/datatables/js/jquery.dataTables.min.js"></script>
-  <script src="/libs/datatables-bs4/dataTables.bootstrap4.min.js"></script>
-  <script src="/libs/datatables.net-responsive/dataTables.responsive.js"></script>
-  <script src="/libs/datatables.net-responsive-bs4/responsive.bootstrap4.js"></script>
-  <script src="/libs/chart.js/Chart.min.js"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="/js/sb-admin-2.min.js"></script>
 
+    <!-- Page level plugins -->
+    <script src="/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
+    <!-- Page level custom scripts -->
+    <script src="/js/demo/datatables-demo.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
+    <script>
+        const exampleModal = document.getElementById('exampleModal')
+        exampleModal.addEventListener('show.bs.modal', event => {
+            // Button that triggered the modal
+            const button = event.relatedTarget
+            // Extract info from data-bs-* attributes
+            const recipient = button.getAttribute('data-bs-whatever')
+            // If necessary, you could initiate an AJAX request here
+            // and then do the updating in a callback.
+            //
+            // Update the modal's content.
+            const modalTitle = exampleModal.querySelector('.modal-title')
+            const modalBodyInput = exampleModal.querySelector('.modal-body input')
 
-
+            modalTitle.textContent = `문의하기`
+            modalBodyInput.value = recipient
+        })
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+        crossorigin="anonymous"></script>
 
 </body>
 
