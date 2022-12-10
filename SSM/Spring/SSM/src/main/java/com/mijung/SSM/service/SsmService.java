@@ -39,5 +39,6 @@ public interface SsmService {
 	
 	// itemSeq를 가지는 제품의 카테고리별 감성점수 map 반환
 	Map<String, Double> itemSentiment(Long itemSeq);
+	Map<String, Double> itemStar(Long itemSeq);
 	
 }

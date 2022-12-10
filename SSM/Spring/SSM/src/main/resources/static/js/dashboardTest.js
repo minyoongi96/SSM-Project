@@ -6,7 +6,7 @@
 function loadData(bcSeq){
 	var result;
     $.ajax({
-        type:"get",
+        type:"post",
         url:"/Dashboard/" + bcSeq,
         async:false,
         dataType:"json",
@@ -76,8 +76,8 @@ function appendingTrTag(list, timeData, tagId){
         $(tagId).append(
     	  '<tr class="btn-reveal-trigger">' + 
           '<td class="py-2 align-middle">00:' + speech_time +'</td>' +
-          '<td class="py-2 align-middle">' + cur.keyword_category + '</td>' +
           '<td class="py-2 align-middle">' + cur.speech_keyword + '</td>' +
+          '<td class="py-2 align-middle">' + cur.keyword_category + '</td>' +
           '<td class="py-2 align-middle">' + cur.reaction_count.salesCnt + '건</td>' +
           '<td class="py-2 align-middle">' + cur.reaction_count.basketCnt + '건</td>' +
           '<td class="py-2 align-middle">' + cur.reaction_count.lookingCnt + '건</td>' +
@@ -326,5 +326,35 @@ function getInvolvement(data){
   return options;    
 } 
 
-
+// 카테고리별 별점 태그 style- width로 차트 그리기
+function starChartTag(category, value) {
+	var hTag = '<h4 class="small font-weight=bold">' + category
+		+ '<span class="float-right">' + value + '%</span></h4>';
+	
+	var divTag1 = '<div class="progress mb-4"><div id="'	// + id값
+	var divTag2 = '" class="progress-bar ';				// color class값
+	var divTag3 =  '" role="progressbar" style="width: ' + value + '%" aria-valuenow="20"'
+	+ ' aria-valuemin="0" aria-valuemax="100"></div></div>';
+	
+	var tagId = '';
+	
+	
+	if(category == '디자인'){
+		tagId = 'design'; 
+		var tagClass = 'bg-danger';
+	} else if(category == '만족도'){
+		tagId = 'satisfaction';
+		var tagClass = 'bg-warning'
+	} else if(category == '안정성') {
+		tagId = 'safety';
+		var tagClass = 'bg-info';
+	} else if(category == '소재') {
+		tagId = 'functional'
+		var tagClass = '';
+	}
+	
+	var divTag = divTag1 + tagId + divTag2 + tagClass + divTag3;
+	
+	return hTag + divTag;
+}
 

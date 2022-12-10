@@ -23,7 +23,7 @@ public class SsmRestController {
 	SsmService ssmService;
 	
 	// 대시보드 화면에 들어갈 모든 데이터셋 보내주는 RestController
-	@RequestMapping(value="/Dashboard/{bcSeq}", method=RequestMethod.GET)
+	@RequestMapping(value="/Dashboard/{bcSeq}", method=RequestMethod.POST)
 	public String mainDashboard(@PathVariable("bcSeq") final Long bcSeq) {
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		Broadcasting bc = ssmService.BcFindByBcSeq(bcSeq);	// bcSeq로 객체 호출
@@ -42,6 +42,16 @@ public class SsmRestController {
 		Map<String, Double> itemSentimentMap = ssmService.itemSentiment(itemSeq);
 		
 		return gson.toJson(itemSentimentMap);
+	}
+	
+	// 아이템 별점
+	@RequestMapping(value="/itemStar/{itemSeq}", method=RequestMethod.GET)
+	public String itemStar(@PathVariable("itemSeq") final Long itemSeq) {
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+			
+		Map<String, Double> itemStarMap = ssmService.itemStar(itemSeq);
+			
+		return gson.toJson(itemStarMap);
 	}
 	
 }
