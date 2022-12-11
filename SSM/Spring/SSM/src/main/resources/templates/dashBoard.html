@@ -38,7 +38,24 @@
 	      var bcSeq = '[[${bc.bcSeq}]]';
 	      var info = loadData(bcSeq);
 	      
-	      // 1. 평균 별점
+	      // 1. 총점
+	      // 리뷰 실적률 
+	      var itemList = info.Items;
+	      var sentimentScore = 0;
+	      
+	      itemList.forEach((cur) => {
+	    	  var itemSentiments = cur.sentiment_avg;
+	    	  var curScore = 0;
+	    	  Object.keys(itemSentiments).forEach(function(k){
+		    	  curScore += itemSentiments[k];
+		      })
+		      sentimentScore += (curScore / 4);
+	      })
+	      var reviewResult = sentimentScore / itemList.length;
+	      var broadcastResult = info.performance / 100;
+	      
+	      var totalScore = Math.round((reviewResult + broadcastResult) / 2 * 100) / 10;
+	      $('#totalScore').text(totalScore);
 	      
 	      // 2.판매 수량
 	      $('#salesCnt').text("총 결제 : " + info.salesCnt + "건");
@@ -81,7 +98,7 @@
 	      chart9.render();
 	      
 	      // 10. 카테고리 별 판매 기여도 계산
-	      var chart10 = new ApexCharts(document.querySelector("#category-involvement-chart"), getInvolvement(info.KeywordReactionCount));
+	      var chart10 = new ApexCharts(document.querySelector("#category-involvement-chart"), getInvolvement(info.KeywordReactionCount)[0]);
           chart10.render();
           
           appendingSelect(info.Items, '#item-sentiment');	//키워드별 감성 점수 select박스 추가
@@ -442,7 +459,7 @@
                                                         <div
                                                             class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                             총점 (Total score)</div>
-                                                        <div class="h5 mb-0 font-weight-bold text-gray-800">4.0</div>
+                                                        <div id="totalScore" class="h5 mb-0 font-weight-bold text-gray-800"></div>
                                                     </div>
                                                     <div class="col-auto">
                                                         <i class="fas fa-star fa-2x text-gray-300"></i>

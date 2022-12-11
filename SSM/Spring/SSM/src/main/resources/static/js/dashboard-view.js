@@ -81,7 +81,6 @@ function appendingTrTag(list, timeData, tagId){
           '<td class="py-2 align-middle">' + cur.reaction_count.salesCnt + '건</td>' +
           '<td class="py-2 align-middle">' + cur.reaction_count.basketCnt + '건</td>' +
           '<td class="py-2 align-middle">' + cur.reaction_count.lookingCnt + '건</td>' +
-          // '<td class="py-2 align-middle">' + cur.reaction_count.viewerCnt + '명</td>' +
           '<td class="py-2 align-middle">' + updown + '명</td>' +
           '<td class="py-2 align-middle">' + cur.reaction_count.commentCnt + '건</td>' +
           '<td class="py-2 align-middle">' + cur.reaction_count.wishlistCnt + '건</td></tr>'
@@ -298,7 +297,7 @@ function getInvolvement(data){
 	let inprice_rate = Math.round(inprice / total * 10000) / 100;
 	let safety_rate = Math.round(safety / total * 10000) / 100;
 	let functional_rate = Math.round(functional / total * 10000) / 100;
-	console.log(design_rate);
+	
   	var options = {
 		series: [design_rate, inprice_rate, safety_rate, functional_rate],
 		labels: ['디자인', '가격', '안전성', '기능성'],
@@ -323,7 +322,7 @@ function getInvolvement(data){
 	};
   
   
-  return options;    
+  return [options, total];    
 } 
 
 // 카테고리별 별점 태그 style- width로 차트 그리기
