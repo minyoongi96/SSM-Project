@@ -261,6 +261,7 @@ function genderDonutChart(male, female) {
             options: {
                 chart: {
                     width: 200,
+                    heigh:300
                 },
                 legend: {
                     position: 'bottom'
@@ -274,10 +275,10 @@ function genderDonutChart(male, female) {
 	
 // 10. 카테고리 별 판매 기여도 계산
 function getInvolvement(data){
-	var design = 0;
-	var inprice = 0;
-	var safety = 0;
-	var functional = 0;
+	let design = 0;
+	let inprice = 0;
+	let safety = 0;
+	let functional = 0;
 	
 	data.forEach((cur) => {
 		var cate = cur.keyword_category
@@ -292,13 +293,12 @@ function getInvolvement(data){
 		}
 	});
 	
-	var total = design + inprice + safety + functional
-	var design_rate = Math.round(design / total * 1000) / 10;
-	var inprice_rate = Math.round(inprice / total * 1000) / 10;
-	var safety_rate = Math.round(safety / total * 1000) / 10;
-	var functional_rate = Math.round(functional / total * 1000) / 10;
-	
-	
+	let total = design + inprice + safety + functional
+	let design_rate = Math.round(design / total * 10000) / 100;
+	let inprice_rate = Math.round(inprice / total * 10000) / 100;
+	let safety_rate = Math.round(safety / total * 10000) / 100;
+	let functional_rate = Math.round(functional / total * 10000) / 100;
+	console.log(design_rate);
   	var options = {
 		series: [design_rate, inprice_rate, safety_rate, functional_rate],
 		labels: ['디자인', '가격', '안전성', '기능성'],
@@ -307,7 +307,7 @@ function getInvolvement(data){
         },
         dataLabels: {
             enabled: true,
-            formatter: function (val){return val + "%"}
+            formatter: function (val){return (Math.round(val * 100) / 100) + "%"}
         },
         responsive: [{
             breakpoint: 480,

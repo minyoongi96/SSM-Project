@@ -41,4 +41,5 @@ public class Broadcasting {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "our_seq", nullable = false)
 	private OurCategory ourCategoryVO;
+
 }

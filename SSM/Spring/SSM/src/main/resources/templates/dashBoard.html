@@ -24,7 +24,8 @@
     <script src="https://cdn.anychart.com/releases/v8/js/anychart-base.min.js"></script>
     <script src="https://cdn.anychart.com/releases/v8/js/anychart-tag-cloud.min.js"></script>
     
-    <script src="/js/dashboardTest.js"></script>
+    <link href="/css/ani.min.css" rel="stylesheet">
+    <script src="/js/dashboard-view.js"></script>
     <script type="text/javascript">
     	;$(function () {
 	      $('#sidebarToggle').trigger('click');
@@ -329,7 +330,6 @@
 </head>
 
 <body id="page-top">
-
     <!-- Page Wrapper -->
     <div id="wrapper">
 
@@ -338,7 +338,7 @@
             style="background-image: linear-gradient(-20deg, #2b5876 0%, #4e4376 100%);">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
@@ -349,7 +349,7 @@
             <hr class="sidebar-divider my-0">
             <!-- Nav Item - Charts -->
             <li class="nav-item active">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Live-Commerce</span></a>
             </li>
@@ -363,7 +363,7 @@
             </div>
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="boardList.html">
+                <a class="nav-link">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Contect</span></a>
             </li>
@@ -388,7 +388,7 @@
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                <a class="nav-link collapsed" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Logout</span>
@@ -566,21 +566,7 @@
                                             <div
                                                 class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                                 <h6 class="m-0 font-weight-bold text-primary">시청자 성별</h6>
-                                                <div class="dropdown no-arrow">
-                                                    <a class="dropdown-toggle" href="#" role="button"
-                                                        id="dropdownMenuLink" data-toggle="dropdown"
-                                                        aria-haspopup="true" aria-expanded="false">
-                                                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                                    </a>
-                                                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                                        aria-labelledby="dropdownMenuLink">
-                                                        <div class="dropdown-header">Dropdown Header:</div>
-                                                        <a class="dropdown-item" href="#">Action</a>
-                                                        <a class="dropdown-item" href="#">Another action</a>
-                                                        <div class="dropdown-divider"></div>
-                                                        <a class="dropdown-item" href="#">Something else here</a>
-                                                    </div>
-                                                </div>
+                                                
                                             </div>
                                             <!-- Card Body -->
                                             <div class="card-body">

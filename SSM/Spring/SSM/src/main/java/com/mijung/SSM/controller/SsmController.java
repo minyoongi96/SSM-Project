@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
@@ -44,29 +45,9 @@ public class SsmController {
 	
 	@RequestMapping("/main.do")
 	public String main() {
-		return "real_main";
-	}
-	@RequestMapping("/loginpage.do")
-	public String loginpage() {
-		return "login";
+		return "main";
 	}
 	
-//	@RequestMapping(value = "/list.do")
-//	public String loginId(Users user, HttpSession session, Model model){
-//		if(ssmService.loginCheck(user) == false) {
-//
-//			return "redirect:/main.do";
-//		}
-//		else {
-//			Users LoginUser = ssmService.findByUserId(user);
-//			session.setAttribute("user", LoginUser);
-//			
-//			List<Broadcasting> bcList = ssmService.BcFindAllByUsersVO(LoginUser);
-//			model.addAttribute("bcList", bcList);
-//			
-//			return "list";
-//		}
-//	}
 	@RequestMapping(value = "/loginCheck.do")
 	public String loginId(Users user, HttpSession session, RedirectAttributes rttr){
 		if(ssmService.loginCheck(user) == false) {
@@ -100,7 +81,9 @@ public class SsmController {
 			List<Broadcasting> bcList = ssmService.BcFindAllByUsersVO(user);
 			model.addAttribute("bcList", bcList);
 		}
-		return "list";
+
+		return "broadcast_list";
+
 	}
 	
 		
@@ -160,13 +143,20 @@ public class SsmController {
 		return "redirect:/boardList.do";
 	}
 	
-	@PostMapping(value="boardWrite.do")
+	@PostMapping(value="/boardWrite.do")
 	public String BoardWrite(Board boardVO, HttpSession session) {
 		Users user = (Users) session.getAttribute("user");
 		boardVO.setUsersVO(user);
 		System.out.println(boardVO);
 		boardRepository.save(boardVO);
 		return "redirect:/boardList.do";
+	}
+	
+	@RequestMapping(value = "/logout.do", method = RequestMethod.GET)
+	public String logout(HttpSession session) {			
+		session.invalidate();
+		
+		return "redirect:/main.do";
 	}
 
 }
