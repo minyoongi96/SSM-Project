@@ -3,6 +3,7 @@ package com.mijung.SSM.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +20,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.mijung.SSM.entity.Board;
 import com.mijung.SSM.entity.Broadcasting;
@@ -48,28 +51,59 @@ public class SsmController {
 		return "login";
 	}
 	
-	@PostMapping(value = "/list.do")
-	public String loginId(Users user, HttpSession session, Model model){
+//	@RequestMapping(value = "/list.do")
+//	public String loginId(Users user, HttpSession session, Model model){
+//		if(ssmService.loginCheck(user) == false) {
+//
+//			return "redirect:/main.do";
+//		}
+//		else {
+//			Users LoginUser = ssmService.findByUserId(user);
+//			session.setAttribute("user", LoginUser);
+//			
+//			List<Broadcasting> bcList = ssmService.BcFindAllByUsersVO(LoginUser);
+//			model.addAttribute("bcList", bcList);
+//			
+//			return "list";
+//		}
+//	}
+	@RequestMapping(value = "/loginCheck.do")
+	public String loginId(Users user, HttpSession session, RedirectAttributes rttr){
 		if(ssmService.loginCheck(user) == false) {
-<<<<<<< HEAD
-			System.out.println("==========================");
+
 			return "redirect:/main.do";
-=======
-			
-			return "redirect:/loginpage.do";
->>>>>>> 044c06c5b3feef380f6f28117b7cd41eb7b970bf
 		}
 		else {
 			Users LoginUser = ssmService.findByUserId(user);
 			session.setAttribute("user", LoginUser);
 			
 			List<Broadcasting> bcList = ssmService.BcFindAllByUsersVO(LoginUser);
-			model.addAttribute("bcList", bcList);
-
-			return "list";
+			rttr.addFlashAttribute("bcList", bcList);
+			
+			return "redirect:/list.do";
 		}
 	}
 	
+	// 방송 리스트로 넘어가는 컨트롤러
+	@RequestMapping(value = "/list.do")
+	public String listpage(Model model, HttpServletRequest request, HttpSession session) {
+		Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
+		
+		// 로그인 할 시 
+		if(inputFlashMap != null) {
+			List<Broadcasting> bcList = (List<Broadcasting>)inputFlashMap.get("bcList");
+			model.addAttribute("bcList", bcList);
+		}
+		//로그인 된 상태에서 넘어갈때
+		else {
+			Users user = (Users)session.getAttribute("user");
+			List<Broadcasting> bcList = ssmService.BcFindAllByUsersVO(user);
+			model.addAttribute("bcList", bcList);
+		}
+		return "list";
+	}
+	
+		
 	// boardList 이동
 
 	// 방송정보 갖고 Dashboard로 이동

@@ -31,6 +31,9 @@ public class Broadcasting {
 	@Column(name = "bc_female", nullable = false)
 	private int bcFemale;
 	
+	@Column(name = "bc_url", nullable=false, length=1000)
+	private String bcUrl;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private Users usersVO;
