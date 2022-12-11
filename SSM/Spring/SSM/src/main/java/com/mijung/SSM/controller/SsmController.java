@@ -51,13 +51,7 @@ public class SsmController {
 	@PostMapping(value = "/list.do")
 	public String loginId(Users user, HttpSession session, Model model){
 		if(ssmService.loginCheck(user) == false) {
-<<<<<<< HEAD
-			System.out.println("==========================");
-			return "redirect:/main.do";
-=======
-			
 			return "redirect:/loginpage.do";
->>>>>>> 044c06c5b3feef380f6f28117b7cd41eb7b970bf
 		}
 		else {
 			Users LoginUser = ssmService.findByUserId(user);
