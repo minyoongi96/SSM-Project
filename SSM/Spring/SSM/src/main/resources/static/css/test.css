@@ -98,7 +98,7 @@ Movies
 .movies {
   display: flex;
   padding: 8px 50px ;
-  padding-left: 120px;
+  padding-left: 130px;
 }
 .movies .movie {
   padding: 10px;

@@ -23,6 +23,9 @@
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 
     <link href="/css/list.css" rel="stylesheet">
+    
+    <link href="/css/test.css" rel="stylesheet">
+    <link href="/css/test.css.map" rel="stylesheet">
     <script>
         ; $(function () {
             $('#sidebarToggle').trigger('click');
@@ -31,8 +34,8 @@
 
     </script>
 
-    <link href="/css/test.css" rel="stylesheet" type="text/css">
-    <link href="/css/test.css.map" rel="stylesheet" type="text/css">
+    <link href="./test.css" rel="stylesheet" type="text/css">
+    <link href="./test.css.map" rel="stylesheet" type="text/css">
 
 
 
@@ -73,7 +76,7 @@
             </div>
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="/boardList.do">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Contect</span></a>
             </li>
@@ -122,37 +125,19 @@
                         <h1>smart sales manager<strong>SSM</strong></h1>
 
                     </header>
-                    <h2>회사이름</h2>
+                    <h2 th:text=${session.user.userCompany}></h2>
                     <!--카드바디-->
                     <section class="movies">
-                        <!--카드내용-->
-                        <div class="movie">
-                            <img src="https://g-selected.pstatic.net/MjAyMjExMDdfMjQ0/MDAxNjY3ODE2NzQ4MDI3.XM5DpntfCZfz0NgFRO9Ol2cUAwJvhym5Iol2aSj5aWUg.RsziIXMinLKgZ7J6OLHC0r73vq7MM-oy1V2VR854nm4g.JPEG/image.jpg"
-                                alt="" class="poster" />
-                            <div class="title">방송1</div>
+                        
+                        <div th:each="bc : ${bcList}" th:object="${bc}" class="movie">
+                            <img th:src="@{{bcUrl}(bcUrl=*{bcUrl})}" alt="" class="poster" />
+                            <div th:text="*{bcTitle}" class="title"></div>
                             <button class="btn-primary" style="width: 100px; height: 30px; border-radius: 10px 10px 10px 10px;">상세보기</button>
                             <div class="info">
-                                <span class="year">방송일자</span>
+                                <span class="year"></span>
                             </div>
                         </div>
-                        <div class="movie">
-                            <img src="https://g-selected.pstatic.net/MjAyMjA0MjhfMjQ1/MDAxNjUxMTE4NTk3NzMy.ZQ4gzP4U_yG_U9yCYn6eY5FF4_3eArpnw1wDKCdqO9cg.80AsETuJCfba3msL1MfhCD52BsqDKznWqpJWZgIaG6Qg.JPEG/image.jpg"
-                                alt="" class="poster" />
-                            <div class="title">방송2</div>
-                            <button class="btn-primary" style="width: 100px; height: 30px; border-radius: 10px 10px 10px 10px;">상세보기</button>
-                            <div class="info">
-                                <span class="year">방송일자</span>
-                            </div>
-                        </div>
-                        <div class="movie">
-                            <img src="https://g-selected.pstatic.net/MjAyMjA4MTdfMjc4/MDAxNjYwNzA4ODY4OTcx.Ql9g-8N0hTTBbBUb2hNNV9IuKWaCJN0V_mOxANBTP7og.e8OVIIhKJc1kRuDKSVccM6RDr-lZ_08u5FSCHDsiDiQg.JPEG/image.jpg"
-                                alt="" class="poster" />
-                            <div class="title">방송3</div>
-                            <button class="btn-primary" style="width: 100px; height: 30px; border-radius: 10px 10px 10px 10px;">상세보기</button>
-                            <div class="info">
-                                <span class="year">방송일자</span>
-                            </div>
-                        </div>
+                        
 
                     </section>
                     <div class="detail">
