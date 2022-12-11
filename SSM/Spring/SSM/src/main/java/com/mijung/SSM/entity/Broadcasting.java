@@ -38,4 +38,7 @@ public class Broadcasting {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "our_seq", nullable = false)
 	private OurCategory ourCategoryVO;
+	
+	@Column(name = "bc_url", nullable=false, length=1000)
+	   private String bcUrl;
 }

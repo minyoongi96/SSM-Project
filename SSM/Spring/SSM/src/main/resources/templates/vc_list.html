@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>liveList</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="/css/sb-admin-2.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
+    <link href="/css/list.css" rel="stylesheet">
+    <script>
+        ; $(function () {
+            $('#sidebarToggle').trigger('click');
+            $('#sidebarToggle').css({ 'display': 'none' });
+        });
+
+    </script>
+
+    <link href="/css/test.css" rel="stylesheet" type="text/css">
+    <link href="/css/test.css.map" rel="stylesheet" type="text/css">
+
+
+
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar"
+            style="background-image: linear-gradient(-20deg, #2b5876 0%, #4e4376 100%);">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-laugh-wink"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">SSM <sup></sup></div>
+            </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+            <!-- Nav Item - Charts -->
+            <li class="nav-item active">
+                <a class="nav-link" href="charts.html">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Live-Commerce</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Support
+            </div>
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item">
+                <a class="nav-link" href="index.html">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Contect</span></a>
+            </li>
+
+
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                My page
+            </div>
+            <!-- Nav Item - Utilities Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+                    aria-expanded="true" aria-controls="collapseUtilities">
+                    <i class="fas fa-fw fa-wrench"></i>
+                    <span>About</span>
+                </a>
+            </li>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Logout</span>
+                </a>
+            </li>
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+        </ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column" `>
+            <div class="intro">
+                <div class="app">
+                    <header>
+                        <h1>smart sales manager<strong>SSM</strong></h1>
+
+                    </header>
+                    <h2>회사이름</h2>
+                    <!--카드바디-->
+                    <section class="movies">
+                        <!--카드내용-->
+                        <div class="movie">
+                            <img src="https://g-selected.pstatic.net/MjAyMjExMDdfMjQ0/MDAxNjY3ODE2NzQ4MDI3.XM5DpntfCZfz0NgFRO9Ol2cUAwJvhym5Iol2aSj5aWUg.RsziIXMinLKgZ7J6OLHC0r73vq7MM-oy1V2VR854nm4g.JPEG/image.jpg"
+                                alt="" class="poster" />
+                            <div class="title">방송1</div>
+                            <button class="btn-primary" style="width: 100px; height: 30px; border-radius: 10px 10px 10px 10px;">상세보기</button>
+                            <div class="info">
+                                <span class="year">방송일자</span>
+                            </div>
+                        </div>
+                        <div class="movie">
+                            <img src="https://g-selected.pstatic.net/MjAyMjA0MjhfMjQ1/MDAxNjUxMTE4NTk3NzMy.ZQ4gzP4U_yG_U9yCYn6eY5FF4_3eArpnw1wDKCdqO9cg.80AsETuJCfba3msL1MfhCD52BsqDKznWqpJWZgIaG6Qg.JPEG/image.jpg"
+                                alt="" class="poster" />
+                            <div class="title">방송2</div>
+                            <button class="btn-primary" style="width: 100px; height: 30px; border-radius: 10px 10px 10px 10px;">상세보기</button>
+                            <div class="info">
+                                <span class="year">방송일자</span>
+                            </div>
+                        </div>
+                        <div class="movie">
+                            <img src="https://g-selected.pstatic.net/MjAyMjA4MTdfMjc4/MDAxNjYwNzA4ODY4OTcx.Ql9g-8N0hTTBbBUb2hNNV9IuKWaCJN0V_mOxANBTP7og.e8OVIIhKJc1kRuDKSVccM6RDr-lZ_08u5FSCHDsiDiQg.JPEG/image.jpg"
+                                alt="" class="poster" />
+                            <div class="title">방송3</div>
+                            <button class="btn-primary" style="width: 100px; height: 30px; border-radius: 10px 10px 10px 10px;">상세보기</button>
+                            <div class="info">
+                                <span class="year">방송일자</span>
+                            </div>
+                        </div>
+
+                    </section>
+                    <div class="detail">
+                        <svg class="close">
+                            <use xlink:href="#close"></use>
+                        </svg>
+                        <div class="movie">
+
+                            <img src="https://github.com/supahfunk/supah-codepen/blob/master/movie-room.jpg?raw=true"
+                                alt="" class="poster" />
+                            <div class="title">Room</div>
+                            <div class="info">
+                                <span class="length">117 min</span>
+                                <span class="year">2015</span>
+                            </div>
+                            <div class="desc">
+                                Jack is a young boy of 5 years old who has lived all his life in one room. He believes
+                                everything
+                                within it are the only real things in the world. But what will happen when his Ma
+                                suddenly tells him
+                                that there are other things outside of Room?
+                            </div>
+
+                            <button class="play">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 232.153 232.153"
+                                    style="enable-background:new 0 0 232.153 232.153;" xml:space="preserve" width="10px"
+                                    height="10px">
+                                    <g id="Play">
+                                        <path style="fill-rule:evenodd;clip-rule:evenodd;"
+                                            d="M203.791,99.628L49.307,2.294c-4.567-2.719-10.238-2.266-14.521-2.266   c-17.132,0-17.056,13.227-17.056,16.578v198.94c0,2.833-0.075,16.579,17.056,16.579c4.283,0,9.955,0.451,14.521-2.267   l154.483-97.333c12.68-7.545,10.489-16.449,10.489-16.449S216.471,107.172,203.791,99.628z"
+                                            fill="#FFFFFF" />
+                                    </g>
+                                </svg> play movie
+                            </button>
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Icons -->
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                    style="display:none;">
+                    <symbol id="close" viewBox="0 0 212.982 212.982">
+                        <g>
+                            <path style="fill-rule:evenodd;clip-rule:evenodd;"
+                                d="M131.804,106.491l75.936-75.936c6.99-6.99,6.99-18.323,0-25.312   c-6.99-6.99-18.322-6.99-25.312,0l-75.937,75.937L30.554,5.242c-6.99-6.99-18.322-6.99-25.312,0c-6.989,6.99-6.989,18.323,0,25.312   l75.937,75.936L5.242,182.427c-6.989,6.99-6.989,18.323,0,25.312c6.99,6.99,18.322,6.99,25.312,0l75.937-75.937l75.937,75.937   c6.989,6.99,18.322,6.99,25.312,0c6.99-6.99,6.99-18.322,0-25.312L131.804,106.491z"
+                                fill="#525661" />
+                        </g>
+                    </symbol>
+                    <symbol id="ico-search">
+                        <path fill-rule="evenodd" clip-rule="evenodd" fill="#363a47"
+                            d="M14.769,14.769c-0.342,0.342-0.896,0.342-1.237,0l-3.756-3.756
+                                                                                  c-2.399,1.793-5.801,1.623-7.981-0.557c-2.392-2.392-2.392-6.271,0-8.663s6.271-2.392,8.662,0c2.18,2.181,2.35,5.583,0.557,7.981
+                                                                                  l3.756,3.756C15.11,13.873,15.11,14.427,14.769,14.769z M9.219,3.032c-1.709-1.709-4.479-1.709-6.188,0
+                                                                                  c-1.708,1.708-1.708,4.479,0,6.188c1.709,1.708,4.479,1.708,6.188,0C10.927,7.51,10.927,4.74,9.219,3.032z" />
+                    </symbol>
+                </svg>
+
+
+            </div>
+            <!-- Main Content -->
+
+        </div>
+        <!-- End of Page Wrapper -->
+
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
+
+        <!-- Logout Modal-->
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <a class="btn btn-primary" href="login.html">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bootstrap core JavaScript-->
+
+
+        <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+        <script src="/vendor/jquery/jquery.min.js"></script>
+        <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+        <!-- Core plugin JavaScript-->
+        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+        <!-- Custom scripts for all pages-->
+        <script src="/js/sb-admin-2.min.js"></script>
+
+        <!-- Page level plugins -->
+        <script src="/vendor/chart.js/Chart.min.js"></script>
+
+        <!-- Page level custom scripts -->
+        <script src="/js/demo/chart-area-demo.js"></script>
+        <script src="/js/demo/chart-pie-demo.js"></script>
+
+</body>
+
+</html>
