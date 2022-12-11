@@ -163,7 +163,7 @@
                                                     <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                         <span th:text=*{bcTitle}></span></div>
                                                         <div class="row no-gutters align-items-center">
-                                                        </div><img th:src="@{/img/} + *{bcTitle} + @{.png}" style="width:255px;height: 400px;"/>
+                                                        </div><img th:src="@{{bcUrl}(bcUrl=*{bcUrl})}" style="width:255px;height: 400px;"/>
                                                 </div>
                                             </div>
                                         </div>

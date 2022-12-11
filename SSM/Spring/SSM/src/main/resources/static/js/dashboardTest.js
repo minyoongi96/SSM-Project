@@ -261,6 +261,7 @@ function genderDonutChart(male, female) {
             options: {
                 chart: {
                     width: 200,
+                    heigh:300
                 },
                 legend: {
                     position: 'bottom'

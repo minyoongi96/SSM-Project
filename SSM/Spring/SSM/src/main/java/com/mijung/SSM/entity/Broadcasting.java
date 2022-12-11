@@ -40,5 +40,5 @@ public class Broadcasting {
 	private OurCategory ourCategoryVO;
 	
 	@Column(name = "bc_url", nullable=false, length=1000)
-	   private String bcUrl;
+	private String bcUrl;
 }
