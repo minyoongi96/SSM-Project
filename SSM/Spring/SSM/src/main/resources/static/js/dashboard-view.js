@@ -64,7 +64,7 @@ function performanceOptions(value){
 } 
 
 // 5. 고객 이벤트 맵 
-function appendingTrTag(list, timeData, tagId){
+function appendingTrTag(list, timeData, tagId, tableId){
 	list.forEach((cur) => {
 		var speech_time = cur.speech_time;
 		
@@ -83,6 +83,19 @@ function appendingTrTag(list, timeData, tagId){
           '<td class="py-2 align-middle">' + updown + '명</td>' +
           '<td class="py-2 align-middle">' + cur.reaction_count.commentCnt + '건</td>' +
           '<td class="py-2 align-middle">' + cur.reaction_count.wishlistCnt + '건</td></tr>'
+         );
+         
+         $(tableId).append(
+    	  '<tr>' + 
+          '<td>00:' + speech_time +'</td>' +
+          '<td>' + cur.speech_keyword + '</td>' +
+          '<td>' + cur.keyword_category + '</td>' +
+          '<td>' + cur.reaction_count.salesCnt + '</td>' +
+          '<td>' + cur.reaction_count.basketCnt + '</td>' +
+          '<td>' + cur.reaction_count.lookingCnt + '</td>' +
+          '<td>' + updown + '</td>' +
+          '<td>' + cur.reaction_count.commentCnt + '</td>' +
+          '<td>' + cur.reaction_count.wishlistCnt + '</td></tr>'
          );
       });
 }
@@ -116,14 +129,13 @@ function viewerReactions1to60(map, startTime, endTime){
 		}
 	}
 	// 1번 엑셀 파일에 추출할 테이블태그 만들 (display: none)
-	let tableTag1 = '<table id="excelSheet1" style="display: none;"><tr><td>시간</td><td>판매</td><td>장바구니</td><td>댓글</td><td>상품 조회</td><td>찜</td></tr>';
+	let tableTag1 = '<tr><td>시간</td><td>판매</td><td>장바구니</td><td>댓글</td><td>상품 조회</td><td>찜</td></tr>';
 	for(var i = startTime; i < endTime; i++){
 		var idx = String(i)
 		var curTag = '<tr><td>' + idx + '</td><td>' + sales[idx] + '</td><td>' + baskets[idx] +
 		'</td><td>' + comments[i] + '</td><td>' + lookings[i] + '</td><td>' + wishlists[idx] + '</td></tr>';
 		tableTag1 += curTag;
 	}
-	tableTag1 += '</table>'
 	
 	
 	// 시간대별 차트 (판매수, 장바구니수, 조회수, 댓글수, 찜수)
@@ -163,7 +175,7 @@ function viewerReactions1to60(map, startTime, endTime){
 		  } else{
 			  bar_data.push({x: (i + 1), y:[viewers[i], viewers[i], 0, 0]});
 		  }
-	  } 
+	  }
       var bar_options = {
         series: [{
           //데이터 : 1분단위 시청자 증감 수
@@ -331,7 +343,7 @@ function getInvolvement(data){
 	};
   
   
-  return [options, total];    
+  return [options, total, [design_rate, inprice_rate, safety_rate, functional_rate]];    
 } 
 
 // 카테고리별 별점 태그 style- width로 차트 그리기

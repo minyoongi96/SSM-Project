@@ -102,15 +102,15 @@
 	      map = info.KeywordReactionCount;
 	      
 	      countList = info.KeywordReactionCount;
-	      appendingTrTag(countList, info.ViewerReactions, '#orders');
+	      appendingTrTag(countList, info.ViewerReactions, '#orders', '#excelSheet2');
 	      
 	      // 6. 시간대별(분단위) 시청자 반응(이벤트: 상품 조회수, 댓글수) 차트
 	      reaction_options = viewerReactions1to60(info.ViewerReactions, 1, 60)[0];
 	      
 	      // 15. 1 - 60 사용자 이벤트 액셀 보고서
 	      tableTag1 = viewerReactions1to60(info.ViewerReactions, 1, 60)[1];	 
-	      $('#report1').append(tableTag1);
-	      $('#report1').hide();
+	      $('#excelSheet1').append(tableTag1);
+	      //$('#report1').hide();
 	      
 	      //var area_options = reaction_options[0];
 	      var chart6 = new ApexCharts(document.querySelector("#viewer-reactions"), reaction_options[0]);
@@ -403,6 +403,27 @@
     			exportExcel();
     		})
     	})
+    </script>
+    <script>
+    $(document).ready(function() {
+    	var totalScore = $('#totalScore').text();  	// 총점
+    	var salesCnt = $('#salesCnt').text().split(" ")[3];		// 총 결제
+    	var performance = $('#performance').text();	// 실적률
+    	var salesPred = $('#salesPred').text();		// 예상 매출액
+    	var bcMale = $('#SvgjsText2095').text();	// 남 시청자 비율
+    	var bcFemale = $('#SvgjsG2107').text();		// 여 시청자 비율
+    	var involvement = getInvolvement
+    	
+    	var tags = '<tr><td colspan="4">결과 보고</td></tr>'
+    	+ '<tr><td>총점</td><td>총 결제</td><td>실적률</td><td>예상 매출액</td></tr>'
+    	+ '<tr><td>' + totalScore + '</td><td>' + salesCnt + '</td><td>' + performance + '</td><td>' + salesPred + '</td></tr>'
+    	+ '<tr><td colspan="4"></td></tr>'
+    	+ '<tr><td colspan="4">남녀 시청자 비율</td></tr>'
+    	+ '<tr><td>남</td><td>여</td><td></td><td></td></tr>'
+    	+ '<tr><td>' + bcMale + '</td><td>' + bcFemale + '</td><td></td><td></td></tr>';
+    	
+    	$('#excelSheet0').append(tags);
+    })
     </script>
 
 </head>
@@ -906,33 +927,7 @@
 									id="export_report"> <span class="icon text-white-50">
 										<i class="fas fa-flag"></i>
 								</span> <span class="text">엑셀 출력하기</span>
-								</a> <br><br>
-
-<!-- Modal -->
-<!-- <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">출력하기</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        차트와 분석 결과를 엑셀로 출력합니다
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-        <button type="button" class="btn btn-primary">출력하기</button>
-      </div>
-    </div>
-
-
-  </div>
-</div>  -->
-    <!-- 1 ~ 60 시청자 이벤트 보고서용 테이블  -->
-    <div id="report1"></div>
-									<br>
+								</a> <br><br>									<br>
 						</div>
 						</div>
 						</div>
@@ -956,7 +951,17 @@
 			class="fas fa-angle-up"></i>
 		</a>
 	</div>
-
+	<!-- 엑셀 보고서용 div -->
+	<!-- 1 ~ 60 시청자 이벤트 현황용 테이블  -->
+	<div><table id="excelSheet0" style="display: none;"></table></div>
+    <div><table id="excelSheet1" style="display: none;"></table></div>
+    <!-- 키워드 별 시청자 이벤트 발생 추이용 테이블  -->
+    <div>
+    	<table id="excelSheet2" style="display: none;">
+    		<tr><td>등장시간</td><td>키워드</td><td>카테고리</td><td>판매</td><td>장바구니</td><td>상품조회</td><td>시청자</td><td>댓글</td><td>찜</td></tr>
+    	</table>
+    </div>
+    
 
 
 	<!-- Bootstrap core JavaScript-->
