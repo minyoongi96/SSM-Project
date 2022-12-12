@@ -11,7 +11,6 @@ function loadData(bcSeq){
         async:false,
         dataType:"json",
         success: function(data){
-			console.log("성공");
 			result = data;
         },
         error: function(){
@@ -99,6 +98,7 @@ function viewerReactions1to60(map, startTime, endTime){
 	var viewers = [];
 	var comments = [];
 	var wishlists = [];
+	let excelData = [];
 	
 	for(var i = startTime; i <= endTime; i++){
 		sales.push(map[String(i)].sale);
@@ -115,6 +115,16 @@ function viewerReactions1to60(map, startTime, endTime){
 			viewers.push(diff);
 		}
 	}
+	// 1번 엑셀 파일에 추출할 테이블태그 만들
+	let tableTag1 = '<table id="excelSheet1"><tr><td>시간</td><td>판매</td><td>장바구니</td><td>댓글</td><td>상품 조회</td><td>찜</td></tr>';
+	for(var i = startTime; i <= endTime; i++){
+		var idx = String(i)
+		var curTag = '<tr><td>' + idx + '</td><td>' + sales[idx] + '</td><td>' + baskets[idx] +
+		'</td><td>' + comments[i] + '</td><td>' + lookings[i] + '</td><td>' + wishlists[idx] + '</td></tr>';
+		tableTag1 += curTag;
+	}
+	tableTag1 += '</table>'
+	
 	
 	// 시간대별 차트 (판매수, 장바구니수, 조회수, 댓글수, 찜수)
 	var area_options = {

@@ -90,14 +90,10 @@
 	      // 3. 예상 매출액
 	      $('#salesPred').text(info.salesPred + "원");
 	      
-	      // 4. 실적률 차트 그리기
+	      // 4. 실적률 
 	      var performance = info.performance;
 	      $('#performRate').css({'width' : (performance + "%")});
 	      $('#performance').text(performance + "%");
-	      
-	      // 4번 그래프 안그리기로 해서 나가리
-	      //var chart4 = new ApexCharts(document.querySelector("#chart_goal"), performanceOptions(info.performance));
-	      //chart4.render();
 	      
 	      // 5. 키워드 별 고객 이벤트 발생 추이
 	      var map = new Map();
@@ -106,7 +102,7 @@
 	      countList = info.KeywordReactionCount;
 	      appendingTrTag(countList, info.ViewerReactions, '#orders');
 	      
-	      // 6. 시간대별(분단위) 1 ~ 60까지 시청자 반응(이벤트: 판매수, 장바구니수, 조회수, 댓글수, 찜수) 차트
+	      // 6. 시간대별(분단위) 시청자 반응(이벤트: 상품 조회수, 댓글수) 차트
 	      reaction_options = viewerReactions1to60(info.ViewerReactions, 1, 60);
 	      //var area_options = reaction_options[0];
 	      var chart6 = new ApexCharts(document.querySelector("#viewer-reactions"), reaction_options[0]);
@@ -155,7 +151,6 @@
 	        async:false,
 	        dataType:"json",
 	        success: function(data){
-				console.log("성공");
 				result = data;
 	        },
 	        error: function(){
@@ -175,7 +170,6 @@
 	        async:false,
 	        dataType:"json",
 	        success: function(data){
-				console.log("성공");
 				result = data;
 	        },
 	        error: function(){
@@ -216,7 +210,7 @@
 	                        },
 	                    }
 	                },
-	                colors:['#02E397'],
+	                colors:['#3887DC'],
 	                
 	                yaxis:{
 	                	show: true,
@@ -603,7 +597,7 @@
 							<div class="container-fluid">
 								<!-- Page Heading -->
 								<h1 class="h3 mb-2 text-gray-800">방송 데이터 분석</h1>
-								<h3 class="h5 mb-2 text-gray-800">&nbsp;음성 키워드별 고객 이벤트 발생량</h3>
+								<h3 class="h5 mb-2 text-gray-800">&nbsp;[음성 키워드별 고객 이벤트 발생량]</h3>
 								<p class="mb-4">&nbsp;: 방송진행자가 특정 키워드를 언급했을 때의 고객 이벤트 추이를
 									확인합니다.</p>
 								<!-- DataTales Example -->
@@ -646,8 +640,8 @@
 							<!-- Content Row -->
 							<div class="container-fluid">
 								<!-- Page Heading -->
-								<h3 class="h5 mb-2 text-gray-800">&nbsp;시간대별 고객 이벤트, 시청자
-									성별</h3>
+								<h3 class="h5 mb-2 text-gray-800">&nbsp;[시간대별 고객 이벤트, 시청자
+									성별]</h3>
 								<p class="mb-4">&nbsp;: 방송 시간대별 상품 조회, 댓글 수와 시청자의 성별을
 									확인합니다.</p>
 
@@ -694,7 +688,7 @@
 
 							<div class="container-fluid">
 								<!-- Page Heading -->
-								<h3 class="h5 mb-2 text-gray-800">&nbsp;시간대별 장바구니와 판매량, 판매 기여도</h3>
+								<h3 class="h5 mb-2 text-gray-800">&nbsp;[시간대별 장바구니와 판매량, 판매 기여도]</h3>
 								<p class="mb-4">&nbsp;: 고객 이벤트 중 장바구니와 판매량을 확인하고, 주요 카테고리별 판매 기여도를 확인합니다.</p>
 
 
@@ -744,7 +738,7 @@
 
 
 							<div class="container-fluid">
-								<h3 class="h5 mb-2 text-gray-800">&nbsp;시간대별 시청자 증감</h3>
+								<h3 class="h5 mb-2 text-gray-800">&nbsp;[시간대별 시청자 증감]</h3>
 								<p class="mb-4">&nbsp;: 시간대별 시청자 증감량을 확인합니다.
 									확인합니다.</p>
 								<!-- DataTales Example -->
@@ -759,7 +753,7 @@
 								<div class="container-fluid">
 								<!-- Page Heading -->
 								<h1 class="h3 mb-2 text-gray-800">리뷰 데이터 분석</h1>
-								<h3 class="h5 mb-2 text-gray-800">&nbsp;리뷰 카테고리별 감성 점수와 리뷰 별점을 확인합니다.</h3>
+								<h3 class="h5 mb-2 text-gray-800">&nbsp;[리뷰 카테고리별 감성 점수와 리뷰 별점]</h3>
 								<p class="mb-4">&nbsp;: 제품 리뷰를 긍정, 부정으로 분류해 감성 점수를 파악하고, 각 리뷰의 별점을 확인합니다. </p>
 								<div class="row">
 
@@ -846,7 +840,7 @@
 					
 					<div class="container-fluid">
 								<!-- Page Heading -->
-								<h3 class="h5 mb-2 text-gray-800">&nbsp;리뷰 워드 클라우드</h3>
+								<h3 class="h5 mb-2 text-gray-800">&nbsp;[리뷰 워드 클라우드]</h3>
 								<p class="mb-4">&nbsp;: 긍정, 부정 리뷰에서 자주 등장한 키워드를 확인합니다.</p>
 
 								<div class="row">
@@ -890,7 +884,7 @@
 								<div class="card shadow mb-4">
 									<div class="card-body" style="height: 292px;">
 											<div style="overflow-x: hidden; width: 100%; height: 250px;">
-												<p>[분석 결과]<br>1. 제품 별 전체 실적<br>&nbsp;&nbsp;'아기쿨매트 여름패드' : 32%<br>
+												<p><h4>[분석 결과]</h4><br><h5>1. 제품 별 전체 실적</h5>&nbsp;&nbsp;'아기쿨매트 여름패드' : 32%<br>
                                              &nbsp;&nbsp;'3D에어매쉬 여름 쿨매트 패드' : 16.7%<br>
                                              &nbsp;&nbsp;'양면사용 아기 여름패드' : 15.2%<br>
                                              &nbsp;&nbsp;'아기여름이불 블랭킷' : 11.1%<br>
@@ -900,15 +894,15 @@
                                              &nbsp;&nbsp;'사계절 신생아 아기 짱구베개 쿨베개' : 2.3%<br>
                                              &nbsp;&nbsp;'사계절 비비 필로우용 교체커버' : 1.7%<br>
                                              <br>
-                                             2. stt 음성 분석 결과<br>
+                                             <h5>2. stt 음성 분석 결과</h5>
                                              &nbsp;&nbsp;상품 조회 : 7분~11분에 가장 큰 변화가 일어났으며 282만큼의 조회수가 증가 / 이때의 카테고리는 '가격'이며 키워드는 '저렴'입니다. <br>
                                              &nbsp;&nbsp;장바구니 담기 : 7~11분에 가장 큰 변화가 일어났으며 35만큼의 장바구니 담기 수가 증가 / 이때의 카테고리는 '가격'이며 키워드는 '저렴'입니다.<br>
                                              &nbsp;&nbsp;소비자가 가장 집중하는 카테고리는 '가격'이며 이 카테고리의 트렌드 적합도는 43.6% 입니다.<br>
                                              &nbsp;&nbsp;최대 시청자 증감(+1370): 6분 / 최소 시청자 증감(-1808) : 56분<br>
-                                             3. 리뷰 분석 결과
+                                             <br><h5>3. 리뷰 분석 결과</h5>
                                             &nbsp;&nbsp;최고 감성점수 : '양면사용 아기 여름패드' 소재 5점 / 최저 감성점수 : '양면사용 아기 여름 이불세트' 3.37점<br>
                                              <br>
-                                             [종합]<br>
+                                             <h5>[종합]</h5>
                                              &nbsp;&nbsp;음성 분석 점수 : 6.5점, 리뷰 분석 점수 : 5.7점으로 방송 총 점수는 6.1점 입니다.</p>
 											</div>
 										</div>
@@ -919,7 +913,7 @@
 								<h3 class="h5 mb-2 text-gray-800">&nbsp;차트와 결과를 엑셀형태로 출력합니다.</h3>
 					<br>
 					<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">
+<button type="button" class="btn btn-primary">
   엑셀 출력하기
 </button>
 <br><br>
