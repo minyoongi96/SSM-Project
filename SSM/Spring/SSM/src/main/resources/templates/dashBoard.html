@@ -125,7 +125,7 @@
 	      chart8.render();
 	      
 	      // 9. 남녀 비율 도넛차트
-	      var chart9 = new ApexCharts(document.querySelector("#chart_sex"), genderDonutChart(info.bcMale, info.bcFemale));
+	      var chart9 = new ApexCharts(document.querySelector("#chart_sex"), genderDonutChart(info.bcMale, info.bcFemale)[0]);
 	      chart9.render();
 	      
 	      // 10. 카테고리 별 판매 기여도 계산
@@ -410,8 +410,10 @@
     	var salesCnt = $('#salesCnt').text().split(" ")[3];		// 총 결제
     	var performance = $('#performance').text();	// 실적률
     	var salesPred = $('#salesPred').text();		// 예상 매출액
-    	var bcMale = $('#SvgjsText2095').text();	// 남 시청자 비율
-    	var bcFemale = $('#SvgjsG2107').text();		// 여 시청자 비율
+    	var bcSex = $('#chart_sex text').text();
+    	var bcMale = bcSex.slice(0, 3);	// 남 시청자 비율
+    	var bcFemale = bcSex.slice(3, );		// 여 시청자 비율
+    	
     	var involvement = getInvolvement
     	
     	var tags = '<tr><td colspan="4">결과 보고</td></tr>'
@@ -425,6 +427,7 @@
     	$('#excelSheet0').append(tags);
     })
     </script>
+    
 
 </head>
 
