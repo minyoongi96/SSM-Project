@@ -290,7 +290,7 @@ function genderDonutChart(male, female) {
         }]
 	};
 	
-	return options;
+	return [options, male, female];
 }
 	
 // 10. 카테고리 별 판매 기여도 계산

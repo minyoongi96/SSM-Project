@@ -1,5 +1,8 @@
 server:
   port: 8082
+  servlet:
+    session:
+      tracking-modes: cookie
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
