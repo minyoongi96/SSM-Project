@@ -63,14 +63,10 @@
 	      // 3. 예상 매출액
 	      $('#salesPred').text(info.salesPred + "원");
 	      
-	      // 4. 실적률 차트 그리기
+	      // 4. 실적률 
 	      var performance = info.performance;
 	      $('#performRate').css({'width' : (performance + "%")});
 	      $('#performance').text(performance + "%");
-	      
-	      // 4번 그래프 안그리기로 해서 나가리
-	      //var chart4 = new ApexCharts(document.querySelector("#chart_goal"), performanceOptions(info.performance));
-	      //chart4.render();
 	      
 	      // 5. 키워드 별 고객 이벤트 발생 추이
 	      var map = new Map();
@@ -79,7 +75,7 @@
 	      countList = info.KeywordReactionCount;
 	      appendingTrTag(countList, info.ViewerReactions, '#orders');
 	      
-	      // 6. 시간대별(분단위) 1 ~ 60까지 시청자 반응(이벤트: 판매수, 장바구니수, 조회수, 댓글수, 찜수) 차트
+	      // 6. 시간대별(분단위) 시청자 반응(이벤트: 상품 조회수, 댓글수) 차트
 	      reaction_options = viewerReactions1to60(info.ViewerReactions, 1, 60);
 	      //var area_options = reaction_options[0];
 	      var chart6 = new ApexCharts(document.querySelector("#viewer-reactions"), reaction_options[0]);
@@ -128,7 +124,6 @@
 	        async:false,
 	        dataType:"json",
 	        success: function(data){
-				console.log("성공");
 				result = data;
 	        },
 	        error: function(){
@@ -148,7 +143,6 @@
 	        async:false,
 	        dataType:"json",
 	        success: function(data){
-				console.log("성공");
 				result = data;
 	        },
 	        error: function(){
