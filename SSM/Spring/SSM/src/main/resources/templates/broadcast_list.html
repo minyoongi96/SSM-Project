@@ -140,15 +140,15 @@
                         <h1>smart sales manager<strong>SSM</strong></h1>
 
                     </header>
-                    <h2 th:text=${session.user.userCompany}></h2>
+                    <h2 style="margin-left:38%" th:text="|'${session.user.userCompany}'님 안녕하세요.|"></h2>
                     <!--카드바디-->
                     <section class="movies">
                         
-                        <div th:each="bc : ${bcList}" th:object="${bc}" class="movie">
+                        <div th:each="bc : ${bcList}" th:object="${bc}" class="movie" style="margin-left:15px;">
                             <img th:src="@{{bcUrl}(bcUrl=*{bcUrl})}" alt="" class="poster" />
                             <div th:text="*{bcTitle}" class="title"></div>
                             <button th:id="*{bcSeq}" th:onclick="loadDashboard(this.getAttribute('id'))" 
-                            class="btn-primary" th:text="상세보기" style="width: 100px; height: 30px; border-radius: 10px 10px 10px 10px;">
+                            class="btn-primary" th:text="상세보기" style="width: 70%; height: 30px; border-radius: 10px 10px 10px 10px;">
                             </button>
                             <div class="info">
                                 <span class="year"></span>

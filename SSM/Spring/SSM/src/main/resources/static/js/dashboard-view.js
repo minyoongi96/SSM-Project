@@ -175,8 +175,8 @@ function viewerReactions1to60(map, startTime, endTime){
         plotOptions: {
           candlestick: {
             colors: {
-              upward: '#FD8A9E',
-              downward: '#6FC5FD'
+        upward: '#DF7D46',
+        downward: '#3C90EB'
             }
           }
         }
@@ -259,8 +259,7 @@ function genderDonutChart(male, female) {
             breakpoint: 480,
             options: {
                 chart: {
-                    width: 200,
-                    heigh:300
+                    width: 200
                 },
                 legend: {
                     position: 'bottom'
@@ -300,7 +299,7 @@ function getInvolvement(data){
 	
   	var options = {
 		series: [design_rate, inprice_rate, safety_rate, functional_rate],
-		labels: ['디자인', '가격', '안전성', '기능성'],
+		labels: ['디자인', '만족도', '안전성', '기능성'],
         chart: {
             type: 'donut',
         },
@@ -312,7 +311,7 @@ function getInvolvement(data){
             breakpoint: 480,
             options: {
                 chart: {
-                    width: 200,
+                    width: 300,
                 },
                 legend: {
                     position: 'bottom'
