@@ -19,10 +19,13 @@
     <!-- Custom styles for this template-->
     <link href="/css/sb-admin-2.css" rel="stylesheet">
     <link href="/css/sb-admin-2.min.css" rel="stylesheet">
+    <script src="/js/FileSaver.min.js"></script>
+    <script src="/js/xlsx.full.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script src="https://cdn.anychart.com/releases/v8/js/anychart-base.min.js"></script>
     <script src="https://cdn.anychart.com/releases/v8/js/anychart-tag-cloud.min.js"></script>
+    <script src="/js/export_report.js"></script>
     
     <link href="/css/ani.min.css" rel="stylesheet">
     <script src="/js/dashboard-view.js"></script>
@@ -76,7 +79,13 @@
 	      appendingTrTag(countList, info.ViewerReactions, '#orders');
 	      
 	      // 6. 시간대별(분단위) 시청자 반응(이벤트: 상품 조회수, 댓글수) 차트
-	      reaction_options = viewerReactions1to60(info.ViewerReactions, 1, 60);
+	      reaction_options = viewerReactions1to60(info.ViewerReactions, 1, 60)[0];
+	      
+	      // 15. 1 - 60 사용자 이벤트 액셀 보고서
+	      tableTag1 = viewerReactions1to60(info.ViewerReactions, 1, 60)[1];	 
+	      $('#report1').append(tableTag1);
+	      $('#report1').hide();
+	      
 	      //var area_options = reaction_options[0];
 	      var chart6 = new ApexCharts(document.querySelector("#viewer-reactions"), reaction_options[0]);
 	      chart6.render();
@@ -336,6 +345,13 @@
             // chart.getCredits().setEnabled(false);
             chart.draw();
         });
+    </script>
+    <script type="text/javascript">
+    	$(document).ready(function() {
+    		$('#export_report').click(function(){
+    			exportExcel();
+    		})
+    	})
     </script>
 
 </head>
@@ -823,7 +839,7 @@
                                     <h1 class="h3 mb-2 text-gray-800">분석 결과</h1>
                                     <p class="mb-4">&nbsp;라이브커머스 제품판매 결과를 엑셀 보고서 형태로 출력합니다.</p>
                                     <div class="my-2"></div>
-                                    <a href="#" class="btn btn-primary btn-icon-split btn-lg">
+                                    <a href="#" class="btn btn-primary btn-icon-split btn-lg" id="export_report">
                                         <span class="icon text-white-50">
                                             <i class="fas fa-flag"></i>
                                         </span>
@@ -883,6 +899,8 @@
             <i class="fas fa-angle-up"></i>
         </a>
     </div>
+    <!-- 1 ~ 60 시청자 이벤트 보고서용 테이블  -->
+    <div id="report1"></div>
 
 
     <!-- Bootstrap core JavaScript-->
