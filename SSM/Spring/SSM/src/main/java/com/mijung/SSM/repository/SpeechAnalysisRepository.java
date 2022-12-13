@@ -26,6 +26,7 @@ public interface SpeechAnalysisRepository extends JpaRepository<SpeechAnalysis, 
 				"where sa.broadcastingVO = :#{#bc}")	
 	List<String> findKeywords(@Param("bc") Broadcasting bc);
 	
+	// select 결과를 DTO 클래스로 반환 
 	@Query(value = "select new com.mijung.SSM.Dto.TimeKeywordDto(sa.speechTime, sa.speechKeyword) " + 
 			"from SpeechAnalysis sa " +
 			"where sa.broadcastingVO = :#{#bc}")
