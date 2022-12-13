@@ -17,13 +17,9 @@ import com.mijung.SSM.entity.ViewerReaction;
 
 @Repository                                       // 테이블, pk 타입
 public interface ViewerReactionRepository extends JpaRepository<ViewerReaction, Long> {
-	List<ViewerReaction> findAllByBroadcastingVO(Broadcasting bcVO);
+	List<ViewerReaction> findAllByBroadcastingVO(Broadcasting bcVO);	// JPA에서 제공하는 기본 메서
 	
-	//@Query(value = "select SUM(vr.vr_sales) from viewer_reaction vr "
-	//+ "where vr.bc_seq = :bcSeq", nativeQuery = true)
-	//Integer vrSalesSum(@Param("bcSeq") long bcSeq);
-	
-	// JPQL 사용
+	// 복잡하거나 연산이 필요한 쿼리는 JPQL 사용해서 객체지향적으로 
 	@Query(value = "select SUM(vr.vrSales) from ViewerReaction vr " +
 			"where vr.broadcastingVO = :#{#bc}")
 	
@@ -33,14 +29,15 @@ public interface ViewerReactionRepository extends JpaRepository<ViewerReaction, 
 			"from Broadcasting bc, Items i " +
 			"where i.ourCategoryVO = :#{#oc}")
 	Double getPriceAvg(@Param("oc") OurCategory oc);
-
+	
+	// select 결과를 DTO 클래스로 반환 
 	@Query(value = "select new com.mijung.SSM.Dto.PerformanceDto(" +
 			"SUM(vr.vrBaskets), SUM(vr.vrSales)) " + 
 			"from ViewerReaction vr " +
 			"where vr.broadcastingVO = :#{#bc}")
 	PerformanceDto getPerformance(@Param("bc") Broadcasting bc);
 	
-	// +3분까지 시청자 이벤트 데이터
+	// +3분까지 시청자 이벤트 데이터, 방송 데이터와 시청자 이벤트 데이터 이너조인 
 	@Query(value = "select new com.mijung.SSM.Dto.SttDto(SUM(vr.vrSales), " +
 			"SUM(vr.vrViewers), SUM(vr.vrLookings), SUM(vr.vrBaskets), " +
 			"SUM(vr.vrComments), SUM(vr.vrWishlists)) from ViewerReaction vr " +
